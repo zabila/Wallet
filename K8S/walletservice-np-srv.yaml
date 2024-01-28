@@ -1,0 +1,13 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: walletservice-srv
+spec:
+  type: NodePort
+  selector:
+    app: walletservice
+  ports:
+    - name: walletservice
+      protocol: TCP
+      port: 80
+      targetPort: 80

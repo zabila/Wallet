@@ -1,0 +1,10 @@
+﻿apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postage-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 200Mi

@@ -1,0 +1,32 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: walletservice-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: walletservice
+  template:
+    metadata:
+      labels:
+        app: walletservice
+    spec:
+      containers:
+        - name: walletservice
+          image: vzabila/walletservice:latest 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: walletservice-clusterip-srv
+spec:
+    type: ClusterIP
+    selector:
+        app: walletservice
+    ports:
+    - name: walletservice
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      
