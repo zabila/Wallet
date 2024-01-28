@@ -1,0 +1,52 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.TelegramWallet.iml
+/contentModel.xml
+
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+*_DotSettings.user
+
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+#Idea
+.idea/
+.idea_modules/
+*DotSettings.user
+*internallog*
+*internal_logs*
+
+#Rider
+*.sln.iml
+*.csproj.iml
+*.sln.DotSettings.user
+*.csproj.DotSettings.user
+*.sln.DotSettings
+*.csproj.DotSettings
+*.sln.DotSettings.user.lock
+*.csproj.DotSettings.user.lock
+*.sln.DotSettings.lock
+
+# Visual Studio
+.vs/
+*.vspscc
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.ide
+
+#Visual Studio Code
+.vscode/
+*.code-workspace
