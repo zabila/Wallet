@@ -210,9 +210,9 @@ namespace WalletService.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "07cecb1d-cf1c-45eb-ba7b-4d7c08af8f6f", null, "Manager", "MANAGER" },
-                    { "1fc47b0e-a507-4b57-9521-ae62f43b27b2", null, "User", "USER" },
-                    { "957de52c-a0c9-48c0-9c41-9e9d322f9fed", null, "Administrator", "ADMINISTRATOR" }
+                    { "0de774da-0fd6-4c47-9a3f-b031ed1bfaab", null, "User", "USER" },
+                    { "bf0d916e-b720-4ff9-90ab-a602e78ed4af", null, "Manager", "MANAGER" },
+                    { "c35350e3-079c-463d-b77b-1f63c3d77361", null, "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.CreateIndex(
