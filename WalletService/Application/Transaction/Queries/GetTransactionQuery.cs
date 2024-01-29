@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Shared.DataTransferObjects;
 
-namespace Application.Queries.Transaction;
+namespace Application.Transaction.Queries;
 
 public sealed record GetTransactionQuery(Guid Id, bool TrackChanges) : IRequest<TransactionReadDto>;

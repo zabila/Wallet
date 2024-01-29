@@ -8,5 +8,8 @@ public class RepositoryManager(RepositoryContext repositoryContext) : IRepositor
 
     public ITransactionRepository Transaction => _transactionRepository.Value;
 
-    public async Task SaveAsync() => await repositoryContext.SaveChangesAsync();
+    public async Task SaveAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        await repositoryContext.SaveChangesAsync(cancellationToken);
+    }
 }

@@ -1,8 +1,8 @@
-﻿using Application.Queries;
+﻿using Application.Transaction.Queries;
 using Contracts;
 using MediatR;
 
-namespace Application.Handlers;
+namespace Application.Transaction.Handlers;
 
 internal sealed class GetAllCategoriesQueryHandler(IRepositoryManager repository, ILoggerManager logger) : IRequestHandler<GetAllCategoriesQuery, IQueryable<string?>>
 {
