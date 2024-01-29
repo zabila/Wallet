@@ -5,13 +5,13 @@ namespace Entities.Model;
 
 public sealed class Account
 {
-    [Key] public int AccountId { get; init; }
+    [Key] public int AccountId { get; set; }
 
-    [Required] [MaxLength(100)] public string? AccountName { get; init; }
+    [Required] [MaxLength(100)] public string? AccountName { get; set; }
 
-    [Required] public DateTime CreatedAt { get; init; }
-    [Required] public DateTime UpdatedAt { get; }
+    [Required] public DateTime CreatedAt { get; set; }
+    [Required] public DateTime UpdatedAt { get; set; }
 
-    [MaxLength(50)] public string? AccountType { get; init; }
-    [Column(TypeName = "decimal(18, 2)")] public decimal Balance { get; init; }
+    [MaxLength(50)] public string? AccountType { get; set; }
+    [Column(TypeName = "decimal(18, 2)")] public decimal Balance { get; set; }
 }

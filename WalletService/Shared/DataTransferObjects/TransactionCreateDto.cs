@@ -11,7 +11,6 @@ public class TransactionCreateDto
     [Required] [MaxLength(20)] public string? Type { get; set; }
     [MaxLength(10)] public string? Currency { get; set; }
     [MaxLength(100)] public string? Location { get; set; }
-    [MaxLength(50)] public string? ReferenceNumber { get; set; }
     public string? Tags { get; set; }
     public string? Attachment { get; set; }
     [Required] public int AccountId { get; set; }

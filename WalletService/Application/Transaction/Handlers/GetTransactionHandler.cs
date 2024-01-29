@@ -1,10 +1,10 @@
-﻿using Application.Queries.Transaction;
+﻿using Application.Transaction.Queries;
 using AutoMapper;
 using Contracts;
 using MediatR;
 using Shared.DataTransferObjects;
 
-namespace Application.Handlers;
+namespace Application.Transaction.Handlers;
 
 internal sealed class GetTransactionHandler(IRepositoryManager repository, ILoggerManager logger, IMapper mapper) : IRequestHandler<GetTransactionQuery, TransactionReadDto>
 {

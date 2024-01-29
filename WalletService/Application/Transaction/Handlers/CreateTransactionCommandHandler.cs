@@ -1,11 +1,10 @@
-﻿using Application.Commands;
+﻿using Application.Transaction.Commands;
 using AutoMapper;
 using Contracts;
-using Entities.Model;
 using MediatR;
 using Shared.DataTransferObjects;
 
-namespace Application.Handlers;
+namespace Application.Transaction.Handlers;
 
 internal sealed class CreateTransactionCommandHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateTransactionCommand, TransactionReadDto>
 {
@@ -14,10 +13,10 @@ internal sealed class CreateTransactionCommandHandler(IRepositoryManager reposit
     public async Task<TransactionReadDto> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transactionDto = request?.TransactionForCreationDto;
-        var transaction = mapper.Map<Transaction>(transactionDto);
+        var transaction = mapper.Map<Entities.Model.Transaction>(transactionDto);
 
         repository.Transaction.CreateTransaction(transaction);
-        await repository.SaveAsync();
+        await repository.SaveAsync(cancellationToken);
 
         var transactionToReturn = mapper.Map<TransactionReadDto>(transaction);
         return transactionToReturn;

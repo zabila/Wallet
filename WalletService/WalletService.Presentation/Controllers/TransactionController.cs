@@ -1,5 +1,5 @@
-﻿using Application.Commands;
-using Application.Queries.Transaction;
+﻿using Application.Transaction.Queries;
+using Application.Transaction.Commands;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -13,17 +13,17 @@ public class TransactionsController(ISender sender) : ControllerBase
 {
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateTransaction([FromBody] TransactionCreateDto transactionForCreationDto, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateTransaction([FromBody] TransactionCreateDto transactionForCreationDto)
     {
-        var transaction = await sender.Send(new CreateTransactionCommand(transactionForCreationDto), cancellationToken);
+        var transaction = await sender.Send(new CreateTransactionCommand(transactionForCreationDto));
         return CreatedAtRoute("TransactionById", new { id = transaction.Id }, transaction);
     }
 
     [HttpGet("{id:guid}", Name = "TransactionById")]
     [Authorize]
-    public async Task<IActionResult> GetTransaction(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetTransaction(Guid id)
     {
-        var transaction = await sender.Send(new GetTransactionQuery(id, TrackChanges: false), cancellationToken);
+        var transaction = await sender.Send(new GetTransactionQuery(id, TrackChanges: false));
         return Ok(transaction);
     }
 }

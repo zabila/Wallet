@@ -6,25 +6,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public sealed class Transaction
 {
-    [Key] [Column("TransactionId")] public Guid Id { get; init; }
-    [Required] public DateTime Date { get; init; }
+    [Key] [Column("TransactionId")] public Guid Id { get; set; }
+    [Required] public DateTime Date { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(18, 2)")]
-    public decimal Amount { get; init; }
+    public decimal Amount { get; set; }
 
-    [Required] [MaxLength(100)] public string? Description { get; init; }
-    [Required] [MaxLength(50)] public string? Category { get; init; }
-    [Required] [MaxLength(20)] public string? Type { get; init; }
+    [Required] [MaxLength(100)] public string? Description { get; set; }
+    [Required] [MaxLength(50)] public string? Category { get; set; }
+    [Required] [MaxLength(20)] public string? Type { get; set; }
 
-    [Required] public DateTime CreatedAt { get; init; }
-    [Required] public DateTime UpdatedAt { get; }
+    [Required] public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    [Required] public DateTime UpdatedAt { get; set; }
 
-    [MaxLength(10)] public string? Currency { get; init; }
-    [MaxLength(100)] public string? Location { get; init; }
-    [MaxLength(50)] public string? ReferenceNumber { get; init; }
-    public string? Tags { get; init; }
-    public string? Attachment { get; init; }
-    [Required] public int AccountID { get; init; }
-    [ForeignKey("AccountId")] public Account? Account { get; init; }
+    [MaxLength(10)] public string? Currency { get; set; }
+    [MaxLength(100)] public string? Location { get; set; }
+    public string? Tags { get; set; }
+    public string? Attachment { get; set; }
+    [Required] public int AccountID { get; set; }
+    [ForeignKey("AccountId")] public Account? Account { get; set; }
 }

@@ -4,5 +4,5 @@ public interface IRepositoryManager
 {
     ITransactionRepository Transaction { get; }
 
-    Task SaveAsync();
+    Task SaveAsync(CancellationToken cancellationToken = new CancellationToken());
 }
