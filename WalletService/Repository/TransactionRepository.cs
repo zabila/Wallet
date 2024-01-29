@@ -8,7 +8,6 @@ public class TransactionRepository(DbContext repositoryContext) : RepositoryBase
 {
     public void CreateTransaction(Transaction transaction)
     {
-        transaction.Date = DateTime.UtcNow;
         Create(transaction);
     }
 

@@ -7,11 +7,11 @@ using Shared.DataTransferObjects;
 
 namespace Application.Handlers;
 
-internal sealed class CreateTransactionCommandHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateTransactionCommand, TransactionDto>
+internal sealed class CreateTransactionCommandHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateTransactionCommand, TransactionReadDto>
 {
     private readonly ILoggerManager _logger = logger;
 
-    public async Task<TransactionDto> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+    public async Task<TransactionReadDto> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transactionDto = request?.TransactionForCreationDto;
         var transaction = mapper.Map<Transaction>(transactionDto);
@@ -19,7 +19,7 @@ internal sealed class CreateTransactionCommandHandler(IRepositoryManager reposit
         repository.Transaction.CreateTransaction(transaction);
         await repository.SaveAsync();
 
-        var transactionToReturn = mapper.Map<TransactionDto>(transaction);
+        var transactionToReturn = mapper.Map<TransactionReadDto>(transaction);
         return transactionToReturn;
     }
 }

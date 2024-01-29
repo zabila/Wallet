@@ -13,7 +13,7 @@ public class TransactionsController(ISender sender) : ControllerBase
 {
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateTransaction([FromBody] TransactionForCreationDto transactionForCreationDto, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateTransaction([FromBody] TransactionCreateDto transactionForCreationDto, CancellationToken cancellationToken)
     {
         var transaction = await sender.Send(new CreateTransactionCommand(transactionForCreationDto), cancellationToken);
         return CreatedAtRoute("TransactionById", new { id = transaction.Id }, transaction);

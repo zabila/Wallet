@@ -4,23 +4,27 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Transaction
+public sealed class Transaction
 {
-    [Column("TransactionId")] public Guid Id { get; set; }
+    [Key] [Column("TransactionId")] public Guid Id { get; init; }
+    [Required] public DateTime Date { get; init; }
 
-    public string? Name { get; set; }
+    [Required]
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal Amount { get; init; }
 
-    [Required(ErrorMessage = "Amount is a required field.")]
-    public double? Amount { get; set; }
+    [Required] [MaxLength(100)] public string? Description { get; init; }
+    [Required] [MaxLength(50)] public string? Category { get; init; }
+    [Required] [MaxLength(20)] public string? Type { get; init; }
 
-    [Required(ErrorMessage = "Date is a required field.")]
-    public DateTime? Date { get; set; }
+    [Required] public DateTime CreatedAt { get; init; }
+    [Required] public DateTime UpdatedAt { get; }
 
-    [Required(ErrorMessage = "Type is a required field.")]
-    public string? Type { get; set; }
-
-    [Required(ErrorMessage = "Category is a required field.")]
-    public string? Category { get; set; }
-
-    public string? Description { get; set; }
+    [MaxLength(10)] public string? Currency { get; init; }
+    [MaxLength(100)] public string? Location { get; init; }
+    [MaxLength(50)] public string? ReferenceNumber { get; init; }
+    public string? Tags { get; init; }
+    public string? Attachment { get; init; }
+    [Required] public int AccountID { get; init; }
+    [ForeignKey("AccountId")] public Account? Account { get; init; }
 }
