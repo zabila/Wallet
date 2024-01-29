@@ -7,28 +7,19 @@ using Shared.DataTransferObjects;
 
 namespace Application.Handlers;
 
-internal sealed class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, TransactionDto>
+internal sealed class CreateTransactionCommandHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateTransactionCommand, TransactionDto>
 {
-    private readonly IRepositoryManager _repository;
-    private readonly IMapper _mapper;
-    private readonly ILoggerManager _logger;
-
-    public CreateTransactionCommandHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger)
-    {
-        _repository = repository;
-        _mapper = mapper;
-        _logger = logger;
-    }
+    private readonly ILoggerManager _logger = logger;
 
     public async Task<TransactionDto> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transactionDto = request?.TransactionForCreationDto;
-        var transaction = _mapper.Map<Transaction>(transactionDto);
+        var transaction = mapper.Map<Transaction>(transactionDto);
 
-        _repository.Transaction.CreateTransaction(transaction);
-        await _repository.SaveAsync();
+        repository.Transaction.CreateTransaction(transaction);
+        await repository.SaveAsync();
 
-        var transactionToReturn = _mapper.Map<TransactionDto>(transaction);
+        var transactionToReturn = mapper.Map<TransactionDto>(transaction);
         return transactionToReturn;
     }
 }

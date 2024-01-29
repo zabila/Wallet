@@ -13,18 +13,17 @@ public class TransactionsController(ISender sender) : ControllerBase
 {
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateTransaction([FromBody] TransactionForCreationDto transactionForCreationDto)
+    public async Task<IActionResult> CreateTransaction([FromBody] TransactionForCreationDto transactionForCreationDto, CancellationToken cancellationToken)
     {
-        var transaction = await sender.Send(new CreateTransactionCommand(transactionForCreationDto));
-
+        var transaction = await sender.Send(new CreateTransactionCommand(transactionForCreationDto), cancellationToken);
         return CreatedAtRoute("TransactionById", new { id = transaction.Id }, transaction);
     }
 
     [HttpGet("{id:guid}", Name = "TransactionById")]
     [Authorize]
-    public async Task<IActionResult> GetTransaction(Guid id)
+    public async Task<IActionResult> GetTransaction(Guid id, CancellationToken cancellationToken)
     {
-        var transaction = await sender.Send(new GetTransactionQuery(id, TrackChanges: false));
+        var transaction = await sender.Send(new GetTransactionQuery(id, TrackChanges: false), cancellationToken);
         return Ok(transaction);
     }
 }

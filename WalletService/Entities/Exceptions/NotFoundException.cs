@@ -1,9 +1,3 @@
 ﻿namespace Entities.Exceptions;
 
-public abstract class NotFoundException : Exception
-{
-    protected NotFoundException(string message)
-        : base(message)
-    {
-    }
-}
+public abstract class NotFoundException(string message) : Exception(message);
