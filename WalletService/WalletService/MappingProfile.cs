@@ -9,9 +9,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Transaction, TransactionDto>();
-        CreateMap<TransactionForCreationDto, Transaction>();
-
-        CreateMap<UserForRegistrationDto, User>();
+        CreateMap<Transaction, TransactionReadDto>();
+        CreateMap<TransactionCreateDto, Transaction>();
     }
 }
