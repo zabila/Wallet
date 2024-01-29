@@ -3,6 +3,7 @@ using Entities.Model;
 using NLog;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
+using Repository;
 using WalletService.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+builder.Services.AddAuthorizationBuilder();
 builder.Services.AddAuthorizationBuilder();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureSwagger();

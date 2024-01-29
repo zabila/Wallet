@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public class TransactionRepository(DbContext repositoryContext) : RepositoryBase<Transaction>(repositoryContext), ITransactionRepository
+public sealed class TransactionRepository(DbContext repositoryContext) : RepositoryBase<Transaction>(repositoryContext), ITransactionRepository
 {
     public void CreateTransaction(Transaction transaction)
     {

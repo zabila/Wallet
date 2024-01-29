@@ -11,6 +11,7 @@ public class RepositoryContext(DbContextOptions options) : IdentityDbContext<Use
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        modelBuilder.ApplyConfiguration(new AccountConfiguration());
     }
 
     public DbSet<Transaction>? Transactions { get; set; }
