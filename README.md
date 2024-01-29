@@ -10,7 +10,3 @@ It utilizes the power of the Telegram.Bot API to interact fluidly with users, of
 - ASP.NET  
 - C# 12.0 
 - Telegram.Bot
-
-## System Requirements
-
-- Operating System: Windows 11 or later
