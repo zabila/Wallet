@@ -11,5 +11,8 @@ public class MappingProfile : Profile
     {
         CreateMap<Transaction, TransactionReadDto>();
         CreateMap<TransactionCreateDto, Transaction>();
+
+        CreateMap<Account, AccountReadDto>();
+        CreateMap<AccountCreateDto, Account>();
     }
 }

@@ -7,23 +7,23 @@ using Shared.DataTransferObjects;
 
 namespace WalletService.Presentation.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/{accountId:guid}/[controller]")]
 [ApiController]
 public class TransactionsController(ISender sender) : ControllerBase
 {
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateTransaction([FromBody] TransactionCreateDto transactionForCreationDto)
+    public async Task<IActionResult> CreateTransaction(Guid accountId, [FromBody] TransactionCreateDto transactionForCreationDto)
     {
-        var transaction = await sender.Send(new CreateTransactionCommand(transactionForCreationDto));
-        return CreatedAtRoute("TransactionById", new { id = transaction.Id }, transaction);
+        var transaction = await sender.Send(new CreateTransactionCommand(accountId, transactionForCreationDto));
+        return Ok(transaction);
     }
 
-    [HttpGet("{id:guid}", Name = "TransactionById")]
+    [HttpGet("{transactionId:guid}", Name = "TransactionById")]
     [Authorize]
-    public async Task<IActionResult> GetTransaction(Guid id)
+    public async Task<IActionResult> GetTransaction(Guid accountId, Guid transactionId)
     {
-        var transaction = await sender.Send(new GetTransactionQuery(id, TrackChanges: false));
+        var transaction = await sender.Send(new GetTransactionQuery(accountId, transactionId, TrackChanges: false));
         return Ok(transaction);
     }
 }

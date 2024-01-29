@@ -24,6 +24,5 @@ public sealed class Transaction
     [MaxLength(100)] public string? Location { get; set; }
     public string? Tags { get; set; }
     public string? Attachment { get; set; }
-    [Required] public int AccountID { get; set; }
-    [ForeignKey("AccountId")] public Account? Account { get; set; }
+    [Required] public Guid AccountId { get; set; }
 }

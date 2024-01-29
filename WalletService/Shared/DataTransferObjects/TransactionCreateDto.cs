@@ -13,5 +13,4 @@ public class TransactionCreateDto
     [MaxLength(100)] public string? Location { get; set; }
     public string? Tags { get; set; }
     public string? Attachment { get; set; }
-    [Required] public int AccountId { get; set; }
 }

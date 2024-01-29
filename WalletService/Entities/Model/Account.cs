@@ -5,7 +5,7 @@ namespace Entities.Model;
 
 public sealed class Account
 {
-    [Key] public int AccountId { get; set; }
+    [Key] [Column("AccountId")] public Guid Id { get; set; }
 
     [Required] [MaxLength(100)] public string? AccountName { get; set; }
 

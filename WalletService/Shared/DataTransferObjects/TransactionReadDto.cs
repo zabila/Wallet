@@ -12,5 +12,4 @@ public class TransactionReadDto
     public string? Location { get; set; }
     public string? Tags { get; set; }
     public string? Attachment { get; set; }
-    public int? AccountId { get; set; }
 }

@@ -7,6 +7,7 @@ public class RepositoryManager(RepositoryContext repositoryContext) : IRepositor
     private readonly Lazy<ITransactionRepository> _transactionRepository = new(() => new TransactionRepository(repositoryContext));
 
     public ITransactionRepository Transaction => _transactionRepository.Value;
+    public IAccountRepository Account => new AccountRepository(repositoryContext);
 
     public async Task SaveAsync(CancellationToken cancellationToken = new CancellationToken())
     {

@@ -8,7 +8,7 @@ namespace WalletService.Presentation.Controllers;
 public class TelegramController(ILoggerManager logger) : ControllerBase
 {
     [HttpPost]
-    public ActionResult TestInboundConnection()
+    public IActionResult TestInboundConnection()
     {
         logger.LogInfo("Test inbound connection from TelegramService");
         return Ok("Test inbound connection from TelegramService");

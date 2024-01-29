@@ -12,6 +12,14 @@ internal sealed class GetTransactionHandler(IRepositoryManager repository, ILogg
     {
         logger.LogDebug($"GetTransactionHandler: Getting transaction with id {request.Id}");
 
+        var accountId = request!.AccountId;
+        var isAccountExists = repository.Account.AccountExists(accountId);
+        if (!isAccountExists)
+        {
+            logger.LogError($"CreateTransactionHandler: Account with id: {accountId} doesn't exist in the database.");
+            throw new UnauthorizedAccessException($"Account with id: {accountId} doesn't exist in the database.");
+        }
+
         var transactionId = request.Id;
         var transaction = repository.Transaction.GetTransaction(transactionId, request.TrackChanges);
         var transactionDto = mapper.Map<TransactionReadDto>(transaction);
