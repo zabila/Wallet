@@ -11,10 +11,13 @@ public sealed class TransactionRepository(DbContext repositoryContext) : Reposit
         Create(transaction);
     }
 
-    public Transaction? GetTransaction(Guid id, bool trackChanges)
+    public async Task<Transaction> GetTransactionAsync(Guid id, bool trackChanges, CancellationToken cancellationToken)
     {
-        return FindByCondition(t => t.Id.Equals(id), trackChanges).SingleOrDefault();
+        return (await FindByCondition(t => t.Id.Equals(id), trackChanges).SingleOrDefaultAsync(cancellationToken))!;
     }
 
-    public IQueryable<string?> GetAllCategories(bool trackChanges) => FindAll(trackChanges).Select(t => t.Category).Distinct();
+    public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync(bool trackChanges, CancellationToken cancellationToken)
+    {
+        return await FindAll(trackChanges).ToListAsync(cancellationToken);
+    }
 }

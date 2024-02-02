@@ -19,7 +19,7 @@ internal sealed class CreateAccountHandler(IRepositoryManager repository, IMappe
         var existingAccount = await repository.Account.GetAccountByNameAsync(accountDto!.AccountName!);
         if (existingAccount != null)
         {
-            throw new AlreadyExistsBadRequestException(nameof(AccountCreateDto.AccountName));
+            throw new AccountAlreadyExistsBadRequestException(accountDto.AccountName!);
         }
 
         var account = mapper.Map<Entities.Model.Account>(accountDto);

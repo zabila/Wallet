@@ -1,6 +1,7 @@
 ﻿using Application.Transaction.Commands;
 using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using MediatR;
 using Shared.DataTransferObjects;
 
@@ -18,7 +19,7 @@ internal sealed class CreateTransactionHandler(IRepositoryManager repository, IM
         var isAccountExists = repository.Account.AccountExists(accountId);
         if (!isAccountExists)
         {
-            throw new ArgumentException($"Account with id {accountId} does not exist");
+            throw new AccountNotFoundException(accountId);
         }
 
         var transaction = mapper.Map<Entities.Model.Transaction>(transactionDto);
@@ -27,7 +28,6 @@ internal sealed class CreateTransactionHandler(IRepositoryManager repository, IM
         repository.Transaction.CreateTransaction(transaction);
         await repository.SaveAsync(cancellationToken);
 
-        var transactionToReturn = mapper.Map<TransactionReadDto>(transaction);
-        return transactionToReturn;
+        return mapper.Map<TransactionReadDto>(transaction);
     }
 }
