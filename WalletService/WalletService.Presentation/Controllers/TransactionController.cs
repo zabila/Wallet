@@ -16,7 +16,7 @@ public class TransactionsController(ISender sender) : ControllerBase
     public async Task<IActionResult> CreateTransaction(Guid accountId, [FromBody] TransactionCreateDto transactionForCreationDto)
     {
         var transaction = await sender.Send(new CreateTransactionCommand(accountId, transactionForCreationDto));
-        return Ok(transaction);
+        return CreatedAtRoute("TransactionById", new { accountId, transactionId = transaction.Id }, transaction);
     }
 
     [HttpGet("{transactionId:guid}", Name = "TransactionById")]
@@ -25,5 +25,13 @@ public class TransactionsController(ISender sender) : ControllerBase
     {
         var transaction = await sender.Send(new GetTransactionQuery(accountId, transactionId, TrackChanges: false));
         return Ok(transaction);
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetTransactions(Guid accountId)
+    {
+        var transactions = await sender.Send(new GetTransactionsQuery(accountId, TrackChanges: false));
+        return Ok(transactions);
     }
 }

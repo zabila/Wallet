@@ -5,8 +5,6 @@ namespace Contracts;
 public interface ITransactionRepository
 {
     void CreateTransaction(Transaction transaction);
-
-    Transaction? GetTransaction(Guid id, bool trackChanges);
-
-    IQueryable<string?> GetAllCategories(bool trackChanges);
+    Task<Transaction> GetTransactionAsync(Guid id, bool trackChanges, CancellationToken cancellationToken);
+    Task<IEnumerable<Transaction>> GetAllTransactionsAsync(bool trackChanges, CancellationToken cancellationToken);
 }

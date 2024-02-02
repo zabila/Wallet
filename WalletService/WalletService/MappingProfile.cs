@@ -11,6 +11,7 @@ public class MappingProfile : Profile
     {
         CreateMap<Transaction, TransactionReadDto>();
         CreateMap<TransactionCreateDto, Transaction>();
+        CreateMap<IEnumerator<TransactionReadDto>, IEnumerator<Transaction>>();
 
         CreateMap<Account, AccountReadDto>();
         CreateMap<AccountCreateDto, Account>();
