@@ -7,7 +7,7 @@ using Shared.DataTransferObjects;
 
 namespace WalletService.Presentation.Controllers;
 
-[Route("api/{accountId:guid}/[controller]")]
+[Route("api/accounts/{accountId:guid}/[controller]")]
 [ApiController]
 public class TransactionsController(ISender sender) : ControllerBase
 {
