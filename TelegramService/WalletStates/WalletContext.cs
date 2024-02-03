@@ -26,13 +26,13 @@ public class WalletContext : IWalletContext
 
     public async Task HandleRequest(Message message, CancellationToken cancellationToken)
     {
-        _logger.LogInfo($"WalletContext: Received message: {message.Text}");
+        _logger.LogInfo($"WalletContext: Received message: {message.Text}, current state: {_currentState.GetType().Name}");
         await _currentState.HandleRequest(message, cancellationToken);
     }
 
     public async Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
-        _logger.LogInfo($"WalletContext: Received callback query: {callbackQuery.Data}");
+        _logger.LogInfo($"WalletContext: Received callback query: {callbackQuery.Data}, current state: {_currentState.GetType().Name}");
         await _currentState.HandleCallbackQuery(callbackQuery, cancellationToken);
     }
 

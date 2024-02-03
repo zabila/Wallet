@@ -40,7 +40,7 @@ public class ChooseOutcomingCategoryState : WalletStateBase
 
         await BotClient.AnswerCallbackQueryAsync(
             callbackQueryId: callbackQuery.Id,
-            text: $"Вибрано {callbackQuery.Data}",
+            text: $"Chosen {callbackQuery.Data}",
             cancellationToken: cancellationToken);
     }
 }

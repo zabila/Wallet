@@ -10,20 +10,20 @@ public class ChooseModeState : WalletStateBase
     public override async Task HandleRequest(Message message, CancellationToken cancellationToken)
     {
         var command = message.Text;
-        if (command == "Expenses")
+        switch (command)
         {
-            Context!.SetState(new OutcomingState());
-            await Context!.HandleRequest(message, cancellationToken);
-        }
-        else if (command == "Income")
-        {
-            Context!.SetState(new IncomingState());
-            await Context!.HandleRequest(message, cancellationToken);
-        }
-        else
-        {
-            Context!.SetState(new StartState());
-            await Context!.HandleRequest(message, cancellationToken);
+            case "Expenses":
+                Context!.SetState(new OutcomingState());
+                await Context!.HandleRequest(message, cancellationToken);
+                break;
+            case "Income":
+                Context!.SetState(new IncomingState());
+                await Context!.HandleRequest(message, cancellationToken);
+                break;
+            default:
+                Context!.SetState(new StartState());
+                await Context!.HandleRequest(message, cancellationToken);
+                break;
         }
     }
 
