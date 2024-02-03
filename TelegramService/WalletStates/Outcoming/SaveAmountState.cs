@@ -3,14 +3,9 @@ using TelegramService.Abstract;
 
 namespace TelegramService.WalletStates.Outcoming;
 
-public class SaveAmountState : WalletStateBase
+public class SaveAmountState(string? category = "General") : WalletStateBase
 {
-    private string _currentCategory = "Загальні";
-
-    public SaveAmountState(string? category = "Загальні")
-    {
-        _currentCategory = category ?? throw new ArgumentNullException(nameof(category));
-    }
+    private string _currentCategory = category ?? throw new ArgumentNullException(nameof(category));
 
     public override async Task HandleRequest(Message message, CancellationToken cancellationToken)
     {

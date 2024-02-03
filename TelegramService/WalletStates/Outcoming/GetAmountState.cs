@@ -12,7 +12,7 @@ public class GetAmountState : WalletStateBase
 
         await BotClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
-            text: "Введіть суму витрат, а якщо ви хочете добавити суму з новою категорію напишіть {категорія} {сума}, категорія за замовчуванням буде Загальні",
+            text: "Enter the amount of expenses, and if you want to add an amount with a new category, write {category} {amount}, the default category will be General",
             cancellationToken: cancellationToken);
     }
 

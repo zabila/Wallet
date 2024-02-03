@@ -3,23 +3,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TelegramService.Models;
 
-public class Transaction
+public sealed class Transaction
 {
-    [Column("TransactionId")] public Guid Id { get; set; }
+    [Key] [Column("TransactionId")] public Guid Id { get; set; }
+    [Required] public DateTime Date { get; set; }
 
-    public string? Name { get; set; }
+    [Required]
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal Amount { get; set; }
 
-    [Required(ErrorMessage = "Amount is a required field.")]
-    public double? Amount { get; set; }
+    [Required] [MaxLength(100)] public string? Description { get; set; }
+    [Required] [MaxLength(50)] public string? Category { get; set; }
+    [Required] [MaxLength(20)] public string? Type { get; set; }
 
-    [Required(ErrorMessage = "Date is a required field.")]
-    public DateTime? Date { get; set; }
+    [Required] public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    [Required] public DateTime UpdatedAt { get; set; }
 
-    [Required(ErrorMessage = "Type is a required field.")]
-    public string? Type { get; set; }
-
-    [Required(ErrorMessage = "Category is a required field.")]
-    public string? Category { get; set; }
-
-    public string? Description { get; set; }
+    [MaxLength(10)] public string? Currency { get; set; }
+    [MaxLength(100)] public string? Location { get; set; }
+    public string? Tags { get; set; }
+    public string? Attachment { get; set; }
+    [Required] public Guid AccountId { get; set; }
 }

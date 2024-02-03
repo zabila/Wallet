@@ -5,13 +5,8 @@ using TelegramService.Handlers;
 
 namespace TelegramService.Services;
 
-public class ReceiverService : ReceiverServiceBase<UpdateHandler>
-{
-    public ReceiverService(
-        ITelegramBotClient botClient,
-        UpdateHandler updateHandler,
-        ILoggerManager logger)
-        : base(botClient, updateHandler, logger)
-    {
-    }
-}
+public class ReceiverService(
+    ITelegramBotClient botClient,
+    UpdateHandler updateHandler,
+    ILoggerManager logger)
+    : ReceiverServiceBase<UpdateHandler>(botClient, updateHandler, logger);
