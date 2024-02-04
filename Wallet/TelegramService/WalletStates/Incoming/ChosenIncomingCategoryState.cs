@@ -18,7 +18,7 @@ public class ChosenIncomingCategoryState(string? category) : WalletStateBase
         }
         else
         {
-            amount = int.Parse(message.Text);
+            amount = int.Parse(message.Text!);
         }
 
         var transaction = new TransactionPublishedDto
