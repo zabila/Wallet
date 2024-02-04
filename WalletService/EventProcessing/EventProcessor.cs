@@ -9,21 +9,22 @@ using Shared.DataTransferObjects;
 
 namespace EventProcessing;
 
-public class EventProcessor : IEventProcessor
+public class EventProcessor : IEventProcessor, IDisposable
 {
     private ISender? _sender;
     private ILoggerManager? _logger;
     private IMapper? _mapper;
     private IRepositoryManager _repositoryManager;
+    private IServiceScope _scope;
 
 
     public EventProcessor(IServiceScopeFactory scopeFactory)
     {
-        var scoped = scopeFactory.CreateScope();
-        _sender = scoped.ServiceProvider.GetRequiredService<ISender>();
-        _logger = scoped.ServiceProvider.GetRequiredService<ILoggerManager>();
-        _mapper = scoped.ServiceProvider.GetRequiredService<IMapper>();
-        _repositoryManager = scoped.ServiceProvider.GetRequiredService<IRepositoryManager>();
+        _scope = scopeFactory.CreateScope();
+        _sender = _scope.ServiceProvider.GetRequiredService<ISender>();
+        _logger = _scope.ServiceProvider.GetRequiredService<ILoggerManager>();
+        _mapper = _scope.ServiceProvider.GetRequiredService<IMapper>();
+        _repositoryManager = _scope.ServiceProvider.GetRequiredService<IRepositoryManager>();
     }
 
     public async Task ProcessEvent(string message)
@@ -35,10 +36,10 @@ public class EventProcessor : IEventProcessor
                 await ProcessTransactionTelegramPublished(message);
                 break;
             case EventType.Undetermined:
-                _logger.LogError("Could not determine event type");
+                _logger!.LogError("Could not determine event type");
                 break;
             default:
-                _logger.LogError("Could not determine event type");
+                _logger!.LogError("Could not determine event type");
                 break;
         }
     }
@@ -73,5 +74,11 @@ public class EventProcessor : IEventProcessor
                 _logger.LogError("Could not determine event type");
                 return EventType.Undetermined;
         }
+    }
+
+    public void Dispose()
+    {
+        _logger?.LogInfo("EventProcessor Disposed");
+        _scope?.Dispose();
     }
 }
