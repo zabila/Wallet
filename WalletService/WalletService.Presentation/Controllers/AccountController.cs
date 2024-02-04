@@ -6,12 +6,12 @@ using Shared.DataTransferObjects;
 
 namespace WalletService.Presentation.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class AccountController(ISender sender) : ControllerBase
 {
     [HttpPost]
-    [Authorize]
     public async Task<IActionResult> CreateAccount([FromBody] AccountCreateDto accountForCreationDto)
     {
         var account = await sender.Send(new CreateAccountCommand(accountForCreationDto));

@@ -1,4 +1,5 @@
 ﻿using Entities.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;
@@ -30,6 +31,7 @@ public class UserController(UserManager<User> userManager) : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpPost("UpdateUser")]
     public async Task<IActionResult> UpdateUser(RegisterUserDto model)
     {

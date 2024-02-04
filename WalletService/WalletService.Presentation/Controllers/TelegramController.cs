@@ -1,8 +1,10 @@
 ﻿using Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WalletService.Presentation.Controllers;
 
+[Authorize]
 [Route("api/c/[controller]")]
 [ApiController]
 public class TelegramController(ILoggerManager logger) : ControllerBase
