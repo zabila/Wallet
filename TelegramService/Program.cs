@@ -36,7 +36,6 @@ builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 builder.Services.AddScoped<IWalletContext, WalletContext>();
 builder.Services.AddScoped<IWalletState, IncomingState>();
 builder.Services.AddScoped<IWalletState, OutcomingState>();
-builder.Services.AddScoped<IWalletState, ChooseOutcomingCategoryState>();
 
 builder.Services.AddScoped<UpdateHandler>();
 builder.Services.AddScoped<ReceiverService>();

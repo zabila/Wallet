@@ -17,17 +17,12 @@ public class IncomingState : WalletStateBase
             chatAction: ChatAction.Typing,
             cancellationToken: cancellationToken);
 
+        var categories = await WalletDataClient.GetIncomingCategoriesAsync();
+        var categoriesWithNewValue = categories.Append("New category");
 
-        string[] categories =
-        [
-            "Salary",
-            "Gift",
-            "Other"
-        ];
-
-        var inlineKeyboard = new InlineKeyboardMarkup(categories
+        var inlineKeyboard = new InlineKeyboardMarkup(categoriesWithNewValue
             .Where(c => !string.IsNullOrEmpty(c))
-            .Select(category => InlineKeyboardButton.WithCallbackData(category!, category!)));
+            .Select(category => new[] { InlineKeyboardButton.WithCallbackData(category!, category!) }));
 
         await BotClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
@@ -38,11 +33,29 @@ public class IncomingState : WalletStateBase
 
     public override async Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
-        Context!.SetState(new ChooseIncomingCategoryState( /*callbackQuery.Data*/));
+        string? responseText = null;
+        var category = callbackQuery.Data;
+        if (category == "New category")
+        {
+            responseText = $"Chosen {callbackQuery.Data} category!\n " +
+                           "Please enter template income: \n" +
+                           "{Category} {Amount}";
+            category = null;
+        }
+        else
+        {
+            responseText = $"Chosen {callbackQuery.Data} category!\n " +
+                           "Please enter template income: \n" +
+                           "{Amount}";
+        }
 
-        await BotClient.AnswerCallbackQueryAsync(
-            callbackQueryId: callbackQuery.Id,
-            text: $"Chosen {callbackQuery.Data}",
-            cancellationToken: cancellationToken);
+
+        await BotClient.SendTextMessageAsync(
+            chatId: callbackQuery.Message!.Chat.Id,
+            text: responseText,
+            cancellationToken:
+            cancellationToken);
+
+        Context!.SetState(new ChosenIncomingCategoryState(category));
     }
 }

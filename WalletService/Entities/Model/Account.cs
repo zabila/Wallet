@@ -14,4 +14,5 @@ public sealed class Account
 
     [MaxLength(50)] public string? AccountType { get; set; }
     [Column(TypeName = "decimal(18, 2)")] public decimal Balance { get; set; }
+    [MaxLength(10)] public string? Currency { get; set; }
 }

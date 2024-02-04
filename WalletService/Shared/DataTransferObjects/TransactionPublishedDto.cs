@@ -1,9 +1,9 @@
-﻿namespace TelegramService.Dtos;
+﻿namespace Shared.DataTransferObjects;
 
 public class TransactionPublishedDto
 {
     public Guid Id { get; set; }
-    public string? Event { get; set; } = "TransactionTelegramPublished";
+    public string? Event { get; set; }
     public DateTime Date { get; set; }
     public decimal Amount { get; set; }
     public string? Description { get; set; }

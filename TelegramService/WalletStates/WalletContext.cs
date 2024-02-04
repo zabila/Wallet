@@ -12,6 +12,7 @@ public class WalletContext : IWalletContext
     private readonly ITelegramBotClient _bot;
     private readonly ILoggerManager _logger;
     private readonly IMessageBusClient _messageBusClient;
+    private readonly IWalletDataClient _walletDataClient;
 
     public WalletContext(ITelegramBotClient bot, ILoggerManager logger, IWalletDataClient walletDataClient, IMessageBusClient messageBusClient)
     {
@@ -19,9 +20,10 @@ public class WalletContext : IWalletContext
         _logger = logger;
         _messageBusClient = messageBusClient;
         _currentState = new StartState();
-        _currentState.Init(this, bot, logger, messageBusClient);
+        _walletDataClient = walletDataClient;
+        _currentState.Init(this, bot, logger, messageBusClient, walletDataClient);
 
-        walletDataClient.TestInboundConnection();
+        _walletDataClient.TestInboundConnection();
     }
 
     public async Task HandleRequest(Message message, CancellationToken cancellationToken)
@@ -40,6 +42,11 @@ public class WalletContext : IWalletContext
     {
         _logger.LogInfo($"WalletContext: Changed state from {_currentState.GetType().Name} to {newState.GetType().Name}");
         _currentState = newState;
-        _currentState.Init(this, _bot, _logger, _messageBusClient);
+        _currentState.Init(this, _bot, _logger, _messageBusClient, _walletDataClient);
+    }
+
+    public IWalletState GetCurrentState()
+    {
+        return _currentState;
     }
 }

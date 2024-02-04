@@ -6,7 +6,7 @@ namespace TelegramService.Models;
 public sealed class Transaction
 {
     [Key] [Column("TransactionId")] public Guid Id { get; set; }
-    [Required] public DateTime Date { get; set; }
+    [Required] public DateTime Date { get; set; } = DateTime.UtcNow;
 
     [Required]
     [Column(TypeName = "decimal(18, 2)")]
@@ -17,7 +17,7 @@ public sealed class Transaction
     [Required] [MaxLength(20)] public string? Type { get; set; }
 
     [Required] public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    [Required] public DateTime UpdatedAt { get; set; }
+    [Required] public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     [MaxLength(10)] public string? Currency { get; set; }
     [MaxLength(100)] public string? Location { get; set; }

@@ -6,4 +6,6 @@ public sealed class AccountReadDto
     public string? AccountName { get; set; }
     public string? AccountType { get; set; }
     public decimal Balance { get; set; }
+    public string? Currency { get; set; }
+    public int TelegramUserId { get; set; }
 }

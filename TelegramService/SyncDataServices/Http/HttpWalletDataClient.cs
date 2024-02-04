@@ -23,4 +23,24 @@ public class HttpWalletDataClient(HttpClient httpClient, IConfiguration configur
             logger.LogError("Sync POST to WalletService was NOT OK!");
         }
     }
+
+    public Task<List<string>> GetIncomingCategoriesAsync()
+    {
+        return Task.FromResult(new List<string>
+        {
+            "Salary",
+            "Gift",
+            "Other"
+        });
+    }
+
+    public Task<List<string>> GetOutcomingCategoriesAsync()
+    {
+        return Task.FromResult(new List<string>
+        {
+            "Food",
+            "Transport",
+            "Other"
+        });
+    }
 }

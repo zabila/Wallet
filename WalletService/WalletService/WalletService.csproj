@@ -35,14 +35,11 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Contracts\Contracts.csproj"/>
+        <ProjectReference Include="..\EventProcessing\EventProcessing.csproj"/>
         <ProjectReference Include="..\LoggerService\LoggerService.csproj"/>
         <ProjectReference Include="..\Repository\Repository.csproj"/>
         <ProjectReference Include="..\Shared\Shared.csproj"/>
-        <ProjectReference Include="..\WalletService.Presentation\WalletService.Presentation.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Migrations\"/>
+        <ProjectReference Include="..\WalletService.Presentation\WalletService.Presentation.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -50,9 +47,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Program.cs">
-        <DependentUpon>nlog.config</DependentUpon>
-      </Compile>
+        <Folder Include="Migrations\"/>
     </ItemGroup>
 
 </Project>

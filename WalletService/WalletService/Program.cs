@@ -13,19 +13,20 @@ LogManager
 
 builder.Services.ConfigureCors();
 builder.Services.ConfigureSqlContext(builder.Configuration);
-builder.Services.ConfigureLoggerService();
-builder.Services.ConfigureRepositoryManager();
-builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
-builder.Services.AddAuthorizationBuilder();
-builder.Services.ConfigureIdentity();
-builder.Services.ConfigureSwagger();
-
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.AssemblyReference).Assembly));
-
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(WalletService.Presentation.AssemblyReference).Assembly);
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.AssemblyReference).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(EventProcessing.AssemblyReference).Assembly));
+
+
+builder.Services.ConfigureLoggerService();
+builder.Services.ConfigureRepositoryManager();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureSwagger();
+builder.Services.ConfigureEventProcessor();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -52,12 +53,11 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 app.UseCors("CorsPolicy");
 
-app.MapIdentityApi<User>();
-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGroup("api/identity").MapIdentityApi<User>();
 
 app.MapControllers();
 

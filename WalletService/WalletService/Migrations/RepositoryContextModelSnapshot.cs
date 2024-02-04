@@ -17,6 +17,7 @@ namespace WalletService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Wallet")
                 .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -44,6 +45,10 @@ namespace WalletService.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Currency")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -52,7 +57,23 @@ namespace WalletService.Migrations
                     b.HasIndex("AccountName")
                         .IsUnique();
 
-                    b.ToTable("Account");
+                    b.ToTable("Accounts", "Wallet");
+                });
+
+            modelBuilder.Entity("Entities.Model.AccountTelegram", b =>
+                {
+                    b.Property<int>("TelegramUserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TelegramUserId"));
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("TelegramUserId");
+
+                    b.ToTable("AccountTelegrams", "Wallet");
                 });
 
             modelBuilder.Entity("Entities.Model.Transaction", b =>
@@ -108,7 +129,7 @@ namespace WalletService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", "Wallet");
                 });
 
             modelBuilder.Entity("Entities.Model.User", b =>
@@ -129,6 +150,12 @@ namespace WalletService.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -156,6 +183,12 @@ namespace WalletService.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<int>("TelegramUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TelegramUsername")
+                        .HasColumnType("text");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -172,7 +205,7 @@ namespace WalletService.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", "Wallet");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -198,24 +231,24 @@ namespace WalletService.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", "Wallet");
 
                     b.HasData(
                         new
                         {
-                            Id = "be5f0c3d-1da1-44da-9082-6e35a74e74d6",
+                            Id = "3a7df0d1-2709-45e6-b1eb-b9b77e5ebb09",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "6ee0a42f-a46b-47e3-8a63-8df26f85068c",
+                            Id = "44a2ad58-3643-441d-bb70-a365d18f3adf",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "8be3a3b2-5eff-4aa9-b58f-e68ca994bfe4",
+                            Id = "8e01b3f8-6310-4556-891e-4ca67051195c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -243,7 +276,7 @@ namespace WalletService.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", "Wallet");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -268,7 +301,7 @@ namespace WalletService.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", "Wallet");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -290,7 +323,7 @@ namespace WalletService.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", "Wallet");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -305,7 +338,7 @@ namespace WalletService.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", "Wallet");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -324,7 +357,7 @@ namespace WalletService.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", "Wallet");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

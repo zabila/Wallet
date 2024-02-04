@@ -3,6 +3,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramService.Abstract;
+using TelegramService.WalletStates.Incoming;
 using TelegramService.WalletStates.Outcoming;
 
 namespace TelegramService.WalletStates;
@@ -11,7 +12,18 @@ public class StartState : WalletStateBase
 {
     public override async Task HandleRequest(Message message, CancellationToken cancellationToken)
     {
-        Context!.SetState(new ChooseModeState());
+        var command = message.Text;
+        switch (command)
+        {
+            case "Expenses":
+                Context!.SetState(new OutcomingState());
+                await Context!.HandleRequest(message, cancellationToken);
+                return;
+            case "Income":
+                Context!.SetState(new IncomingState());
+                await Context!.HandleRequest(message, cancellationToken);
+                return;
+        }
 
         await BotClient.SendChatActionAsync(
             chatId: message.Chat.Id,
@@ -30,9 +42,8 @@ public class StartState : WalletStateBase
             cancellationToken: cancellationToken);
     }
 
-    public override async Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
+    public override Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
-        Context!.SetState(new ChooseOutcomingCategoryState());
-        await Context!.HandleCallbackQuery(callbackQuery, cancellationToken);
+        throw new NotImplementedException();
     }
 }

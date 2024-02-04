@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Entities.Model;
+using EventProcessing;
 using Repository;
 
 namespace WalletService.Extensions;
@@ -38,9 +39,15 @@ public static class ServiceExtensions
 
     public static void ConfigureIdentity(this IServiceCollection services)
     {
-        services.AddIdentityCore<User>()
-            .AddEntityFrameworkStores<RepositoryContext>()
-            .AddApiEndpoints();
+        services.AddAuthorizationBuilder();
+        services.AddIdentityApiEndpoints<User>()
+            .AddEntityFrameworkStores<RepositoryContext>();
+    }
+
+    public static void ConfigureEventProcessor(this IServiceCollection services)
+    {
+        services.AddSingleton<IEventProcessor, EventProcessor>();
+        services.AddHostedService<MessageBusSubscriber>();
     }
 
     public static void ConfigureSwagger(this IServiceCollection services)
