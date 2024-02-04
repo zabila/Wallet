@@ -1,0 +1,131 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Services.Telegram", "src\Wallet.Services.Telegram\Wallet.Services.Telegram.csproj", "{1ECC09A3-9AC4-47D1-9C21-842CE54E55E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Infrastructure.Repository", "src\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj", "{14479ACA-508A-4390-B428-1961FA59A9D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{503F88A8-2045-481F-830D-E7FA3C728D2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Infrastructure.LoggerService", "src\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj", "{FB6818D8-F96B-4E85-9329-AA77BF953D2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.MessageBus", "src\Wallet.MessageBus\Wallet.MessageBus.csproj", "{08C1FC13-5DB2-494F-ADF1-A2EB158415BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Domain.Entities", "src\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj", "{FC2699B2-2373-461C-8F94-E0E8DDBE60E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Domain.Contracts", "src\Wallet.Domain.Contracts\Wallet.Domain.Contracts.csproj", "{ACDA0C16-FEDB-4182-BF1D-4DF8060A9F9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.App", "src\Wallet.App\Wallet.App.csproj", "{2168C7C1-8686-4D5A-99F0-1E52A3FF580A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41480C34-6E1A-4456-B06C-280CA26D453B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{04245985-F3C3-4D7D-ABD8-D00E81F382B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "production", "production", "{A27A1C7A-071D-4C9B-9C10-D4FB1AB39853}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\production\ingress-srv.yaml = deployment\production\ingress-srv.yaml
+		deployment\production\local-pvc.yaml = deployment\production\local-pvc.yaml
+		deployment\production\postage-plat-depl.yaml = deployment\production\postage-plat-depl.yaml
+		deployment\production\rabbitmq-depl.yaml = deployment\production\rabbitmq-depl.yaml
+		deployment\production\telegramservice-depl.yaml = deployment\production\telegramservice-depl.yaml
+		deployment\production\walletservice-depl.yaml = deployment\production\walletservice-depl.yaml
+		deployment\production\walletservice-np-srv.yaml = deployment\production\walletservice-np-srv.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{80069AC1-5EFB-48CC-A115-D8D66E88A6EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{417C3FCD-BF9B-4CE1-AA31-5731903E8E4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{5FD89FF8-538E-4D7A-B266-682EDAFA64B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17E66501-F076-4EC8-BA9B-6A33007E225D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{481D326E-1593-4B65-ACA2-C2B7228C4C9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{CFB5DA63-4846-48FF-B1A6-30AC79F57139}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{5A9378B0-59F6-4661-9FFB-4BC4FD92908B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.API.Identity", "src\Wallet.API.Identity\Wallet.API.Identity.csproj", "{BCFCD2DC-31C5-45D3-93DE-282DDD63A392}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.API.Telegram", "src\Wallet.API.Telegram\Wallet.API.Telegram.csproj", "{FC6DFF5B-F986-439E-9898-76F8C6B98551}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.API.Finance", "src\Wallet.API.Finance\Wallet.API.Finance.csproj", "{2D516951-81D5-406F-9EEE-CE044535F1EC}"
+EndProject
+Global
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2168C7C1-8686-4D5A-99F0-1E52A3FF580A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2168C7C1-8686-4D5A-99F0-1E52A3FF580A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2168C7C1-8686-4D5A-99F0-1E52A3FF580A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2168C7C1-8686-4D5A-99F0-1E52A3FF580A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACDA0C16-FEDB-4182-BF1D-4DF8060A9F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACDA0C16-FEDB-4182-BF1D-4DF8060A9F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACDA0C16-FEDB-4182-BF1D-4DF8060A9F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACDA0C16-FEDB-4182-BF1D-4DF8060A9F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC2699B2-2373-461C-8F94-E0E8DDBE60E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC2699B2-2373-461C-8F94-E0E8DDBE60E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC2699B2-2373-461C-8F94-E0E8DDBE60E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC2699B2-2373-461C-8F94-E0E8DDBE60E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6818D8-F96B-4E85-9329-AA77BF953D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6818D8-F96B-4E85-9329-AA77BF953D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6818D8-F96B-4E85-9329-AA77BF953D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6818D8-F96B-4E85-9329-AA77BF953D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14479ACA-508A-4390-B428-1961FA59A9D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14479ACA-508A-4390-B428-1961FA59A9D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14479ACA-508A-4390-B428-1961FA59A9D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14479ACA-508A-4390-B428-1961FA59A9D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503F88A8-2045-481F-830D-E7FA3C728D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503F88A8-2045-481F-830D-E7FA3C728D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503F88A8-2045-481F-830D-E7FA3C728D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503F88A8-2045-481F-830D-E7FA3C728D2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ECC09A3-9AC4-47D1-9C21-842CE54E55E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ECC09A3-9AC4-47D1-9C21-842CE54E55E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ECC09A3-9AC4-47D1-9C21-842CE54E55E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ECC09A3-9AC4-47D1-9C21-842CE54E55E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCFCD2DC-31C5-45D3-93DE-282DDD63A392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCFCD2DC-31C5-45D3-93DE-282DDD63A392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCFCD2DC-31C5-45D3-93DE-282DDD63A392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCFCD2DC-31C5-45D3-93DE-282DDD63A392}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6DFF5B-F986-439E-9898-76F8C6B98551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6DFF5B-F986-439E-9898-76F8C6B98551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6DFF5B-F986-439E-9898-76F8C6B98551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6DFF5B-F986-439E-9898-76F8C6B98551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D516951-81D5-406F-9EEE-CE044535F1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D516951-81D5-406F-9EEE-CE044535F1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D516951-81D5-406F-9EEE-CE044535F1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D516951-81D5-406F-9EEE-CE044535F1EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{503F88A8-2045-481F-830D-E7FA3C728D2A} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{A27A1C7A-071D-4C9B-9C10-D4FB1AB39853} = {04245985-F3C3-4D7D-ABD8-D00E81F382B0}
+		{80069AC1-5EFB-48CC-A115-D8D66E88A6EE} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{417C3FCD-BF9B-4CE1-AA31-5731903E8E4E} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{1ECC09A3-9AC4-47D1-9C21-842CE54E55E2} = {417C3FCD-BF9B-4CE1-AA31-5731903E8E4E}
+		{5FD89FF8-538E-4D7A-B266-682EDAFA64B6} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{FC2699B2-2373-461C-8F94-E0E8DDBE60E9} = {5FD89FF8-538E-4D7A-B266-682EDAFA64B6}
+		{ACDA0C16-FEDB-4182-BF1D-4DF8060A9F9C} = {5FD89FF8-538E-4D7A-B266-682EDAFA64B6}
+		{481D326E-1593-4B65-ACA2-C2B7228C4C9B} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{14479ACA-508A-4390-B428-1961FA59A9D3} = {481D326E-1593-4B65-ACA2-C2B7228C4C9B}
+		{FB6818D8-F96B-4E85-9329-AA77BF953D2C} = {481D326E-1593-4B65-ACA2-C2B7228C4C9B}
+		{CFB5DA63-4846-48FF-B1A6-30AC79F57139} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{2168C7C1-8686-4D5A-99F0-1E52A3FF580A} = {CFB5DA63-4846-48FF-B1A6-30AC79F57139}
+		{5A9378B0-59F6-4661-9FFB-4BC4FD92908B} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD} = {5A9378B0-59F6-4661-9FFB-4BC4FD92908B}
+		{BCFCD2DC-31C5-45D3-93DE-282DDD63A392} = {80069AC1-5EFB-48CC-A115-D8D66E88A6EE}
+		{FC6DFF5B-F986-439E-9898-76F8C6B98551} = {80069AC1-5EFB-48CC-A115-D8D66E88A6EE}
+		{2D516951-81D5-406F-9EEE-CE044535F1EC} = {80069AC1-5EFB-48CC-A115-D8D66E88A6EE}
+	EndGlobalSection
+EndGlobal
