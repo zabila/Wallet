@@ -1,0 +1,106 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF778687-88A7-4E01-BA95-985533558A6A}"
+	ProjectSection(SolutionItems) = preProject
+		..\K8S\ingress-srv.yaml = ..\K8S\ingress-srv.yaml
+		..\K8S\local-pvc.yaml = ..\K8S\local-pvc.yaml
+		..\K8S\postage-plat-depl.yaml = ..\K8S\postage-plat-depl.yaml
+		..\K8S\rabbitmq-depl.yaml = ..\K8S\rabbitmq-depl.yaml
+		..\K8S\telegramservice-depl.yaml = ..\K8S\telegramservice-depl.yaml
+		..\K8S\walletservice-depl.yaml = ..\K8S\walletservice-depl.yaml
+		..\K8S\walletservice-np-srv.yaml = ..\K8S\walletservice-np-srv.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalletService.Presentation", "WalletService\WalletService.Presentation\WalletService.Presentation.csproj", "{F6225E35-9B35-4E70-B6D8-CEED00C1EB14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "WalletService\Contracts\Contracts.csproj", "{061239CC-147A-422D-BBB2-E5040DD62AD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "WalletService\Entities\Entities.csproj", "{DB9D0BCA-F076-4D05-9176-5A903BBF4B9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventProcessing", "WalletService\EventProcessing\EventProcessing.csproj", "{B3ED81FF-011E-42B6-806E-5FB0FCC8805C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerService", "WalletService\LoggerService\LoggerService.csproj", "{2F45DB57-5550-4A23-BCDF-53318213618D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "WalletService\Repository\Repository.csproj", "{61A5A38C-E680-46D2-83D2-CB9885F933F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalletService", "WalletService\WalletService\WalletService.csproj", "{2CEF8B76-FF2B-4A2B-9179-0C5B72D92F87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "WalletService\Shared\Shared.csproj", "{46076009-AE60-409D-AD1E-EBA0C260CD66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "WalletService\Application\Application.csproj", "{E3D6F4F7-C1F6-430E-96DD-14929AE2CCE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WalletService", "WalletService", "{B3512923-2561-4572-9A84-31B2F9736D0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramService", "TelegramService\TelegramService.csproj", "{7E589166-A261-4549-9BAA-1DA9E4BECD02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TelegramService", "TelegramService", "{45E530CE-1EA4-40ED-9099-2DA2965F124B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6225E35-9B35-4E70-B6D8-CEED00C1EB14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6225E35-9B35-4E70-B6D8-CEED00C1EB14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6225E35-9B35-4E70-B6D8-CEED00C1EB14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6225E35-9B35-4E70-B6D8-CEED00C1EB14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{061239CC-147A-422D-BBB2-E5040DD62AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{061239CC-147A-422D-BBB2-E5040DD62AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{061239CC-147A-422D-BBB2-E5040DD62AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{061239CC-147A-422D-BBB2-E5040DD62AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB9D0BCA-F076-4D05-9176-5A903BBF4B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB9D0BCA-F076-4D05-9176-5A903BBF4B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB9D0BCA-F076-4D05-9176-5A903BBF4B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB9D0BCA-F076-4D05-9176-5A903BBF4B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3ED81FF-011E-42B6-806E-5FB0FCC8805C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3ED81FF-011E-42B6-806E-5FB0FCC8805C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3ED81FF-011E-42B6-806E-5FB0FCC8805C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3ED81FF-011E-42B6-806E-5FB0FCC8805C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F45DB57-5550-4A23-BCDF-53318213618D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F45DB57-5550-4A23-BCDF-53318213618D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F45DB57-5550-4A23-BCDF-53318213618D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F45DB57-5550-4A23-BCDF-53318213618D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A5A38C-E680-46D2-83D2-CB9885F933F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A5A38C-E680-46D2-83D2-CB9885F933F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A5A38C-E680-46D2-83D2-CB9885F933F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A5A38C-E680-46D2-83D2-CB9885F933F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CEF8B76-FF2B-4A2B-9179-0C5B72D92F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CEF8B76-FF2B-4A2B-9179-0C5B72D92F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CEF8B76-FF2B-4A2B-9179-0C5B72D92F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CEF8B76-FF2B-4A2B-9179-0C5B72D92F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46076009-AE60-409D-AD1E-EBA0C260CD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46076009-AE60-409D-AD1E-EBA0C260CD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46076009-AE60-409D-AD1E-EBA0C260CD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46076009-AE60-409D-AD1E-EBA0C260CD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3D6F4F7-C1F6-430E-96DD-14929AE2CCE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D6F4F7-C1F6-430E-96DD-14929AE2CCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D6F4F7-C1F6-430E-96DD-14929AE2CCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D6F4F7-C1F6-430E-96DD-14929AE2CCE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E589166-A261-4549-9BAA-1DA9E4BECD02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E589166-A261-4549-9BAA-1DA9E4BECD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E589166-A261-4549-9BAA-1DA9E4BECD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E589166-A261-4549-9BAA-1DA9E4BECD02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17E88CB2-2B6D-4FDE-85E7-9FE38AC1859F}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E3D6F4F7-C1F6-430E-96DD-14929AE2CCE5} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{061239CC-147A-422D-BBB2-E5040DD62AD0} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{DB9D0BCA-F076-4D05-9176-5A903BBF4B9E} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{B3ED81FF-011E-42B6-806E-5FB0FCC8805C} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{2F45DB57-5550-4A23-BCDF-53318213618D} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{61A5A38C-E680-46D2-83D2-CB9885F933F0} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{46076009-AE60-409D-AD1E-EBA0C260CD66} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{2CEF8B76-FF2B-4A2B-9179-0C5B72D92F87} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{F6225E35-9B35-4E70-B6D8-CEED00C1EB14} = {B3512923-2561-4572-9A84-31B2F9736D0F}
+		{7E589166-A261-4549-9BAA-1DA9E4BECD02} = {45E530CE-1EA4-40ED-9099-2DA2965F124B}
+	EndGlobalSection
+EndGlobal

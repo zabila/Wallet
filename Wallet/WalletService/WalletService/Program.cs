@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Contracts;
 using Entities.Model;
 using NLog;
