@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DataTransferObjects;
+using Wallet.Shared.DataTransferObjects;
 using Wallet.Domain.Entities.Model;
 
 namespace Wallet.API.Identity.Controllers;

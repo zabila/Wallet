@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Shared.DataTransferObjects;
+using Wallet.Shared.DataTransferObjects;
 using Wallet.App.Transaction.Queries;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Exceptions;

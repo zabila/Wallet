@@ -1,7 +1,7 @@
 ﻿using Application.Account.Queries;
 using AutoMapper;
 using MediatR;
-using Shared.DataTransferObjects;
+using Wallet.Shared.DataTransferObjects;
 using Wallet.Domain.Contracts;
 
 namespace Application.Account.Handlers;

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Shared.DataTransferObjects;
+using Wallet.Shared.DataTransferObjects;
 
 namespace Application.Account.Queries;
 
