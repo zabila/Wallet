@@ -1,4 +1,4 @@
-﻿namespace Shared.DataTransferObjects;
+﻿namespace Wallet.Shared.DataTransferObjects;
 
 public class TransactionReadDto
 {

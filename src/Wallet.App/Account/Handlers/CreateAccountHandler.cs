@@ -1,7 +1,7 @@
 ﻿using Application.Account.Commands;
 using AutoMapper;
 using MediatR;
-using Shared.DataTransferObjects;
+using Wallet.Shared.DataTransferObjects;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Exceptions;
 using Wallet.Domain.Entities.Model;

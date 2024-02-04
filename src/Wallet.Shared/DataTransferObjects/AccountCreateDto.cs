@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shared.DataTransferObjects;
+namespace Wallet.Shared.DataTransferObjects;
 
 public sealed class AccountCreateDto
 {

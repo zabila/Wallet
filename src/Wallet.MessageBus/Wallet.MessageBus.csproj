@@ -11,7 +11,7 @@
         <ProjectReference Include="..\Wallet.Domain.Contracts\Wallet.Domain.Contracts.csproj" />
         <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
         <ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj" />
-        <ProjectReference Include="..\Shared\Shared.csproj"/>
+        <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
