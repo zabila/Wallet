@@ -9,4 +9,6 @@ public interface IWalletContext
     Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken);
 
     void SetState(IWalletState newState);
+
+    IWalletState GetCurrentState();
 }

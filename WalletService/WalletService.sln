@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{4D245741-93D0-4C63-92B2-5236247B946E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventProcessing", "EventProcessing\EventProcessing.csproj", "{B70DACB9-636F-4F5B-83A3-71CF492AB1C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{4D245741-93D0-4C63-92B2-5236247B946E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D245741-93D0-4C63-92B2-5236247B946E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D245741-93D0-4C63-92B2-5236247B946E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B70DACB9-636F-4F5B-83A3-71CF492AB1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70DACB9-636F-4F5B-83A3-71CF492AB1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70DACB9-636F-4F5B-83A3-71CF492AB1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70DACB9-636F-4F5B-83A3-71CF492AB1C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

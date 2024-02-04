@@ -8,6 +8,7 @@ namespace TelegramService.AsyncDataServices;
 
 public class MessageBusClient : IMessageBusClient
 {
+    private const string QueueName = "transactionQueue";
     private readonly IConfiguration _configuration;
     private readonly ILoggerManager _logger;
     private IConnection? _connection;
@@ -44,8 +45,8 @@ public class MessageBusClient : IMessageBusClient
     private void SendMessage(string message)
     {
         var body = Encoding.UTF8.GetBytes(message);
-        _channel?.BasicPublish(exchange: "trigger",
-            routingKey: "",
+        _channel?.BasicPublish(exchange: string.Empty,
+            routingKey: QueueName,
             basicProperties: null,
             body: body);
 
@@ -68,7 +69,11 @@ public class MessageBusClient : IMessageBusClient
         {
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+            _channel.QueueDeclare(queue: QueueName,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
             _logger.LogInfo("Connected to MessageBus");
         }
