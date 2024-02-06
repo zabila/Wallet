@@ -4,7 +4,7 @@ using NLog;
 using Wallet.Domain.Contracts;
 using Wallet.Infrastructure.LoggerService;
 using Wallet.Infrastructure.Repository;
-using Wallet.MessageBus;
+using Wallet.Services.MessageBus;
 
 namespace Wallet.API.Finance.Extensions;
 

@@ -34,10 +34,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
-      <ProjectReference Include="..\Wallet.App\Wallet.App.csproj" />
+      <ProjectReference Include="..\Wallet.Application.Finance\Wallet.Application.Finance.csproj" />
       <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
       <ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj" />
-      <ProjectReference Include="..\Wallet.MessageBus\Wallet.MessageBus.csproj" />
+      <ProjectReference Include="..\Wallet.Services.MessageBus\Wallet.Services.MessageBus.csproj" />
       <ProjectReference Include="..\Wallet.Services.Telegram\Wallet.Services.Telegram.csproj" />
     </ItemGroup>
 

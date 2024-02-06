@@ -4,11 +4,11 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Wallet.Shared.DataTransferObjects;
-using Wallet.App.Transaction.Commands;
+using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Enums;
 
-namespace Wallet.MessageBus;
+namespace Wallet.Services.MessageBus;
 
 public class EventProcessor : IEventProcessor, IDisposable
 {

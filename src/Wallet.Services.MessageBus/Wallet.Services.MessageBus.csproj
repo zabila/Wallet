@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Wallet.App\Wallet.App.csproj" />
+        <ProjectReference Include="..\Wallet.Application.Finance\Wallet.Application.Finance.csproj" />
         <ProjectReference Include="..\Wallet.Domain.Contracts\Wallet.Domain.Contracts.csproj" />
         <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
         <ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj" />

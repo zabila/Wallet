@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Wallet.Domain.Contracts;
 
-namespace Wallet.MessageBus;
+namespace Wallet.Services.MessageBus;
 
 public class MessageBusSubscriber : BackgroundService
 {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using Wallet.Shared.DataTransferObjects;
-using Wallet.App.Transaction.Commands;
+using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Exceptions;
 
-namespace Wallet.App.Transaction.Handlers;
+namespace Wallet.Application.Finance.Transaction.Handlers;
 
 internal sealed class CreateTransactionHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateTransactionCommand, TransactionReadDto>
 {
