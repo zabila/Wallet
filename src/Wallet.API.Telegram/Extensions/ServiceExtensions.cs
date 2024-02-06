@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using Wallet.Domain.Contracts;
-using Wallet.Domain.Entities.Model;
 using Wallet.Infrastructure.LoggerService;
 using Wallet.Infrastructure.Repository;
 
