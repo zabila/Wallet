@@ -17,7 +17,7 @@ builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 var telegramBotToken = Environment.GetEnvironmentVariable("TelegramBotToken");
 if (string.IsNullOrEmpty(telegramBotToken))
 {
-    throw new ArgumentNullException(nameof(telegramBotToken));
+    throw new ArgumentNullException(nameof(telegramBotToken), "Telegram bot token is not set");
 }
 
 builder.Services.AddHttpClient("telegram_bot_client")

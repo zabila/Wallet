@@ -8,8 +8,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Wallet.App.AssemblyReference).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Wallet.MessageBus.AssemblyReference).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Wallet.Application.Finance.AssemblyReference).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Wallet.Services.MessageBus.AssemblyReference).Assembly));
 
 //Services
 builder.Services.ConfigureDataBase(builder.Configuration);

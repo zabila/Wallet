@@ -1,4 +1,4 @@
-﻿namespace Wallet.App;
+﻿namespace Wallet.Services.MessageBus;
 
 public static class AssemblyReference
 {
