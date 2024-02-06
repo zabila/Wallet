@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Shared", "src\Wallet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Infrastructure.LoggerService", "src\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj", "{FB6818D8-F96B-4E85-9329-AA77BF953D2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Services.MessageBus", "src\Wallet.Services.MessageBus\Wallet.Services.MessageBus.csproj", "{08C1FC13-5DB2-494F-ADF1-A2EB158415BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Integration.MessageBus", "src\Wallet.Integration.MessageBus\Wallet.Integration.MessageBus.csproj", "{08C1FC13-5DB2-494F-ADF1-A2EB158415BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Domain.Entities", "src\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj", "{FC2699B2-2373-461C-8F94-E0E8DDBE60E9}"
 EndProject
@@ -58,6 +58,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{50CD0B6B-962A-45DF-85DD-3A5F0D2C9C96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "developing", "developing", "{85A33F7F-E8DD-4868-8FEF-6241EAB29E66}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{0E0C6E2A-EEBF-4D89-B5CD-9AC42A7939A4}"
 EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -129,6 +131,7 @@ Global
 		{50CD0B6B-962A-45DF-85DD-3A5F0D2C9C96} = {41480C34-6E1A-4456-B06C-280CA26D453B}
 		{503F88A8-2045-481F-830D-E7FA3C728D2A} = {50CD0B6B-962A-45DF-85DD-3A5F0D2C9C96}
 		{85A33F7F-E8DD-4868-8FEF-6241EAB29E66} = {04245985-F3C3-4D7D-ABD8-D00E81F382B0}
-		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD} = {417C3FCD-BF9B-4CE1-AA31-5731903E8E4E}
+		{0E0C6E2A-EEBF-4D89-B5CD-9AC42A7939A4} = {41480C34-6E1A-4456-B06C-280CA26D453B}
+		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD} = {0E0C6E2A-EEBF-4D89-B5CD-9AC42A7939A4}
 	EndGlobalSection
 EndGlobal

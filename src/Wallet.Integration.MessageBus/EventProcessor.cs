@@ -8,7 +8,7 @@ using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Enums;
 
-namespace Wallet.Services.MessageBus;
+namespace Wallet.Integration.MessageBus;
 
 public class EventProcessor : IEventProcessor, IDisposable
 {
