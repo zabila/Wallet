@@ -1,4 +1,3 @@
-using System.Net.Mime;
 using Wallet.API.Finance.Extensions;
 using Wallet.Domain.Contracts;
 
