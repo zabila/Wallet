@@ -14,7 +14,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 
 //Get token from env variable
-var telegramBotToken = Environment.GetEnvironmentVariable("TelegramBotToken");
+var telegramBotToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN");
 if (string.IsNullOrEmpty(telegramBotToken))
 {
     throw new ArgumentNullException(nameof(telegramBotToken), "Telegram bot token is not set");

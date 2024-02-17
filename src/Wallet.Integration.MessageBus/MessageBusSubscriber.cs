@@ -44,12 +44,14 @@ public class MessageBusSubscriber : BackgroundService
 
     private void InitializeRabbitMqListener()
     {
-        _logger.LogInfo("Connecting to RabbitMQ");
-
-        var factory = new ConnectionFactory
+        var hostName = _configuration["RabbitMQHost"];
+        var port = int.Parse(_configuration["RabbitMQPort"]!);
+        _logger.LogInfo($"Connecting to RabbitMQ at {hostName}:{port}");
+        
+       var factory = new ConnectionFactory
         {
-            HostName = _configuration["RabbitMQHost"],
-            Port = int.Parse(_configuration["RabbitMQPort"]!)
+            HostName = hostName,
+            Port = port
         };
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
