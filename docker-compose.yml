@@ -28,41 +28,41 @@ services:
     volumes:
       - data:/api_identity
     ports:
-      - '8001:8001'
+      - '8002:8002'
     network_mode: "host"
     environment:
-      - ASPNETCORE_URLS=http://localhost:8001
+      - ASPNETCORE_URLS=http://+:8002
 
   wallet_api_finance:
     build: src/Wallet.API.Finance
     volumes:
       - data:/api_finance
     ports:
-      - '8002:8002'
+      - '8004:8004'
     network_mode: "host"
     environment:
-      - ASPNETCORE_URLS=http://localhost:8002
+      - ASPNETCORE_URLS=http://+:8004
 
   wallet_api_telegram:
     build: src/Wallet.API.Telegram
     volumes:
       - data:/api_telegram
     ports:
-      - '8003:8003'
+      - '8006:8006'
     network_mode: "host"
     environment:
-      - ASPNETCORE_URLS=http://localhost:8003
+      - ASPNETCORE_URLS=http://+:8006
 
   wallet_service_telegram_bot:
     build: src/Wallet.Services.Telegram
     volumes:
       - data:/api_telegram_bot
     ports:
-      - '8004:8004'
-    environment:
-      - ASPNETCORE_URLS=http://localhost:8004
-      - TELEGRAM_BOT_TOKEN=<TELEGRAM_BOT_TOKEN>
+      - '8007:8007'
     network_mode: "host"
+    environment:
+      - ASPNETCORE_URLS=http://+:8007
+      - TELEGRAM_BOT_TOKEN=your_token
 
 volumes:
   data:
