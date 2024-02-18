@@ -12,11 +12,11 @@ namespace Wallet.Integration.MessageBus;
 
 public class EventProcessor : IEventProcessor, IDisposable
 {
-    private ISender? _sender;
-    private ILoggerManager? _logger;
-    private IMapper? _mapper;
+    private readonly ISender? _sender;
+    private readonly ILoggerManager? _logger;
+    private readonly IMapper? _mapper;
     private IRepositoryManager _repositoryManager;
-    private IServiceScope _scope;
+    private readonly IServiceScope _scope;
 
 
     public EventProcessor(IServiceScopeFactory scopeFactory)
