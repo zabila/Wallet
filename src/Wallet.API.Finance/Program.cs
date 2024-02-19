@@ -10,7 +10,6 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Wallet.Application.Finance.AssemblyReference).Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Wallet.Integration.MessageBus.AssemblyReference).Assembly));
 
-//Services
 builder.Services.ConfigureDataBase(builder.Configuration);
 builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureMessageBus();

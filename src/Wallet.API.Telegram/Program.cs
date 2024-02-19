@@ -10,7 +10,6 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(
     cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
-//Services
 builder.Services.ConfigureDataBase(builder.Configuration);
 builder.Services.ConfigureLoggerService();
 
