@@ -1,10 +1,10 @@
-﻿using Application.Account.Queries;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.Application.Finance.Account.Queries;
 using Wallet.Domain.Contracts;
+using Wallet.Shared.DataTransferObjects;
 
-namespace Application.Account.Handlers;
+namespace Wallet.Application.Finance.Account.Handlers;
 
 internal sealed class GetAccountByTelegramUserIdHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<GetAccountByTelegramUserIdQuery, AccountReadDto>
 {

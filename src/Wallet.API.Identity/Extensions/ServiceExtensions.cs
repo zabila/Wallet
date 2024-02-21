@@ -1,7 +1,12 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Wallet.Infrastructure.LoggerService;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
+using Wallet.API.Identity.Services;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Model;
 using Wallet.Infrastructure.Repository;
@@ -22,12 +27,14 @@ public static class ServiceExtensions
             opts.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         services.AddScoped<IRepositoryManager, RepositoryManager>();
     }
-    
-    public static void ConfigureIdentity(this IServiceCollection services)
+
+    public static void ConfigureIdentity(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddAuthorizationBuilder();
-        services.AddIdentityApiEndpoints<User>()
+        services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+        services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<RepositoryContext>()            
             .AddDefaultTokenProviders();
+        
+        services.AddSingleton<IEmailSender<User>, EmailSender>();
     }
 }

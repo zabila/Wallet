@@ -1,7 +1,7 @@
-﻿using Application.Account.Commands;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Wallet.Application.Finance.Account.Commands;
 using Wallet.Shared.DataTransferObjects;
 
 namespace Wallet.API.Finance.Controllers;

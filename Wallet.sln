@@ -64,6 +64,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "developing", "developing", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{0E0C6E2A-EEBF-4D89-B5CD-9AC42A7939A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet.Application.Identity", "src\Wallet.Application.Identity\Wallet.Application.Identity.csproj", "{56CD812F-0F43-4D1A-A866-F44D0921AB87}"
+EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2168C7C1-8686-4D5A-99F0-1E52A3FF580A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{2D516951-81D5-406F-9EEE-CE044535F1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D516951-81D5-406F-9EEE-CE044535F1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D516951-81D5-406F-9EEE-CE044535F1EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56CD812F-0F43-4D1A-A866-F44D0921AB87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56CD812F-0F43-4D1A-A866-F44D0921AB87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56CD812F-0F43-4D1A-A866-F44D0921AB87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56CD812F-0F43-4D1A-A866-F44D0921AB87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,5 +142,6 @@ Global
 		{85A33F7F-E8DD-4868-8FEF-6241EAB29E66} = {04245985-F3C3-4D7D-ABD8-D00E81F382B0}
 		{0E0C6E2A-EEBF-4D89-B5CD-9AC42A7939A4} = {41480C34-6E1A-4456-B06C-280CA26D453B}
 		{08C1FC13-5DB2-494F-ADF1-A2EB158415BD} = {0E0C6E2A-EEBF-4D89-B5CD-9AC42A7939A4}
+		{56CD812F-0F43-4D1A-A866-F44D0921AB87} = {CFB5DA63-4846-48FF-B1A6-30AC79F57139}
 	EndGlobalSection
 EndGlobal

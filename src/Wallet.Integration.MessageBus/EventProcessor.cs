@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
-using Application.Account.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Wallet.Application.Finance.Account.Queries;
 using Wallet.Shared.DataTransferObjects;
 using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Domain.Contracts;

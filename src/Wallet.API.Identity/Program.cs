@@ -8,11 +8,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddMediatR(
-    cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Wallet.Application.Identity.AssemblyReference).Assembly));
 
 builder.Services.ConfigureDataBase(builder.Configuration);
-builder.Services.ConfigureIdentity();
+builder.Services.ConfigureIdentity(builder.Configuration);
 builder.Services.ConfigureLoggerService();
 
 var app = builder.Build();
