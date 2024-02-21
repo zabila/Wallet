@@ -10,6 +10,7 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="12.0.1"/>
         <PackageReference Include="MediatR" Version="12.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
@@ -34,6 +35,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\Wallet.Application.Identity\Wallet.Application.Identity.csproj" />
       <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
       <ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj" />
       <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />

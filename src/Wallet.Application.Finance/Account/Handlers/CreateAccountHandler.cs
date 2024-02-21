@@ -1,12 +1,12 @@
-﻿using Application.Account.Commands;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.Application.Finance.Account.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Exceptions;
 using Wallet.Domain.Entities.Model;
+using Wallet.Shared.DataTransferObjects;
 
-namespace Application.Account.Handlers;
+namespace Wallet.Application.Finance.Account.Handlers;
 
 internal sealed class CreateAccountHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateAccountCommand, AccountReadDto>
 {

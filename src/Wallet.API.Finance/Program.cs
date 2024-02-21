@@ -15,6 +15,9 @@ builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureMessageBus();
 builder.Services.ConfigureSwagger();
 
+builder.AddAppAuthentication();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 if(app.Environment.IsDevelopment())
 {
