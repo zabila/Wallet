@@ -3,20 +3,16 @@ using Wallet.Domain.Entities.Model;
 
 namespace Wallet.API.Identity.Services;
 
-public class EmailSender : IEmailSender<User>
-{
-    public Task SendConfirmationLinkAsync(User user, string email, string confirmationLink)
-    {
+public class EmailSender : IEmailSender<WalletIdentityUser> {
+    public Task SendConfirmationLinkAsync(WalletIdentityUser user, string email, string confirmationLink) {
         throw new NotImplementedException();
     }
 
-    public Task SendPasswordResetLinkAsync(User user, string email, string resetLink)
-    {
+    public Task SendPasswordResetLinkAsync(WalletIdentityUser user, string email, string resetLink) {
         throw new NotImplementedException();
     }
 
-    public Task SendPasswordResetCodeAsync(User user, string email, string resetCode)
-    {
+    public Task SendPasswordResetCodeAsync(WalletIdentityUser user, string email, string resetCode) {
         throw new NotImplementedException();
     }
 }

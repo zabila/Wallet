@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Wallet.Shared.DataTransferObjects;
 
-namespace Wallet.Application.Identity.Commands;
+namespace Wallet.Application.Identity.Commands.User;
 
 public sealed record AssignRoleCommand(AssignRoleDto AssignRoleDto) : IRequest;

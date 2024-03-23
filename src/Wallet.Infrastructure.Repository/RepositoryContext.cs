@@ -1,18 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Wallet.Domain.Entities.Model;
-using Microsoft.AspNetCore.Identity;
 using Wallet.Infrastructure.Repository.Configuration;
 
 namespace Wallet.Infrastructure.Repository;
 
-public class RepositoryContext(DbContextOptions options) : IdentityDbContext<User>(options)
-{
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+public class RepositoryContext(DbContextOptions options) : IdentityDbContext<WalletIdentityUser>(options) {
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema("Wallet");
-        modelBuilder.Entity<User>(entity => { entity.ToTable(name: "Users"); });
+        modelBuilder.Entity<WalletIdentityUser>(entity => { entity.ToTable(name: "Users"); });
         modelBuilder.Entity<IdentityRole>(entity => { entity.ToTable(name: "Roles"); });
         modelBuilder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
         modelBuilder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });

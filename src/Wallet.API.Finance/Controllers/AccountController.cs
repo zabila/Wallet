@@ -9,11 +9,9 @@ namespace Wallet.API.Finance.Controllers;
 [Authorize]
 [Route("api/[controller]")]
 [ApiController]
-public class AccountController(ISender sender) : ControllerBase
-{
-    [HttpPost]
-    public async Task<IActionResult> CreateAccount([FromBody] AccountCreateDto accountForCreationDto)
-    {
+public class AccountController(ISender sender) : ControllerBase {
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateAccount([FromBody] AccountCreateDto accountForCreationDto) {
         var account = await sender.Send(new CreateAccountCommand(accountForCreationDto));
         return Ok(account);
     }
