@@ -1,28 +1,26 @@
 ﻿using AutoMapper;
 using MediatR;
-using Wallet.Shared.DataTransferObjects;
 using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Exceptions;
+using Wallet.Shared.DataTransferObjects;
+using WalletTransaction = Wallet.Domain.Entities.Model.Transaction;
 
 namespace Wallet.Application.Finance.Transaction.Handlers;
 
-internal sealed class CreateTransactionHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateTransactionCommand, TransactionReadDto>
-{
-    public async Task<TransactionReadDto> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
-    {
+internal sealed class CreateTransactionHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateTransactionCommand, TransactionReadDto> {
+    public async Task<TransactionReadDto> Handle(CreateTransactionCommand request, CancellationToken cancellationToken) {
         logger.LogDebug($"CreateTransactionHandler: Creating transaction");
 
         var transactionDto = request?.TransactionForCreationDto;
 
         var accountId = request!.AccountId;
         var isAccountExists = repository.Account.AccountExists(accountId);
-        if (!isAccountExists)
-        {
+        if (!isAccountExists) {
             throw new AccountNotFoundException(accountId);
         }
 
-        var transaction = mapper.Map<Wallet.Domain.Entities.Model.Transaction>(transactionDto);
+        var transaction = mapper.Map<WalletTransaction>(transactionDto);
         transaction.AccountId = accountId;
 
         repository.Transaction.CreateTransaction(transaction);

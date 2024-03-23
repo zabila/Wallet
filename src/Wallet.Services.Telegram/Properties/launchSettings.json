@@ -14,10 +14,10 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5055",
+      "applicationUrl": "http://localhost:5004",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "TELEGRAM_BOT_TOKEN": ""
+        "TELEGRAM_BOT_TOKEN": "6306276074:AAEdfGIGt-6HR8QhEjcxVItXmykT8NPVKrU"
       }
     }
   }
