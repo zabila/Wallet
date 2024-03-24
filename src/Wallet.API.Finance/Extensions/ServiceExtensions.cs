@@ -64,7 +64,11 @@ public static class ServiceExtensions {
     }
 
     private static void ConfigureIdentity(this IServiceCollection services, IConfiguration configuration) {
-        var key = Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!);
+        var SECRET = Environment.GetEnvironmentVariable("SECRET");
+        if (string.IsNullOrEmpty(SECRET)) {
+            throw new ArgumentNullException(nameof(SECRET));
+        }
+        var key = Encoding.UTF8.GetBytes(SECRET!);
         var issuer = configuration["Jwt:Issuer"];
         var audience = configuration["Jwt:Audience"];
 

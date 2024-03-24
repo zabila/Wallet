@@ -66,7 +66,11 @@ public static class ServiceExtensions {
 
         services.AddSingleton<IEmailSender<WalletIdentityUser>, EmailSender>();
 
-        var key = Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!);
+        var SECRET = Environment.GetEnvironmentVariable("SECRET");
+        if (string.IsNullOrEmpty(SECRET)) {
+            throw new ArgumentNullException(nameof(SECRET));
+        }
+        var key = Encoding.UTF8.GetBytes(SECRET!);
         var issuer = configuration["Jwt:Issuer"];
         var audience = configuration["Jwt:Audience"];
 

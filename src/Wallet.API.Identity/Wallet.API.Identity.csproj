@@ -8,11 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="12.0.1"/>
-        <PackageReference Include="MediatR" Version="12.2.0"/>
+      <_WebToolingArtifacts Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="MediatR" Version="12.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,26 +25,25 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.1" />
-        <PackageReference Include="NLog" Version="5.2.8"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="NLog" Version="5.2.8" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\Wallet.Application.Identity\Wallet.Application.Identity.csproj" />
-      <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
-      <ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj" />
-      <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
-      <ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj" />
-      <ProjectReference Include="..\Wallet.Services.Telegram\Wallet.Services.Telegram.csproj" />
+        <ProjectReference Include="..\Wallet.Application.Identity\Wallet.Application.Identity.csproj" />
+        <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
+        <ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj" />
+        <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
+        <ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj" />
     </ItemGroup>
 
 </Project>
