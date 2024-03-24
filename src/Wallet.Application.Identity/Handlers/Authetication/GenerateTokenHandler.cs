@@ -28,8 +28,7 @@ internal sealed class GenerateTokenHandler(IConfiguration configuration, UserMan
     }
 
     private SigningCredentials GetSigningCredentials() {
-        //TODO: Move to MonitorOptions
-        var key = Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!);
+        var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET")!);
         var secretKey = new SymmetricSecurityKey(key);
         return new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
     }
