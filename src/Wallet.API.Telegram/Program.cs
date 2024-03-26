@@ -9,21 +9,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
-builder.Services.ConfigureDataBase(builder.Configuration);
-builder.Services.ConfigureLoggerService();
-builder.Services.ConfigureSwagger();
-
-builder.Services.ConfigureIdentity(builder.Configuration);
+builder.Services.ConfigureServices(builder.Configuration); ;
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigureExceptionHandler(logger);
+
+if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-var logger = app.Services.GetRequiredService<ILoggerManager>();
-app.ConfigureExceptionHandler(logger);
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
