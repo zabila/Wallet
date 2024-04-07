@@ -15,30 +15,13 @@ export class AuthGuard {
     ) {}
 
     canActivate = () => {
-        return this.isTokenAndUserValid();
+        return this.isTokenValid();
     };
-
-    isTokenAndUserValid() {
-        return this.isTokenValid() && this.isUserValid();
-    }
 
     isTokenValid() {
         return this.authenticationService.currentToken$.pipe(
             map((token) => {
                 if (token) {
-                    return true;
-                }
-                console.log('Not authenticated, redirecting to login page');
-                this.router.navigate(['/login']);
-                return false;
-            })
-        );
-    }
-
-    isUserValid() {
-        return this.userService.currentUser$.pipe(
-            map((user) => {
-                if (user) {
                     return true;
                 }
                 console.log('Not authenticated, redirecting to login page');
