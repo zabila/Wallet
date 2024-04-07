@@ -1,0 +1,117 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Register</h2>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="register()">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-control"
+                                [(ngModel)]="model.email"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label"
+                                >Password:</label
+                            >
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control"
+                                [(ngModel)]="model.password"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label"
+                                >Confirm Password:</label
+                            >
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                class="form-control"
+                                [(ngModel)]="model.confirmPassword"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label"
+                                >First Name:</label
+                            >
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                class="form-control"
+                                [(ngModel)]="model.firstName"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label"
+                                >Last Name:</label
+                            >
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                class="form-control"
+                                [(ngModel)]="model.lastName"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="telegramUserId" class="form-label"
+                                >Telegram User ID:</label
+                            >
+                            <input
+                                type="number"
+                                id="telegramUserId"
+                                name="telegramUserId"
+                                class="form-control"
+                                [(ngModel)]="model.telegramUserId"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="telegramUsername" class="form-label"
+                                >Telegram Username:</label
+                            >
+                            <input
+                                type="text"
+                                id="telegramUsername"
+                                name="telegramUsername"
+                                class="form-control"
+                                [(ngModel)]="model.telegramUsername"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 mb-3"
+                        >
+                            Register
+                        </button>
+                    </form>
+                    <button
+                        type="button"
+                        class="btn btn-secondary w-100"
+                        (click)="login()"
+                    >
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

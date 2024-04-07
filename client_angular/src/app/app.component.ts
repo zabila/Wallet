@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from './_services/authentication.service';
+import { UserService } from './_services/user.service';
 
 @Component({
     selector: 'app-root',
@@ -8,19 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
     title = 'Wallet';
-    transactions: any;
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private accountService: AuthenticationService,
+        private userService: UserService
+    ) {}
 
     ngOnInit(): void {
-        this.http
-            .get(
-                'http://localhost:5032/api/account/fe7d0297-946a-4a7e-8d03-64dee035babf/transactions'
-            )
-            .subscribe({
-                next: (response) => (this.transactions = response),
-                error: (error) => console.log(error),
-                complete: () => console.log('completed'),
-            });
+        this.setCurrentToken();
+        this.getCurrentUser();
+    }
+
+    setCurrentToken() {
+        const token: string = localStorage.getItem('accessToken') || '';
+        if (!token) return;
+        this.accountService.setCurrentToken({
+            accessToken: token,
+            refreshToken: '',
+        });
+    }
+
+    getCurrentUser() {
+        const username: string = localStorage.getItem('currentUser') || '';
+        if (!username) return;
+        this.userService.getCurrentUser(username).subscribe();
     }
 }

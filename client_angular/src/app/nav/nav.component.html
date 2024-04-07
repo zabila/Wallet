@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Wallet</a>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Transactions</a>
+            </li>
+        </ul>
+
+        <div class="dropdown" *ngIf="currentUser$ | async as user" dropdown>
+            <a class="dropdown-toggle text-light" dropdownToggle
+                >Welcome {{ user.firstName }}</a
+            >
+            <div class="dropdown-menu" *dropdownMenu>
+                <a class="dropdown-item">Edit Profile</a>
+                <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
