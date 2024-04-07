@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Wallet.API.Identity.Extensions;
 using Wallet.Domain.Contracts;
+using Wallet.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -31,4 +33,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+ApplyMigrations(app.Services);
+
 app.Run();
+
+static void ApplyMigrations(IServiceProvider serviceProvider) {
+    using var scope = serviceProvider.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+    context.Database.Migrate();
+}
