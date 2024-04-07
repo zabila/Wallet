@@ -6,12 +6,12 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Wallet.Application.Identity.Commands.Authetication;
+using Wallet.Application.Identity.Commands.Authentication;
 using Wallet.Domain.Entities.Model;
 using Wallet.Shared.DataTransferObjects;
 using SigningCredentials = Microsoft.IdentityModel.Tokens.SigningCredentials;
 
-namespace Wallet.Application.Identity.Handlers.Authetication;
+namespace Wallet.Application.Identity.Handlers.Authentication;
 
 internal sealed class GenerateTokenHandler(IConfiguration configuration, UserManager<WalletIdentityUser> userManager) : IRequestHandler<GenerateTokenCommand, TokenDto> {
     public async Task<TokenDto> Handle(GenerateTokenCommand request, CancellationToken cancellationToken) {
@@ -33,16 +33,17 @@ internal sealed class GenerateTokenHandler(IConfiguration configuration, UserMan
         return new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
     }
 
-    private async Task<List<Claim>> GetClaims(UserForAuthenticationDto userForAuthenticationDto) {
+    private async Task<List<Claim>> GetClaims(UserForAuthenticationDto userForAuthenticationDto)
+    {
         var user = await userManager.FindByNameAsync(userForAuthenticationDto.UserName!) ?? throw new UnauthorizedAccessException("Invalid Authentication");
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.UserName!)
+        var claims = new List<Claim> {
+            new Claim("user_name", user.UserName!)
         };
 
         var roles = await userManager.GetRolesAsync(user);
-        foreach (var role in roles) {
-            claims.Add(new Claim(ClaimTypes.Role, role));
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim("Role", role));
         }
         return claims;
     }
