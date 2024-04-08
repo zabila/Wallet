@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.setCurrentToken();
-        this.getCurrentUser();
+        this.setCurrentUser();
     }
 
     setCurrentToken() {
@@ -29,9 +29,9 @@ export class AppComponent implements OnInit {
         });
     }
 
-    getCurrentUser() {
+    setCurrentUser() {
         const username: string = localStorage.getItem('currentUser') || '';
         if (!username) return;
-        this.userService.getCurrentUser(username).subscribe();
+        this.userService.setCurrentUser(username);
     }
 }
