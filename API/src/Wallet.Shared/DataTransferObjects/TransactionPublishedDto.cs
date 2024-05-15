@@ -1,7 +1,6 @@
 ﻿namespace Wallet.Shared.DataTransferObjects;
 
-public class TransactionPublishedDto
-{
+public class TransactionPublishedDto {
     public Guid Id { get; set; }
     public string? Event { get; set; }
     public DateTime Date { get; set; }

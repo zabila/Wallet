@@ -2,7 +2,6 @@
 
 namespace Wallet.Services.Telegram.AsyncDataServices;
 
-public interface IMessageBusClient
-{
+public interface IMessageBusClient {
     void PublishNewTransaction(TransactionPublishedDto transactionPublishedDto);
 }

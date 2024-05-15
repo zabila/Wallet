@@ -1,7 +1,6 @@
 ﻿namespace Wallet.Services.Telegram.Dtos;
 
-public class TransactionPublishedDto
-{
+public class TransactionPublishedDto {
     public Guid Id { get; set; }
     public string? Event { get; set; } = "TransactionTelegramPublished";
     public DateTime Date { get; set; }

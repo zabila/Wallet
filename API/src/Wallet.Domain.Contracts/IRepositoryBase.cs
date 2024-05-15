@@ -2,8 +2,7 @@
 
 namespace Wallet.Domain.Contracts;
 
-public interface IRepositoryBase<T>
-{
+public interface IRepositoryBase<T> {
     IQueryable<T> FindAll(bool trackChanges);
     IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges);
 

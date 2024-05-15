@@ -14,7 +14,10 @@ export class AuthenticationService {
     private currentTokenSource = new BehaviorSubject<Token | null>(null);
     currentToken$ = this.currentTokenSource.asObservable();
 
-    constructor(private http: HttpClient, private userService: UserService) {}
+    constructor(
+        private http: HttpClient,
+        private userService: UserService,
+    ) {}
 
     login(model: any) {
         return this.http.post<Token>(this.baseUrl + 'login', model).pipe(
@@ -29,7 +32,7 @@ export class AuthenticationService {
                     const userName = decodedToken.user_name;
                     this.userService.getCurrentUser(userName).subscribe();
                 }
-            })
+            }),
         );
     }
 

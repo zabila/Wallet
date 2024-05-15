@@ -7,8 +7,7 @@ using Wallet.Domain.Contracts;
 
 namespace Wallet.Integration.MessageBus;
 
-public class MessageBusSubscriber : BackgroundService
-{
+public class MessageBusSubscriber : BackgroundService {
     private IConnection? _connection;
     private IModel? _channel;
     private readonly IConfiguration _configuration;
@@ -16,21 +15,18 @@ public class MessageBusSubscriber : BackgroundService
     private readonly ILoggerManager _logger;
     private const string QueueName = "transactionQueue";
 
-    public MessageBusSubscriber(IConfiguration configuration, IEventProcessor eventProcessor, ILoggerManager logger)
-    {
+    public MessageBusSubscriber(IConfiguration configuration, IEventProcessor eventProcessor, ILoggerManager logger) {
         _configuration = configuration;
         _eventProcessor = eventProcessor;
         _logger = logger;
         InitializeRabbitMqListener();
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
-    {
+    protected override Task ExecuteAsync(CancellationToken stoppingToken) {
         stoppingToken.ThrowIfCancellationRequested();
 
         var consumer = new EventingBasicConsumer(_channel);
-        consumer.Received += (_, ea) =>
-        {
+        consumer.Received += (_, ea) => {
             _logger.LogInfo("Event received from RabbitMQ");
 
             var body = ea.Body;
@@ -42,14 +38,12 @@ public class MessageBusSubscriber : BackgroundService
         return Task.CompletedTask;
     }
 
-    private void InitializeRabbitMqListener()
-    {
+    private void InitializeRabbitMqListener() {
         var hostName = _configuration["RabbitMQHost"];
         var port = int.Parse(_configuration["RabbitMQPort"]!);
         _logger.LogInfo($"Connecting to RabbitMQ at {hostName}:{port}");
-        
-       var factory = new ConnectionFactory
-        {
+
+        var factory = new ConnectionFactory {
             HostName = hostName,
             Port = port
         };
@@ -60,15 +54,12 @@ public class MessageBusSubscriber : BackgroundService
         _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
     }
 
-    private void RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
-    {
+    private void RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e) {
         _logger.LogError("RabbitMQ Connection Shutdown");
     }
 
-    public override void Dispose()
-    {
-        if (_channel!.IsOpen)
-        {
+    public override void Dispose() {
+        if (_channel!.IsOpen) {
             _channel.Close();
             _connection!.Close();
         }

@@ -27,24 +27,20 @@ internal sealed class GenerateTokenHandler(IConfiguration configuration, UserMan
         return tokenDto;
     }
 
-    private SigningCredentials GetSigningCredentials() {
+    private static SigningCredentials GetSigningCredentials() {
         var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET")!);
         var secretKey = new SymmetricSecurityKey(key);
         return new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
     }
 
-    private async Task<List<Claim>> GetClaims(UserForAuthenticationDto userForAuthenticationDto)
-    {
+    private async Task<List<Claim>> GetClaims(UserForAuthenticationDto userForAuthenticationDto) {
         var user = await userManager.FindByNameAsync(userForAuthenticationDto.UserName!) ?? throw new UnauthorizedAccessException("Invalid Authentication");
         var claims = new List<Claim> {
             new Claim("user_name", user.UserName!)
         };
 
         var roles = await userManager.GetRolesAsync(user);
-        foreach (var role in roles)
-        {
-            claims.Add(new Claim("Role", role));
-        }
+        claims.AddRange(roles.Select(role => new Claim("Role", role)));
         return claims;
     }
 
@@ -59,11 +55,10 @@ internal sealed class GenerateTokenHandler(IConfiguration configuration, UserMan
         return tokenOptions;
     }
 
-    private string GenerateRefreshToken() {
+    private static string GenerateRefreshToken() {
         var randomNumber = new byte[32];
-        using (var rng = RandomNumberGenerator.Create()) {
-            rng.GetBytes(randomNumber);
-            return Convert.ToBase64String(randomNumber);
-        }
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 }

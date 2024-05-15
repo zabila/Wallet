@@ -4,10 +4,8 @@ using Wallet.Domain.Entities.Model;
 
 namespace Wallet.Infrastructure.Repository.Configuration;
 
-public class AccountConfiguration : IEntityTypeConfiguration<Account>
-{
-    public void Configure(EntityTypeBuilder<Account> builder)
-    {
+public class AccountConfiguration : IEntityTypeConfiguration<Account> {
+    public void Configure(EntityTypeBuilder<Account> builder) {
         builder.Property(a => a.AccountName).IsRequired();
         builder.HasIndex(a => a.AccountName).IsUnique();
     }

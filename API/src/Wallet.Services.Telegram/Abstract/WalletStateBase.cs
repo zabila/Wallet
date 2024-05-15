@@ -6,16 +6,14 @@ using Wallet.Services.Telegram.SyncDataServices.Http;
 
 namespace Wallet.Services.Telegram.Abstract;
 
-public abstract class WalletStateBase : IWalletState
-{
+public abstract class WalletStateBase : IWalletState {
     protected IWalletContext Context = null!;
     protected ITelegramBotClient BotClient = null!;
     protected ILoggerManager Logger = null!;
     protected IMessageBusClient MessageBusClient = null!;
     protected IWalletDataClient WalletDataClient = null!;
 
-    public void Init(IWalletContext context, ITelegramBotClient client, ILoggerManager logger, IMessageBusClient messageBusClient, IWalletDataClient walletDataClient)
-    {
+    public void Init(IWalletContext context, ITelegramBotClient client, ILoggerManager logger, IMessageBusClient messageBusClient, IWalletDataClient walletDataClient) {
         Context = context;
         BotClient = client;
         Logger = logger;

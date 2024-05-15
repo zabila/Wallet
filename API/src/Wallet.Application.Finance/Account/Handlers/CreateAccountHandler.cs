@@ -8,20 +8,18 @@ using Wallet.Shared.DataTransferObjects;
 
 namespace Wallet.Application.Finance.Account.Handlers;
 
-internal sealed class CreateAccountHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger) : IRequestHandler<CreateAccountCommand, AccountReadDto>
-{
-    public async Task<AccountReadDto> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
-    {
+internal sealed class CreateAccountHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager logger)
+    : IRequestHandler<CreateAccountCommand, AccountReadDto> {
+    public async Task<AccountReadDto> Handle(CreateAccountCommand request, CancellationToken cancellationToken) {
         logger.LogDebug("CreateAccountHandler: Creating account");
 
-        var accountDto = request?.AccountCreateDto;
-        await CheckIfAccountAlreadyExists(accountDto!);
+        AccountCreateDto? accountDto = request?.AccountCreateDto;
+        await CheckIfAccountAlreadyExistsAsync(accountDto!);
 
-        var account = mapper.Map<Wallet.Domain.Entities.Model.Account>(accountDto);
+        Domain.Entities.Model.Account? account = mapper.Map<Wallet.Domain.Entities.Model.Account>(accountDto);
         repository.Account.CreateAccount(account);
 
-        var accountTelegram = new AccountTelegram
-        {
+        AccountTelegram accountTelegram = new AccountTelegram {
             AccountId = account.Id,
             TelegramUserId = accountDto!.TelegramUserId
         };
@@ -29,25 +27,23 @@ internal sealed class CreateAccountHandler(IRepositoryManager repository, IMappe
         SaveAccountTelegramIfNotExists(accountTelegram);
 
         await repository.SaveAsync(cancellationToken);
-        var accountToReturn = mapper.Map<AccountReadDto>(account);
+        AccountReadDto? accountToReturn = mapper.Map<AccountReadDto>(account);
         accountToReturn.TelegramUserId = accountDto.TelegramUserId;
         return accountToReturn;
     }
 
-    private async Task CheckIfAccountAlreadyExists(AccountCreateDto accountDto)
-    {
-        var existingAccount = await repository.Account.GetAccountByNameAsync(accountDto!.AccountName!);
-        if (existingAccount != null)
-        {
+    private async Task CheckIfAccountAlreadyExistsAsync(AccountCreateDto accountDto) {
+        Domain.Entities.Model.Account? existingAccount =
+            await repository.Account.GetAccountByNameAsync(accountDto!.AccountName!);
+
+        if (existingAccount != null) {
             throw new AccountAlreadyExistsBadRequestException(accountDto.AccountName!);
         }
     }
 
-    private void SaveAccountTelegramIfNotExists(AccountTelegram accountTelegram)
-    {
-        var isExistAccountTelegram = repository.AccountTelegrams.AccountTelegramExists(accountTelegram);
-        if (!isExistAccountTelegram)
-        {
+    private void SaveAccountTelegramIfNotExists(AccountTelegram accountTelegram) {
+        bool isExistAccountTelegram = repository.AccountTelegrams.AccountTelegramExists(accountTelegram);
+        if (!isExistAccountTelegram) {
             repository.AccountTelegrams.CreateAccountTelegram(accountTelegram);
         }
     }

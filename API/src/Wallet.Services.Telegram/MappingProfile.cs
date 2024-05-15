@@ -4,10 +4,8 @@ using Wallet.Services.Telegram.Dtos;
 
 namespace Wallet.Services.Telegram;
 
-public class MappingProfile : Profile
-{
-    public MappingProfile()
-    {
+public class MappingProfile : Profile {
+    public MappingProfile() {
         CreateMap<Transaction, TransactionReadDto>();
         CreateMap<TransactionCreateDto, Transaction>();
         CreateMap<TransactionReadDto, TransactionPublishedDto>();
