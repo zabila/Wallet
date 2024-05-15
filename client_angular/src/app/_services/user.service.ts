@@ -30,7 +30,7 @@ export class UserService {
                         localStorage.removeItem('accessToken');
                         localStorage.removeItem('currentUser');
                     }
-                })
+                }),
             );
     }
 
