@@ -2,8 +2,7 @@
 
 namespace Wallet.Domain.Contracts;
 
-public interface IAccountRepository
-{
+public interface IAccountRepository {
     void CreateAccount(Account account);
     void DeleteAccount(Account account);
     void UpdateAccount(Account account);

@@ -2,8 +2,7 @@
 
 namespace Wallet.Domain.Contracts;
 
-public interface IAccountTelegramsRepository
-{
+public interface IAccountTelegramsRepository {
     void CreateAccountTelegram(AccountTelegram accountTelegram);
     void DeleteAccountTelegram(AccountTelegram accountTelegram);
     void UpdateAccountTelegram(AccountTelegram accountTelegram);

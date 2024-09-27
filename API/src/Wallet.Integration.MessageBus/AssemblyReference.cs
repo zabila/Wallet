@@ -1,5 +1,4 @@
 ﻿namespace Wallet.Integration.MessageBus;
 
-public static class AssemblyReference
-{
+public static class AssemblyReference {
 }

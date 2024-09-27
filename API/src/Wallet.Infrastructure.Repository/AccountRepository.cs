@@ -1,22 +1,19 @@
-﻿using Wallet.Domain.Entities.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Wallet.Domain.Contracts;
+using Wallet.Domain.Entities.Model;
 
 namespace Wallet.Infrastructure.Repository;
 
-public sealed class AccountRepository(DbContext repositoryContext) : RepositoryBase<Account>(repositoryContext), IAccountRepository
-{
+public sealed class AccountRepository(DbContext repositoryContext) : RepositoryBase<Account>(repositoryContext), IAccountRepository {
     public void CreateAccount(Account account) => Create(account);
     public void DeleteAccount(Account account) => Delete(account);
     public void UpdateAccount(Account account) => Update(account);
 
-    public async Task<Account?> GetAccountAsync(Guid accountId, bool trackChanges, CancellationToken cancellationToken)
-    {
+    public async Task<Account?> GetAccountAsync(Guid accountId, bool trackChanges, CancellationToken cancellationToken) {
         return await FindByCondition(account => account.Id.Equals(accountId), trackChanges).SingleOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<Account?> GetAccountByNameAsync(string name)
-    {
+    public async Task<Account?> GetAccountByNameAsync(string name) {
         return await FindByCondition(account => account.AccountName!.Equals(name), false).SingleOrDefaultAsync();
     }
 

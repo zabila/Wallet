@@ -2,16 +2,12 @@
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using Wallet.Services.Telegram.Dtos;
-using Wallet.Services.Telegram.Services;
 using Wallet.Services.Telegram.Abstract;
 
 namespace Wallet.Services.Telegram.WalletStates.Incoming;
 
-public class IncomingState : WalletStateBase
-{
-    public override async Task HandleRequest(Message message, CancellationToken cancellationToken)
-    {
+public class IncomingState : WalletStateBase {
+    public override async Task HandleRequest(Message message, CancellationToken cancellationToken) {
         await BotClient.SendChatActionAsync(
             chatId: message.Chat.Id,
             chatAction: ChatAction.Typing,
@@ -31,19 +27,15 @@ public class IncomingState : WalletStateBase
             cancellationToken: cancellationToken);
     }
 
-    public override async Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
-    {
+    public override async Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken) {
         string? responseText = null;
         var category = callbackQuery.Data;
-        if (category == "New category")
-        {
+        if (category == "New category") {
             responseText = $"Chosen {callbackQuery.Data} category!\n " +
                            "Please enter template income: \n" +
                            "{Category} {Amount}";
             category = null;
-        }
-        else
-        {
+        } else {
             responseText = $"Chosen {callbackQuery.Data} category!\n " +
                            "Please enter template income: \n" +
                            "{Amount}";

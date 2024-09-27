@@ -8,13 +8,10 @@ using Wallet.Services.Telegram.WalletStates.Outcoming;
 
 namespace Wallet.Services.Telegram.WalletStates;
 
-public class StartState : WalletStateBase
-{
-    public override async Task HandleRequest(Message message, CancellationToken cancellationToken)
-    {
+public class StartState : WalletStateBase {
+    public override async Task HandleRequest(Message message, CancellationToken cancellationToken) {
         var command = message.Text;
-        switch (command)
-        {
+        switch (command) {
             case "Expenses":
                 Context!.SetState(new OutcomingState());
                 await Context!.HandleRequest(message, cancellationToken);
@@ -30,8 +27,7 @@ public class StartState : WalletStateBase
             chatAction: ChatAction.Typing,
             cancellationToken: cancellationToken);
 
-        ReplyKeyboardMarkup replyKeyboardMarkup = new(new KeyboardButton[] { "Expenses", "Income" })
-        {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new(new KeyboardButton[] { "Expenses", "Income" }) {
             ResizeKeyboard = true
         };
 
@@ -42,8 +38,7 @@ public class StartState : WalletStateBase
             cancellationToken: cancellationToken);
     }
 
-    public override Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
-    {   
-        throw new NotImplementedException();    
+    public override Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken) {
+        throw new NotImplementedException();
     }
 }

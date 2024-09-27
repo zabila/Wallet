@@ -1,7 +1,6 @@
 namespace Wallet.Domain.Entities.Enums;
 
-public enum EventType
-{
+public enum EventType {
     TransactionTelegramPublished,
     Undetermined
 }

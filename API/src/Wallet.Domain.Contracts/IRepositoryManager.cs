@@ -1,7 +1,6 @@
 ﻿namespace Wallet.Domain.Contracts;
 
-public interface IRepositoryManager
-{
+public interface IRepositoryManager {
     ITransactionRepository Transaction { get; }
     IAccountRepository Account { get; }
 

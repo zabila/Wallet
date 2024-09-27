@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using Wallet.Shared.DataTransferObjects;
 using Wallet.Domain.Entities.Model;
+using Wallet.Shared.DataTransferObjects;
 
 namespace Wallet.API.Finance;
 
-public class MappingProfile : Profile
-{
-    public MappingProfile()
-    {
+public class MappingProfile : Profile {
+    public MappingProfile() {
         CreateMap<Transaction, TransactionReadDto>();
         CreateMap<TransactionCreateDto, Transaction>();
         CreateMap<IEnumerator<TransactionReadDto>, IEnumerator<Transaction>>();

@@ -33,8 +33,7 @@ internal sealed class GenerateTokenHandler(IConfiguration configuration, UserMan
         return new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
     }
 
-    private async Task<List<Claim>> GetClaims(UserForAuthenticationDto userForAuthenticationDto)
-    {
+    private async Task<List<Claim>> GetClaims(UserForAuthenticationDto userForAuthenticationDto) {
         var user = await userManager.FindByNameAsync(userForAuthenticationDto.UserName!) ?? throw new UnauthorizedAccessException("Invalid Authentication");
         var claims = new List<Claim> {
             new Claim("user_name", user.UserName!)

@@ -6,10 +6,8 @@ using Wallet.Services.Telegram.Abstract;
 
 namespace Wallet.Services.Telegram.WalletStates.Outcoming;
 
-public class OutcomingState : WalletStateBase
-{
-    public override async Task HandleRequest(Message message, CancellationToken cancellationToken)
-    {
+public class OutcomingState : WalletStateBase {
+    public override async Task HandleRequest(Message message, CancellationToken cancellationToken) {
         await BotClient.SendChatActionAsync(
             chatId: message.Chat.Id,
             chatAction: ChatAction.Typing,
@@ -29,19 +27,15 @@ public class OutcomingState : WalletStateBase
             cancellationToken: cancellationToken);
     }
 
-    public override async Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
-    {
+    public override async Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken) {
         string? responseText = null;
         var category = callbackQuery.Data;
-        if (category == "New category")
-        {
+        if (category == "New category") {
             responseText = $"Chosen {callbackQuery.Data} category!\n " +
                            "Please enter template income: \n" +
                            "{Category} {Amount}";
             category = null;
-        }
-        else
-        {
+        } else {
             responseText = $"Chosen {callbackQuery.Data} category!\n " +
                            "Please enter template income: \n" +
                            "{Amount}";

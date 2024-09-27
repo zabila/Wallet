@@ -3,11 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wallet.Domain.Entities.Model;
 
-public sealed class Account
-{
-    [Key] [Column("AccountId")] public Guid Id { get; set; }
+public sealed class Account {
+    [Key][Column("AccountId")] public Guid Id { get; set; }
 
-    [Required] [MaxLength(100)] public string? AccountName { get; set; }
+    [Required][MaxLength(100)] public string? AccountName { get; set; }
 
     [Required] public DateTime CreatedAt { get; set; }
     [Required] public DateTime UpdatedAt { get; set; }

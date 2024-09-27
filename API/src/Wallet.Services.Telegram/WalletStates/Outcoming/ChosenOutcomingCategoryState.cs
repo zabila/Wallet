@@ -4,25 +4,19 @@ using Wallet.Services.Telegram.Dtos;
 
 namespace Wallet.Services.Telegram.WalletStates.Outcoming;
 
-public class ChosenOutcomingCategoryState(string? category) : WalletStateBase
-{
-    public override Task HandleRequest(Message message, CancellationToken cancellationToken)
-    {
+public class ChosenOutcomingCategoryState(string? category) : WalletStateBase {
+    public override Task HandleRequest(Message message, CancellationToken cancellationToken) {
         var amount = 0;
         var messageText = message.Text;
-        if (category == null && messageText!.Split(" ").Length > 1)
-        {
+        if (category == null && messageText!.Split(" ").Length > 1) {
             var split = messageText.Split(" ");
             category = split[0];
             amount = int.Parse(split[1]);
-        }
-        else
-        {
+        } else {
             amount = int.Parse(messageText!);
         }
 
-        var transaction = new TransactionPublishedDto
-        {
+        var transaction = new TransactionPublishedDto {
             Id = Guid.NewGuid(),
             TelegramUserId = (int)message.From!.Id,
             Date = message.Date,
@@ -42,8 +36,7 @@ public class ChosenOutcomingCategoryState(string? category) : WalletStateBase
         return Task.CompletedTask;
     }
 
-    public override Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
-    {
+    public override Task HandleCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken) {
         throw new NotImplementedException();
     }
 }
