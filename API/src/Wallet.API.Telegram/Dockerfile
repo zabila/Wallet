@@ -1,5 +1,5 @@
 ﻿#Stage: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /src
 
 #restore
@@ -22,7 +22,13 @@ FROM build AS publish
 RUN dotnet publish "Wallet.API.Telegram.csproj" -c Release -o /app/publish
 
 #Stage: Final
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
+
+# Create a non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# Switch to non-root user
+USER appuser
+
 ENV ASPNERCORE_HTTPS_PORT=5000
 EXPOSE 5000
 WORKDIR /app
