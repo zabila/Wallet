@@ -1,23 +1,31 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
+﻿#Stage: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Wallet.API.Identity/Wallet.API.Identity.csproj", "src/Wallet.API.Identity/"]
-RUN dotnet restore "src/Wallet.API.Identity/Wallet.API.Identity.csproj"
-COPY . .
-WORKDIR "/src/src/Wallet.API.Identity"
-RUN dotnet build "Wallet.API.Identity.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+#restore
+COPY ["src/Wallet.API.Identity/", "Wallet.API.Identity/"]
+COPY ["src/Wallet.Shared/", "Wallet.Shared/"]
+COPY ["src/Wallet.Application.Identity/", "Wallet.Application.Identity/"]
+COPY ["src/Wallet.Infrastructure.LoggerService/", "Wallet.Infrastructure.LoggerService/"]
+COPY ["src/Wallet.Infrastructure.Repository/", "Wallet.Infrastructure.Repository/"]
+COPY ["src/Wallet.Integration.MessageBus/", "Wallet.Integration.MessageBus/"]
+COPY ["src/Wallet.Domain.Contracts/", "Wallet.Domain.Contracts/"]
+COPY ["src/Wallet.Domain.Entities/", "Wallet.Domain.Entities/"]
+
+RUN dotnet restore "Wallet.API.Identity/Wallet.API.Identity.csproj"
+
+#build
+WORKDIR /src/Wallet.API.Identity
+RUN dotnet build "Wallet.API.Identity.csproj" -c Release -o /app/build
+
+#Stage: Publish
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Wallet.API.Identity.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Wallet.API.Identity.csproj" -c Release -o /app/publish
 
-FROM base AS final
+#Stage: Final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+ENV ASPNERCORE_HTTPS_PORT=5000
+EXPOSE 5000
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Wallet.API.Identity.dll"]
