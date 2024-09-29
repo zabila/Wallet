@@ -24,7 +24,7 @@ public class EventProcessor : IEventProcessor, IDisposable {
         _mapper = _scope.ServiceProvider.GetRequiredService<IMapper>();
     }
 
-    public async Task ProcessEvent(string message) {
+    public async Task ProcessEventAsync(string message) {
         var eventType = DetermineEventType(message);
         switch (eventType) {
             case EventType.TransactionTelegramPublished:
