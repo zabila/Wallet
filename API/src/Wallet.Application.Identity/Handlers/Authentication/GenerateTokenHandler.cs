@@ -16,7 +16,7 @@ namespace Wallet.Application.Identity.Handlers.Authentication;
 internal sealed class GenerateTokenHandler(IConfiguration configuration, UserManager<WalletIdentityUser> userManager) : IRequestHandler<GenerateTokenCommand, TokenDto> {
     public async Task<TokenDto> Handle(GenerateTokenCommand request, CancellationToken cancellationToken) {
         var signingCredentials = GetSigningCredentials();
-        var claims = await GetClaims(request.UserForAuthenticationDto);
+        var claims = await GetClaimsAsync(request.UserForAuthenticationDto);
         var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
 
         var refreshToken = GenerateRefreshToken();
@@ -33,7 +33,7 @@ internal sealed class GenerateTokenHandler(IConfiguration configuration, UserMan
         return new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
     }
 
-    private async Task<List<Claim>> GetClaims(UserForAuthenticationDto userForAuthenticationDto) {
+    private async Task<List<Claim>> GetClaimsAsync(UserForAuthenticationDto userForAuthenticationDto) {
         var user = await userManager.FindByNameAsync(userForAuthenticationDto.UserName!) ?? throw new UnauthorizedAccessException("Invalid Authentication");
         var claims = new List<Claim> {
             new Claim("user_name", user.UserName!)
