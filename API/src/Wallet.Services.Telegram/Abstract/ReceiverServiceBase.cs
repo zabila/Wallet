@@ -11,7 +11,7 @@ public abstract class ReceiverServiceBase<TUpdateHandler> : IReceiverService whe
     private readonly ILoggerManager _logger;
 
     private readonly ReceiverOptions _receiverOptions = new ReceiverOptions {
-        AllowedUpdates = Array.Empty<UpdateType>(),
+        AllowedUpdates = [],
         ThrowPendingUpdates = true,
     };
 

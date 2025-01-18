@@ -2,32 +2,38 @@
 
 namespace Wallet.Services.Telegram.Abstract;
 
-public abstract class PollingServiceBase<TReceiverService> : BackgroundService where TReceiverService : IReceiverService {
-    private readonly IServiceProvider _serviceProvider;
+public abstract class PollingServiceBase<TReceiverService> : BackgroundService
+    where TReceiverService : IReceiverService {
+    private readonly IServiceProvider _serviceScopeFactory;
     private readonly ILoggerManager _logger;
+    private const int PollingDelayInSeconds = 3;
 
-    internal PollingServiceBase(IServiceProvider serviceProvider, ILoggerManager logger) {
-        _serviceProvider = serviceProvider;
+    internal PollingServiceBase(IServiceProvider serviceScopeFactory, ILoggerManager logger) {
+        _serviceScopeFactory = serviceScopeFactory;
         _logger = logger;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
+    protected override Task ExecuteAsync(CancellationToken stoppingToken) {
         _logger.LogInfo("Polling service is starting.");
-        await DoWork(stoppingToken);
+        return PerformPollingAsync(stoppingToken);
     }
 
-    private async Task DoWork(CancellationToken stoppingToken) {
+    private async Task PerformPollingAsync(CancellationToken stoppingToken) {
         _logger.LogInfo("Polling service is working.");
         while (!stoppingToken.IsCancellationRequested) {
-            try {
-                using var scope = _serviceProvider.CreateScope();
-                var receiver = scope.ServiceProvider.GetRequiredService<TReceiverService>();
-                await receiver.ReceiveAsync(stoppingToken);
-                _logger.LogInfo("Polling service is done.");
-            } catch (Exception ex) {
-                _logger.LogError("Error occurred in polling service: " + ex.Message);
-                await Task.Delay(TimeSpan.FromSeconds(3), stoppingToken);
-            }
+            await PerformReceiveCycleAsync(stoppingToken);
+        }
+    }
+
+    private async Task PerformReceiveCycleAsync(CancellationToken stoppingToken) {
+        try {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var receiver = scope.ServiceProvider.GetRequiredService<TReceiverService>();
+            await receiver.ReceiveAsync(stoppingToken);
+            _logger.LogInfo($"Polling service for {typeof(TReceiverService).Name} completed successfully.");
+        } catch (Exception ex) {
+            _logger.LogError($"Error in {typeof(TReceiverService).Name} polling service: {ex.Message}");
+            await Task.Delay(TimeSpan.FromSeconds(PollingDelayInSeconds), stoppingToken);
         }
     }
 }
