@@ -13,10 +13,11 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
         <PackageReference Include="NLog" Version="5.2.8"/>
         <PackageReference Include="RabbitMQ.Client" Version="6.8.1"/>
+        <PackageReference Include="Stateless" Version="5.17.0"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0"/>
-        <PackageReference Include="Telegram.Bot" Version="20.0.0-alpha.1" />
+        <PackageReference Include="Telegram.Bot" Version="20.0.0-alpha.1"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -28,5 +29,9 @@
         <Content Include="..\..\.dockerignore">
             <Link>.dockerignore</Link>
         </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="WalletStates\Outcoming\"/>
     </ItemGroup>
 </Project>

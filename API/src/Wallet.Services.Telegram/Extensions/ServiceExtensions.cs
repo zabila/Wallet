@@ -1,3 +1,4 @@
+using System.Collections;
 using NLog;
 using Telegram.Bot;
 using Wallet.Services.Telegram.AsyncDataServices;
@@ -7,7 +8,6 @@ using Wallet.Services.Telegram.Services;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Services.Telegram.WalletStates;
 using Wallet.Services.Telegram.WalletStates.Incoming;
-using Wallet.Services.Telegram.WalletStates.Outcoming;
 
 namespace Wallet.Services.Telegram.Extensions;
 
@@ -33,11 +33,14 @@ public static class ServiceExtensions {
         services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
         services.AddScoped<IWalletContext, WalletContext>();
-        services.AddScoped<IWalletState, IncomingState>();
-        services.AddScoped<IWalletState, OutcomingState>();
 
         services.AddScoped<UpdateHandler>();
         services.AddScoped<ReceiverService>();
         services.AddHostedService<PollingService>();
+
+        services.AddScoped<ISessionManager, InMemorySessionManager>();
+        services.AddScoped<IBotStateMachineFactory, BotStateMachineFactory>();
+
+        services.AddScoped<IStateDefinition, IncomingStateDefinition>();
     }
 }
