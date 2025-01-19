@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -32,6 +31,12 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
         };
 
         await handler;
+    }
+
+    public Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, HandleErrorSource source, CancellationToken cancellationToken) {
+        logger.LogError($"An error occurred in {source}: {exception.Message}");
+        logger.LogError($"Exception details: {exception}");
+        return Task.CompletedTask;
     }
 
     /// <summary>

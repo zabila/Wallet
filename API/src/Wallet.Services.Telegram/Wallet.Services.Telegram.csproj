@@ -9,15 +9,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="12.0.1"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
-        <PackageReference Include="NLog" Version="5.2.8"/>
+        <PackageReference Include="AutoMapper" Version="13.0.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="NLog" Version="5.3.4"/>
         <PackageReference Include="RabbitMQ.Client" Version="6.8.1"/>
         <PackageReference Include="Stateless" Version="5.17.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0"/>
-        <PackageReference Include="Telegram.Bot" Version="20.0.0-alpha.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.1"/>
+        <PackageReference Include="Telegram.Bot" Version="22.3.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -33,5 +33,9 @@
 
     <ItemGroup>
         <Folder Include="WalletStates\Outcoming\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj"/>
     </ItemGroup>
 </Project>

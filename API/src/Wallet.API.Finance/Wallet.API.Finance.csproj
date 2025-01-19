@@ -14,9 +14,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="12.0.1"/>
-        <PackageReference Include="MediatR" Version="12.2.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
+        <PackageReference Include="AutoMapper" Version="13.0.1"/>
+        <PackageReference Include="MediatR" Version="12.4.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.12"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
@@ -28,17 +28,18 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
-        <PackageReference Include="NLog" Version="5.2.8"/>
+        <PackageReference Include="NLog" Version="5.3.4"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.1"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
-        <ProjectReference Include="..\Wallet.Application.Finance\Wallet.Application.Finance.csproj" />
-        <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
-        <ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj" />
-        <ProjectReference Include="..\Wallet.Integration.MessageBus\Wallet.Integration.MessageBus.csproj" />
+        <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj"/>
+        <ProjectReference Include="..\Wallet.Application.Finance\Wallet.Application.Finance.csproj"/>
+        <ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj"/>
+        <ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj"/>
+        <ProjectReference Include="..\Wallet.Integration.MessageBus\Wallet.Integration.MessageBus.csproj"/>
     </ItemGroup>
 
 </Project>

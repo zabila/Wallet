@@ -14,6 +14,9 @@ public class InMemorySessionManager(IBotStateMachineFactory machineFactory) : IS
                 ChatId = id
             });
 
+            if (session.CurrentStateMachine is not null)
+                return session;
+
             session.CurrentStateMachine = machineFactory.CreateStateMachine(session);
             return session;
         });

@@ -41,6 +41,6 @@ public static class ServiceExtensions {
         services.AddScoped<ISessionManager, InMemorySessionManager>();
         services.AddScoped<IBotStateMachineFactory, BotStateMachineFactory>();
 
-        services.AddScoped<IStateDefinition, IncomingStateDefinition>();
+        services.AddScoped<IStateDefinition, IncomeStateDefinition>();
     }
 }

@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Wallet.Domain.Contracts\Wallet.Domain.Contracts.csproj" />
+        <ProjectReference Include="..\Wallet.Domain.Contracts\Wallet.Domain.Contracts.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="NLog" Version="5.2.8" />
+        <PackageReference Include="NLog" Version="5.3.4"/>
     </ItemGroup>
 
 </Project>
