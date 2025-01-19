@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="12.2.0"/>
+        <PackageReference Include="MediatR" Version="12.4.1"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj" />
+        <ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -4,6 +4,8 @@ using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Wallet.Domain.Contracts;
+using Wallet.Shared.Extensions;
+using IModel = RabbitMQ.Client.IModel;
 
 namespace Wallet.Integration.MessageBus;
 
@@ -26,12 +28,12 @@ public class MessageBusSubscriber : BackgroundService {
         stoppingToken.ThrowIfCancellationRequested();
 
         var consumer = new EventingBasicConsumer(_channel);
-        consumer.Received += (_, ea) => {
+        consumer.Received += async (_, ea) => {
             _logger.LogInfo("Event received from RabbitMQ");
 
             var body = ea.Body;
             var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
-            _eventProcessor.ProcessEventAsync(notificationMessage);
+            await _eventProcessor.ProcessEventAsync(notificationMessage);
         };
 
         _channel.BasicConsume(queue: QueueName, autoAck: true, consumer: consumer);
@@ -39,14 +41,16 @@ public class MessageBusSubscriber : BackgroundService {
     }
 
     private void InitializeRabbitMqListener() {
-        var hostName = _configuration["RabbitMQHost"];
-        var port = int.Parse(_configuration["RabbitMQPort"]!);
+        var hostName = _configuration["RabbitMQHost"].EnsureExists();
+        var port = int.Parse(_configuration["RabbitMQPort"].EnsureExists());
         _logger.LogInfo($"Connecting to RabbitMQ at {hostName}:{port}");
 
         var factory = new ConnectionFactory {
             HostName = hostName,
-            Port = port
+            Port = port,
+            DispatchConsumersAsync = true
         };
+
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
         _channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
@@ -59,9 +63,9 @@ public class MessageBusSubscriber : BackgroundService {
     }
 
     public override void Dispose() {
-        if (_channel!.IsOpen) {
-            _channel.Close();
-            _connection!.Close();
+        if (_channel.EnsureExists().IsOpen) {
+            _channel.EnsureExists().Close();
+            _connection.EnsureExists().Close();
         }
 
         base.Dispose();

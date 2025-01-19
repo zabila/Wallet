@@ -11,8 +11,7 @@ public abstract class ReceiverServiceBase<TUpdateHandler> : IReceiverService whe
     private readonly ILoggerManager _logger;
 
     private readonly ReceiverOptions _receiverOptions = new ReceiverOptions {
-        AllowedUpdates = [],
-        ThrowPendingUpdates = true,
+        AllowedUpdates = []
     };
 
     internal ReceiverServiceBase(ITelegramBotClient botClient, TUpdateHandler updateHandler, ILoggerManager logger) {
@@ -22,7 +21,7 @@ public abstract class ReceiverServiceBase<TUpdateHandler> : IReceiverService whe
     }
 
     public async Task ReceiveAsync(CancellationToken stoppingToken) {
-        var me = await _botClient.GetMeAsync(stoppingToken);
+        var me = await _botClient.GetMe(stoppingToken);
         _logger.LogInfo($"Start listening for @{me.Username}");
 
         await _botClient.ReceiveAsync(updateHandler: _updateHandler, receiverOptions: _receiverOptions, cancellationToken: stoppingToken);

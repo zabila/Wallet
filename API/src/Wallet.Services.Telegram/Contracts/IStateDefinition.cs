@@ -5,14 +5,17 @@ namespace Wallet.Services.Telegram.Contracts;
 
 public enum BotState {
     Idle,
-    Incoming,
-    Outcoming,
+    Income,
+    Expenses,
+    CategorySelected,
 }
 
 public enum BotTrigger {
-    Incoming,
-    Outcoming,
-    Confirm,
+    Reset,
+    Error,
+    Income,
+    Expenses,
+    CategorySelected,
 }
 
 public interface IStateDefinition {
