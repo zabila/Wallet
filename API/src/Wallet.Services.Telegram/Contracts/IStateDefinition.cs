@@ -8,6 +8,7 @@ public enum BotState {
     Income,
     Expenses,
     CategorySelected,
+    AmountEntered,
 }
 
 public enum BotTrigger {
@@ -16,10 +17,13 @@ public enum BotTrigger {
     Income,
     Expenses,
     CategorySelected,
+    AmountEntering,
+    AmountEntered,
 }
 
 public interface IStateDefinition {
     BotState State { get; }
+    Tuple<bool, BotTrigger> ShouldBeRecalled { get; }
 
     void ConfigureState(StateMachine<BotState, BotTrigger> stateMachine, UserSession userSession);
 }

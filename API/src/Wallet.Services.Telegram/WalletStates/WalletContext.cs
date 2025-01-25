@@ -1,23 +1,18 @@
-﻿using Telegram.Bot;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using Wallet.Services.Telegram.AsyncDataServices;
+﻿using Telegram.Bot.Types;
 using Wallet.Services.Telegram.Contracts;
+using Wallet.Services.Telegram.Services;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Shared.Extensions;
 
 namespace Wallet.Services.Telegram.WalletStates;
 
 public class WalletContext : IWalletContext {
-    private readonly ITelegramBotClient _bot;
-    private readonly ILoggerManager _logger;
     private readonly ISessionManager _sessionManger;
+    private readonly IBotStateMachineFactory _botStateMachineFactory;
 
-
-    public WalletContext(ITelegramBotClient bot, ILoggerManager logger, IWalletDataClient walletDataClient, IMessageBusClient messageBusClient, ISessionManager sessionManger) {
-        _bot = bot;
-        _logger = logger;
+    public WalletContext(IWalletDataClient walletDataClient, ISessionManager sessionManger, IBotStateMachineFactory botStateMachineFactory) {
         _sessionManger = sessionManger;
+        _botStateMachineFactory = botStateMachineFactory;
 
         walletDataClient.TestInboundConnection();
     }
@@ -30,8 +25,13 @@ public class WalletContext : IWalletContext {
         session.LastInteractionTime = DateTime.UtcNow;
 
         var machine = session.CurrentStateMachine.EnsureExists();
-        if (!Enum.TryParse<BotTrigger>(text, ignoreCase: true, out var trigger)) {
-            await _bot.SendMessage(chatId, "I don't understand you.", cancellationToken: cancellationToken);
+        if (!Enum.TryParse<BotTrigger>(text, ignoreCase: true, out var trigger) || !Enum.IsDefined(typeof(BotTrigger), trigger)) {
+            (bool isReprocessable, BotTrigger reprocessableTrigger) = IsStateReprocessable(machine.State);
+            if (isReprocessable) {
+                await machine.FireAsync(reprocessableTrigger, text);
+                return;
+            }
+
             await machine.FireAsync(BotTrigger.Error);
             return;
         }
@@ -39,7 +39,6 @@ public class WalletContext : IWalletContext {
         if (machine.CanFire(trigger)) {
             await machine.FireAsync(trigger);
         } else {
-            await _bot.SendMessage(chatId, "Oops! Something went wrong.", cancellationToken: cancellationToken);
             await machine.FireAsync(BotTrigger.Error);
         }
     }
@@ -55,8 +54,7 @@ public class WalletContext : IWalletContext {
 
         var machine = session.CurrentStateMachine.EnsureExists();
         var triggerSrt = text.Split(":").First();
-        if (!Enum.TryParse<BotTrigger>(triggerSrt, ignoreCase: true, out var trigger)) {
-            await _bot.SendMessage(chatId, "I don't understand this bottom", cancellationToken: cancellationToken);
+        if (!Enum.TryParse<BotTrigger>(triggerSrt, ignoreCase: true, out var trigger) || !Enum.IsDefined(typeof(BotTrigger), trigger)) {
             await machine.FireAsync(BotTrigger.Error);
             return;
         }
@@ -64,8 +62,12 @@ public class WalletContext : IWalletContext {
         if (machine.CanFire(trigger)) {
             await machine.FireAsync(trigger, data);
         } else {
-            await _bot.SendMessage(chatId, "Oops! Something went wrong on pressed bottom.", cancellationToken: cancellationToken);
             await machine.FireAsync(BotTrigger.Error);
         }
+    }
+
+    private Tuple<bool, BotTrigger> IsStateReprocessable(BotState state) {
+        _botStateMachineFactory.StateDefinition.TryGetValue(state, out var definition);
+        return definition?.ShouldBeRecalled ?? Tuple.Create(false, BotTrigger.Error);
     }
 }
