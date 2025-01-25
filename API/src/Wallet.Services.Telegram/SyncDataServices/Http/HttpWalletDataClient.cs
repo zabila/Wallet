@@ -19,17 +19,29 @@ public class HttpWalletDataClient(HttpClient httpClient, IConfiguration configur
     }
 
     public Task<List<string>> GetIncomingCategoriesAsync() {
-        return Task.FromResult(new List<string>
-        {
+        return Task.FromResult(new List<string> {
             "Salary",
             "Gift",
-            "Other"
+            "Other",
+            "Refund",
+            "Loan",
+            "Investment",
+            "Savings",
+            "Interest",
+            "Dividends",
+            "Rental",
+            "Sale",
+            "Bonus",
+            "Award",
+            "Prize",
+            "Grant",
+            "Scholarship",
+            "Allowance"
         });
     }
 
     public Task<List<string>> GetOutcomingCategoriesAsync() {
-        return Task.FromResult(new List<string>
-        {
+        return Task.FromResult(new List<string> {
             "Food",
             "Transport",
             "Other"

@@ -18,6 +18,7 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
     /// contains a message, callback query, or is of an unknown type, and executes the appropriate handler
     /// method for each case.
     /// </summary>
+    /// <param name="_"></param>
     /// <param name="update">The received update object from Telegram.</param>
     /// <param name="cancellationToken">A token to monitor for task cancellation.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>

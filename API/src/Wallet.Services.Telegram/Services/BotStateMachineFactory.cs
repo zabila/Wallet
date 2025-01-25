@@ -9,11 +9,12 @@ using Wallet.Services.Telegram.WalletStates.Incoming;
 namespace Wallet.Services.Telegram.Services;
 
 public class BotStateMachineFactory(ITelegramBotClient botClient, IWalletDataClient dataClient) : IBotStateMachineFactory {
+    public Dictionary<BotState, IStateDefinition> StateDefinition { get; } = InitializeStateDefinitions(botClient, dataClient);
+
     public StateMachine<BotState, BotTrigger> CreateStateMachine(UserSession session) {
         var machine = session.CurrentStateMachine ?? new StateMachine<BotState, BotTrigger>(BotState.Idle);
         machine.OnUnhandledTrigger((state, trigger) => { });
-        var stateDefinition = GetStateDefinition(machine.State);
-        foreach (var definition in stateDefinition) {
+        foreach (var definition in StateDefinition.Values) {
             definition.ConfigureState(machine, session);
         }
 
@@ -21,11 +22,12 @@ public class BotStateMachineFactory(ITelegramBotClient botClient, IWalletDataCli
     }
 
 
-    private IEnumerable<IStateDefinition> GetStateDefinition(BotState state) {
-        return [
-            new IdleStateDefinition(botClient),
-            new IncomeStateDefinition(botClient, dataClient),
-            new CategorySelectedStateDefinition(botClient)
-        ];
+    private static Dictionary<BotState, IStateDefinition> InitializeStateDefinitions(ITelegramBotClient botClient, IWalletDataClient dataClient) {
+        return new Dictionary<BotState, IStateDefinition> {
+            { BotState.Idle, new IdleStateDefinition(botClient) },
+            { BotState.Income, new IncomeStateDefinition(botClient, dataClient) },
+            { BotState.CategorySelected, new CategorySelectedStateDefinition(botClient) },
+            { BotState.AmountEntered, new AmountEnteredStateDefinition(botClient) },
+        };
     }
 }
