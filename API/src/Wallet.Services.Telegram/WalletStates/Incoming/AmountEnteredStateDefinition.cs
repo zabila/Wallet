@@ -21,8 +21,9 @@ public class AmountEnteredStateDefinition(ITelegramBotClient botClient) : IState
             })
             .OnEntryFromAsync(BotTrigger.AmountEntered, async trasition => {
                 var amount = trasition.Parameters[0].EnsureExists();
-                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.CategorySelected]}");
                 userSession.StateData[State] = amount;
+
+                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.CategorySelected]}");
                 await stateMachine.FireAsync(BotTrigger.Reset);
             });
     }
