@@ -1,6 +1,5 @@
 ﻿using Telegram.Bot.Types;
 using Wallet.Services.Telegram.Contracts;
-using Wallet.Services.Telegram.Services;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Shared.Extensions;
 
