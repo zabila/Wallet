@@ -15,11 +15,14 @@ public class AmountEnteredStateDefinition(ITelegramBotClient botClient) : IState
             .Permit(BotTrigger.Reset, BotState.Idle)
             .Permit(BotTrigger.Error, BotState.Idle)
             .PermitReentry(BotTrigger.AmountEntered)
-            .OnEntryFromAsync(BotTrigger.AmountEntering, async () => {
-                await botClient.SendMessage(userSession.ChatId, $"Please enter the amount");
+            .OnEntryFromAsync(BotTrigger.AmountEntering, () => {
+                var categories = userSession.StateData[BotState.CategorySelected].EnsureExists();
+                return botClient.SendMessage(userSession.ChatId, $"Please enter the amount for category {categories}");
             })
             .OnEntryFromAsync(BotTrigger.AmountEntered, async trasition => {
-                await botClient.SendMessage(userSession.ChatId, $"You entered amount {trasition.Parameters[0].EnsureExists()}");
+                var amount = trasition.Parameters[0].EnsureExists();
+                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.CategorySelected]}");
+                userSession.StateData[State] = amount;
                 await stateMachine.FireAsync(BotTrigger.Reset);
             });
     }
