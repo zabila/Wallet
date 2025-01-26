@@ -11,6 +11,8 @@
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+    networks:
+      - wallet_network
 
   rabbitmq:
     container_name: "wallet-rabbitmq"
@@ -18,48 +20,87 @@
     ports:
       - '5672:5672'
       - '15672:15672'
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq  
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - wallet_network
+
   wallet-api-identity:
     container_name: "wallet-api-identity"
-    image: vzabila/wallet-api-identity
-    build: 
+    build:
       context: .
       dockerfile: ./src/Wallet.Api.Identity/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - SECRET=${SECRET}
     ports:
       - "5000:8080"
     depends_on:
       - database
-      - rabbitmq  
+      - rabbitmq
+    networks:
+      - wallet_network
+
   wallet-api-finance:
     container_name: "wallet-api-finance"
-    image: vzabila/wallet-api-finance
-    build: 
+    build:
       context: .
       dockerfile: ./src/Wallet.Api.Finance/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - SECRET=${SECRET}
     ports:
       - "5001:8080"
     depends_on:
       - database
       - rabbitmq
+    networks:
+      - wallet_network
+
   wallet-api-telegram:
     container_name: "wallet-api-telegram"
-    image: vzabila/wallet-api-telegram
-    build: 
+    build:
       context: .
       dockerfile: ./src/Wallet.Api.Telegram/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - SECRET=${SECRET}
     ports:
       - "5002:8080"
     depends_on:
       - database
       - rabbitmq
+    networks:
+      - wallet_network
+
+  wallet-service-telegram-bot:
+    container_name: "wallet-service-telegram-bot"
+    build:
+      context: .
+      dockerfile: ./src/Wallet.Services.Telegram\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - SECRET=${SECRET}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    depends_on:
+      - database
+      - rabbitmq
+    networks:
+      - wallet_network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
 
 volumes:
   postgres_data:
   rabbitmq_data:
+
+networks:
+  wallet_network:
+    driver: bridge
+

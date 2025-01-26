@@ -2,8 +2,8 @@
 
 public static class GuardExtensions {
     public static T EnsureExists<T>(this T? obj) where T : class? {
-        ArgumentNullException.ThrowIfNull(obj);
-        return obj;
+        var result = obj ?? throw new ArgumentNullException(typeof(T).Name);
+        return result;
     }
 
     public static string EnsureExists(this string? obj) {
