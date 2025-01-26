@@ -27,7 +27,7 @@ public class MessageBusSubscriber : BackgroundService {
     protected override Task ExecuteAsync(CancellationToken stoppingToken) {
         stoppingToken.ThrowIfCancellationRequested();
 
-        var consumer = new EventingBasicConsumer(_channel);
+        var consumer = new AsyncEventingBasicConsumer(_channel);
         consumer.Received += async (_, ea) => {
             _logger.LogInfo("Event received from RabbitMQ");
 

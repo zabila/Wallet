@@ -1,16 +1,16 @@
 ﻿namespace Wallet.Services.Telegram.Dtos;
 
-public class TransactionPublishedDto {
-    public Guid Id { get; set; }
-    public string? Event { get; set; } = "TransactionTelegramPublished";
-    public DateTime Date { get; set; }
-    public decimal Amount { get; set; }
-    public string? Description { get; set; }
-    public string? Category { get; set; }
-    public string? Type { get; set; }
-    public string? Currency { get; set; }
-    public string? Location { get; set; }
-    public string? Tags { get; set; }
-    public string? Attachment { get; set; }
-    public int TelegramUserId { get; set; }
+public record TransactionPublishedDto {
+    public Guid Id { get; init; } = Guid.NewGuid();
+    public string? Event { get; init; } = "TransactionTelegramPublished";
+    public DateTime Date { get; init; } = DateTime.UtcNow;
+    public decimal Amount { get; init; }
+    public string? Description { get; init; }
+    public string? Category { get; init; }
+    public string? Type { get; init; }
+    public string? Currency { get; init; } = "UAH";
+    public string? Location { get; init; }
+    public string? Tags { get; init; } = "Telegram";
+    public string? Attachment { get; init; } = "Telegram";
+    public int TelegramUserId { get; init; }
 }

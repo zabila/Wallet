@@ -1,5 +1,6 @@
 ﻿using Stateless;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
 using Wallet.Shared.Extensions;
@@ -16,7 +17,7 @@ public class CategorySelectedStateDefinition(ITelegramBotClient botClient) : ISt
             .Permit(BotTrigger.Error, BotState.Idle)
             .Permit(BotTrigger.AmountEntering, BotState.AmountEntered)
             .OnEntryFromAsync(BotTrigger.CategorySelected, async transition => {
-                var categories = transition.Parameters[0].EnsureExists();
+                var categories = (string)transition.Parameters[0].EnsureExists();
                 await botClient.SendMessage(userSession.ChatId, $"You selected category {categories}");
                 userSession.StateData[State] = categories;
                 await stateMachine.FireAsync(BotTrigger.AmountEntering);

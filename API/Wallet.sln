@@ -23,17 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41480C34-6E1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{04245985-F3C3-4D7D-ABD8-D00E81F382B0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "production", "production", "{A27A1C7A-071D-4C9B-9C10-D4FB1AB39853}"
-	ProjectSection(SolutionItems) = preProject
-		deployment\production\ingress-srv.yaml = deployment\production\ingress-srv.yaml
-		deployment\production\local-pvc.yaml = deployment\production\local-pvc.yaml
-		deployment\production\postage-plat-depl.yaml = deployment\production\postage-plat-depl.yaml
-		deployment\production\rabbitmq-depl.yaml = deployment\production\rabbitmq-depl.yaml
-		deployment\production\telegramservice-depl.yaml = deployment\production\telegramservice-depl.yaml
-		deployment\production\walletservice-depl.yaml = deployment\production\walletservice-depl.yaml
-		deployment\production\walletservice-np-srv.yaml = deployment\production\walletservice-np-srv.yaml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{80069AC1-5EFB-48CC-A115-D8D66E88A6EE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{417C3FCD-BF9B-4CE1-AA31-5731903E8E4E}"
@@ -133,7 +122,6 @@ Global
 		{FC2699B2-2373-461C-8F94-E0E8DDBE60E9} = {5FD89FF8-538E-4D7A-B266-682EDAFA64B6}
 		{ACDA0C16-FEDB-4182-BF1D-4DF8060A9F9C} = {5FD89FF8-538E-4D7A-B266-682EDAFA64B6}
 		{2168C7C1-8686-4D5A-99F0-1E52A3FF580A} = {CFB5DA63-4846-48FF-B1A6-30AC79F57139}
-		{A27A1C7A-071D-4C9B-9C10-D4FB1AB39853} = {04245985-F3C3-4D7D-ABD8-D00E81F382B0}
 		{80069AC1-5EFB-48CC-A115-D8D66E88A6EE} = {41480C34-6E1A-4456-B06C-280CA26D453B}
 		{417C3FCD-BF9B-4CE1-AA31-5731903E8E4E} = {41480C34-6E1A-4456-B06C-280CA26D453B}
 		{5FD89FF8-538E-4D7A-B266-682EDAFA64B6} = {41480C34-6E1A-4456-B06C-280CA26D453B}

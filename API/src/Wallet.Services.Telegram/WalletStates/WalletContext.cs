@@ -27,7 +27,7 @@ public class WalletContext : IWalletContext {
         if (!Enum.TryParse<BotTrigger>(text, ignoreCase: true, out var trigger) || !Enum.IsDefined(typeof(BotTrigger), trigger)) {
             (bool isReprocessable, BotTrigger reprocessableTrigger) = IsStateReprocessable(machine.State);
             if (isReprocessable) {
-                await machine.FireAsync(reprocessableTrigger, text);
+                await machine.FireAsync(reprocessableTrigger, message);
                 return;
             }
 
