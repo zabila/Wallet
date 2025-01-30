@@ -9,10 +9,10 @@ using Wallet.Services.Telegram.Dtos;
 using Wallet.Services.Telegram.Models;
 using Wallet.Shared.Extensions;
 
-namespace Wallet.Services.Telegram.WalletStates.Incoming;
+namespace Wallet.Services.Telegram.WalletStates.Expenses;
 
-public class AmountEnteredStateDefinition(ITelegramBotClient botClient, IMessageBusClient messageBusClient) : IStateDefinition {
-    public BotState State { get; } = BotState.AmountEntered;
+public class ExpenseAmountEnteredStateDefinition(ITelegramBotClient botClient, IMessageBusClient messageBusClient) : IStateDefinition {
+    public BotState State { get; } = BotState.ExpenseAmountEntered;
     public Tuple<bool, BotTrigger> ShouldBeRecalled { get; } = Tuple.Create(true, BotTrigger.AmountEntered);
 
     private static readonly HttpClient HttpClient = new HttpClient();
@@ -22,37 +22,50 @@ public class AmountEnteredStateDefinition(ITelegramBotClient botClient, IMessage
             .Permit(BotTrigger.Reset, BotState.Idle)
             .Permit(BotTrigger.Error, BotState.Idle)
             .PermitReentry(BotTrigger.AmountEntered)
+            .PermitReentry(BotTrigger.ShareLocation)
             .OnEntryFromAsync(BotTrigger.AmountEntering, () => {
-                var categories = userSession.StateData[BotState.CategorySelected].EnsureExists();
-                return botClient.SendMessage(userSession.ChatId, $"Please enter the amount for category {categories}!");
+                var categories = userSession.StateData[BotState.ExpenseCategorySelected].EnsureExists();
+                var replyKeyboard = new ReplyKeyboardMarkup(new[] {
+                    KeyboardButton.WithRequestLocation("Share Location")
+                }) {
+                    ResizeKeyboard = true,
+                    OneTimeKeyboard = true
+                };
+
+                return botClient.SendMessage(userSession.ChatId, $"Please enter the amount for category {categories}!", replyMarkup: replyKeyboard);
             })
             .OnEntryFromAsync(BotTrigger.AmountEntered, async transition => {
-                Message message = (Message)transition.Parameters[0].EnsureExists();
+                var message = (Message)transition.Parameters[0].EnsureExists();
                 var messageText = message.Text.EnsureExists();
                 if (!IsAmountValidAndSanitize((string)messageText, out var amount)) {
                     await botClient.SendMessage(userSession.ChatId, $"Amount {amount} is not valid. Please enter a valid amount.");
                     return;
                 }
 
-                var latitude = message.Location?.Latitude;
-                var longitude = message.Location?.Longitude;
-                var placeName = await GetPlaceNameAsync(latitude, longitude).EnsureExists();
-
-                userSession.StateData[State] = (string)amount;
-                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.CategorySelected]} in {placeName}");
+                var placeName = (string)userSession.StateData[State] ?? "Unknown Place";
+                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.ExpenseCategorySelected]} in {placeName}");
 
                 var transaction = new TransactionPublishedDto() {
                     Amount = decimal.Parse((string)amount),
                     TelegramUserId = (int)userSession.ChatId,
-                    Category = userSession.StateData[BotState.CategorySelected].EnsureExists().ToString(),
-                    Type = "Income",
+                    Category = userSession.StateData[BotState.ExpenseCategorySelected].EnsureExists().ToString(),
+                    Type = "Outcome",
+                    Location = placeName,
                     Description = "Telegram chat Transaction",
                 };
 
                 messageBusClient.PublishNewTransaction(transaction);
 
+                userSession.StateData.Remove(State);
+
                 await botClient.SendMessage(userSession.ChatId, $"Transaction  {transaction.Id} has been saved.");
                 await stateMachine.FireAsync(BotTrigger.Reset);
+            }).OnEntryFromAsync(BotTrigger.ShareLocation, async transition => {
+                var message = (Message)transition.Parameters[0].EnsureExists();
+                var latitude = message.Location?.Latitude;
+                var longitude = message.Location?.Longitude;
+                var placeName = await GetPlaceNameAsync(latitude, longitude).EnsureExists();
+                userSession.StateData[State] = placeName.EnsureExists();
             });
     }
 

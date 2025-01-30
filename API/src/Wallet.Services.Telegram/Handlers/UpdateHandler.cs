@@ -46,12 +46,9 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
     /// <param name="message">The message object containing the content of the received message.</param>
     /// <param name="cancellationToken">Token to observe for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private async Task BotOnMessageReceivedAsync(Message message, CancellationToken cancellationToken) {
-        if (message.Text is not { } messageText)
-            return;
-
+    private Task BotOnMessageReceivedAsync(Message message, CancellationToken cancellationToken) {
         logger.LogInfo($"Receive message type: {message.Text}");
-        await walletContext.HandleRequestAsync(message, cancellationToken);
+        return walletContext.HandleRequestAsync(message, cancellationToken);
     }
 
     /// <summary>
@@ -60,13 +57,11 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
     /// <param name="callbackQuery">The callback query object containing details of the interaction.</param>
     /// <param name="cancellationToken">A token to notify about cancellation requests.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    private async Task BotOnCallbackQueryReceivedAsync(CallbackQuery callbackQuery, CancellationToken cancellationToken) {
+    private Task BotOnCallbackQueryReceivedAsync(CallbackQuery callbackQuery, CancellationToken cancellationToken) {
         var message = callbackQuery.Message;
-        if (message?.Text is not { } messageText)
-            return;
 
         logger.LogInfo($"Receive callback query type: {callbackQuery.Data}");
-        await walletContext.HandleCallbackQueryAsync(callbackQuery, cancellationToken);
+        return walletContext.HandleCallbackQueryAsync(callbackQuery, cancellationToken);
     }
 
     /// <summary>
