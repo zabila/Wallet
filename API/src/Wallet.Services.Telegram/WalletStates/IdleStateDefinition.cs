@@ -14,6 +14,7 @@ public class IdleStateDefinition(ITelegramBotClient botClient) : IStateDefinitio
         stateMachine.Configure(State)
             .PermitReentry(BotTrigger.Error)
             .Permit(BotTrigger.Income, BotState.Income)
+            .Permit(BotTrigger.Expenses, BotState.Expenses)
             .OnEntryFromAsync(BotTrigger.Reset, () => {
                 ReplyKeyboardMarkup replyKeyboardMarkup = new(new KeyboardButton[] { "Expenses", "Income" }) {
                     ResizeKeyboard = true

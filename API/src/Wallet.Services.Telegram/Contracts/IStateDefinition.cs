@@ -26,13 +26,15 @@ public enum BotState {
     /// <summary>
     /// Represents the state of the bot where a specific category has been selected by the user.
     /// </summary>
-    CategorySelected,
+    IncomeCategorySelected,
 
     /// <summary>
     /// Indicates the state in which the bot expects the user to have entered an amount,
     /// typically in the context of recording a financial transaction or similar action.
     /// </summary>
-    AmountEntered,
+    IncomeAmountEntered,
+    ExpenseCategorySelected,
+    ExpenseAmountEntered,
 }
 
 /// <summary>
@@ -61,7 +63,7 @@ public enum BotTrigger {
     Expenses,
 
     /// <summary>
-    /// Represents the trigger for transitioning to the "CategorySelected" state, where a user selects a category.
+    /// Represents the trigger for transitioning to the "IncomeCategorySelected" state, where a user selects a category.
     /// </summary>
     CategorySelected,
 
@@ -75,6 +77,11 @@ public enum BotTrigger {
     /// Represents the trigger that is fired when
     /// </summary>
     AmountEntered,
+
+    /// <summary>
+    /// Share location trigger
+    /// </summary>
+    ShareLocation
 }
 
 /// <summary>

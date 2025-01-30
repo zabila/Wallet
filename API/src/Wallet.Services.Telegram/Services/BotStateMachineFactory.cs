@@ -5,6 +5,7 @@ using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Services.Telegram.WalletStates;
+using Wallet.Services.Telegram.WalletStates.Expenses;
 using Wallet.Services.Telegram.WalletStates.Incoming;
 
 namespace Wallet.Services.Telegram.Services;
@@ -34,8 +35,11 @@ public class BotStateMachineFactory : IBotStateMachineFactory {
         return new Dictionary<BotState, IStateDefinition> {
             { BotState.Idle, new IdleStateDefinition(botClient) },
             { BotState.Income, new IncomeStateDefinition(botClient, dataClient) },
-            { BotState.CategorySelected, new CategorySelectedStateDefinition(botClient) },
-            { BotState.AmountEntered, new AmountEnteredStateDefinition(botClient, _messageBusClient) },
+            { BotState.IncomeCategorySelected, new IncomeCategorySelectedStateDefinition(botClient) },
+            { BotState.IncomeAmountEntered, new IncomeAmountEnteredStateDefinition(botClient, _messageBusClient) },
+            { BotState.Expenses, new ExpensesStateDefinition(botClient, dataClient) },
+            { BotState.ExpenseCategorySelected, new ExpenseCategorySelectedStateDefinition(botClient) },
+            { BotState.ExpenseAmountEntered, new ExpenseAmountEnteredStateDefinition(botClient, _messageBusClient) },
         };
     }
 }

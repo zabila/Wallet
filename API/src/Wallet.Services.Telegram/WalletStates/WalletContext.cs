@@ -20,6 +20,11 @@ public class WalletContext : IWalletContext {
         var chatId = message.Chat.Id;
         var text = message.Text;
 
+        //NOTE: Workaround for location sharing
+        if (text == null && message.Location != null) {
+            text = "ShareLocation";
+        }
+
         var session = await _sessionManger.GetOrCreateSessionAsync(chatId);
         session.LastInteractionTime = DateTime.UtcNow;
 
@@ -36,7 +41,7 @@ public class WalletContext : IWalletContext {
         }
 
         if (machine.CanFire(trigger)) {
-            await machine.FireAsync(trigger);
+            await machine.FireAsync(trigger, message);
         } else {
             await machine.FireAsync(BotTrigger.Error);
         }
@@ -54,6 +59,12 @@ public class WalletContext : IWalletContext {
         var machine = session.CurrentStateMachine.EnsureExists();
         var triggerSrt = text.Split(":").First();
         if (!Enum.TryParse<BotTrigger>(triggerSrt, ignoreCase: true, out var trigger) || !Enum.IsDefined(typeof(BotTrigger), trigger)) {
+            (bool isReprocessable, BotTrigger reprocessableTrigger) = IsStateReprocessable(machine.State);
+            if (isReprocessable) {
+                await machine.FireAsync(reprocessableTrigger, message);
+                return;
+            }
+
             await machine.FireAsync(BotTrigger.Error);
             return;
         }

@@ -5,19 +5,19 @@ using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 
-namespace Wallet.Services.Telegram.WalletStates.Incoming;
+namespace Wallet.Services.Telegram.WalletStates.Expenses;
 
-public class IncomeStateDefinition(ITelegramBotClient botClient, IWalletDataClient dataClient) : IStateDefinition {
-    public BotState State { get; } = BotState.Income;
+public class ExpensesStateDefinition(ITelegramBotClient botClient, IWalletDataClient dataClient) : IStateDefinition {
+    public BotState State { get; } = BotState.Expenses;
     public Tuple<bool, BotTrigger> ShouldBeRecalled { get; } = Tuple.Create(false, BotTrigger.Error);
 
     public void ConfigureState(StateMachine<BotState, BotTrigger> stateMachine, UserSession userSession) {
         stateMachine.Configure(State)
             .Permit(BotTrigger.Error, BotState.Idle)
             .Permit(BotTrigger.Reset, BotState.Idle)
-            .Permit(BotTrigger.CategorySelected, BotState.IncomeCategorySelected)
+            .Permit(BotTrigger.CategorySelected, BotState.ExpenseCategorySelected)
             .OnEntryAsync(async () => {
-                var categories = await dataClient.GetIncomingCategoriesAsync();
+                var categories = await dataClient.GetOutcomingCategoriesAsync();
                 var inlineKeyboard = new InlineKeyboardMarkup(
                     categories
                         .Chunk(3)
