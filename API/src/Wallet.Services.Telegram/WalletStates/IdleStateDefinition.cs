@@ -16,19 +16,21 @@ public class IdleStateDefinition(ITelegramBotClient botClient) : IStateDefinitio
             .Permit(BotTrigger.Income, BotState.Income)
             .Permit(BotTrigger.Expenses, BotState.Expenses)
             .OnEntryFromAsync(BotTrigger.Reset, () => {
-                ReplyKeyboardMarkup replyKeyboardMarkup = new(new KeyboardButton[] { "Expenses", "Income" }) {
-                    ResizeKeyboard = true
-                };
-
-                return botClient.SendMessage(userSession.ChatId, $"Please choose {BotTrigger.Income} or {BotTrigger.Expenses} transaction", replyMarkup: replyKeyboardMarkup);
+                var keyboardMarkup = CreateReplyKeyboardMarkup();
+                return botClient.SendMessage(userSession.ChatId, $"Please choose {BotTrigger.Income} or {BotTrigger.Expenses} transaction", replyMarkup: keyboardMarkup);
             })
             .OnEntryFromAsync(BotTrigger.Error, async () => {
-                ReplyKeyboardMarkup replyKeyboardMarkup = new(new KeyboardButton[] { "Expenses", "Income" }) {
-                    ResizeKeyboard = true
-                };
-
-                await botClient.SendMessage(userSession.ChatId, "Invalid input. Please try again", replyMarkup: replyKeyboardMarkup);
-                await botClient.SendMessage(userSession.ChatId, $"Please choose {BotTrigger.Income} or {BotTrigger.Expenses} transaction", replyMarkup: replyKeyboardMarkup);
+                await botClient.SendMessage(userSession.ChatId, "Invalid input. Please try again");
+                var keyboardMarkup = CreateReplyKeyboardMarkup();
+                await botClient.SendMessage(userSession.ChatId, $"Please choose {BotTrigger.Income} or {BotTrigger.Expenses} transaction", replyMarkup: keyboardMarkup);
             });
+    }
+
+    private static ReplyKeyboardMarkup CreateReplyKeyboardMarkup() {
+        return new ReplyKeyboardMarkup([
+            ["Expenses", "Income"]
+        ]) {
+            ResizeKeyboard = true
+        };
     }
 }
