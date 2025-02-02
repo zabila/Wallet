@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wallet.Application.Finance.Account.Commands;
+using Wallet.Application.Finance.Account.Queries;
 using Wallet.Shared.DataTransferObjects;
 
 namespace Wallet.API.Finance.Controllers;
@@ -13,6 +14,12 @@ public class AccountController(ISender sender) : ControllerBase {
     [HttpPost("create")]
     public async Task<IActionResult> CreateAccount([FromBody] AccountCreateDto accountForCreationDto) {
         var account = await sender.Send(new CreateAccountCommand(accountForCreationDto));
+        return Ok(account);
+    }
+
+    [HttpGet("telegram/{telegramId:int}")]
+    public async Task<IActionResult> GetAccountByTelegramId(int telegramId) {
+        var account = await sender.Send(new GetAccountByTelegramUserIdQuery(telegramId));
         return Ok(account);
     }
 }

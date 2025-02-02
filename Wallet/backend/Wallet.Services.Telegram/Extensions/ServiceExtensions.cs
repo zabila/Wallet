@@ -1,4 +1,6 @@
 using System.Collections;
+using Flurl.Http.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NLog;
 using Telegram.Bot;
 using Wallet.Services.Telegram.AsyncDataServices;
@@ -8,6 +10,7 @@ using Wallet.Services.Telegram.Services;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Services.Telegram.WalletStates;
 using Wallet.Services.Telegram.WalletStates.Incoming;
+using Wallet.Shared.Extensions;
 
 namespace Wallet.Services.Telegram.Extensions;
 
@@ -17,7 +20,7 @@ public static class ServiceExtensions {
         services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 
-    public static void ConfigureTelegramService(this IServiceCollection services) {
+    public static void ConfigureTelegramService(this IServiceCollection services, IConfiguration configuration) {
         var telegramBotToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN");
         if (string.IsNullOrEmpty(telegramBotToken)) {
             throw new ArgumentNullException(nameof(telegramBotToken), "Telegram bot token is not set");
@@ -29,7 +32,17 @@ public static class ServiceExtensions {
                 return new TelegramBotClient(options, httpClient);
             });
 
-        services.AddHttpClient<IWalletDataClient, HttpWalletDataClient>();
+        var apiFinancialUrl = configuration["WalletFinanceAccountApi"].EnsureExists();
+        var apiIdentityUrl = configuration["WalletIdentityApi"].EnsureExists();
+        services.AddSingleton<IFlurlClientCache>(sp => {
+            var cache = new FlurlClientCache();
+            cache.Add(nameof(HttpWalletFinanceAccountClient), apiFinancialUrl);
+            cache.Add(nameof(HttpWalletIdentityClient), apiIdentityUrl);
+            return cache;
+        });
+
+        services.AddSingleton<IWalletIdentityClient, HttpWalletIdentityClient>();
+        services.AddSingleton<IWalletFinanceAccountClient, HttpWalletFinanceAccountClient>();
         services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
         services.AddScoped<IWalletContext, WalletContext>();

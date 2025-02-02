@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="13.0.1"/>
+        <PackageReference Include="Flurl.Http" Version="4.0.2"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="NLog" Version="5.3.4"/>
         <PackageReference Include="RabbitMQ.Client" Version="6.8.1"/>

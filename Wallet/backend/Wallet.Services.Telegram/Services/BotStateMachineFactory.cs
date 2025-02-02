@@ -13,9 +13,9 @@ namespace Wallet.Services.Telegram.Services;
 public class BotStateMachineFactory : IBotStateMachineFactory {
     private readonly IMessageBusClient _messageBusClient;
 
-    public BotStateMachineFactory(ITelegramBotClient botClient, IWalletDataClient dataClient, IMessageBusClient messageBusClient) {
+    public BotStateMachineFactory(ITelegramBotClient botClient, IWalletFinanceAccountClient financeAccountClient, IMessageBusClient messageBusClient) {
         _messageBusClient = messageBusClient;
-        StateDefinition = InitializeStateDefinitions(botClient, dataClient);
+        StateDefinition = InitializeStateDefinitions(botClient, financeAccountClient);
     }
 
     public Dictionary<BotState, IStateDefinition> StateDefinition { get; }
@@ -31,13 +31,13 @@ public class BotStateMachineFactory : IBotStateMachineFactory {
     }
 
 
-    private Dictionary<BotState, IStateDefinition> InitializeStateDefinitions(ITelegramBotClient botClient, IWalletDataClient dataClient) {
+    private Dictionary<BotState, IStateDefinition> InitializeStateDefinitions(ITelegramBotClient botClient, IWalletFinanceAccountClient financeAccountClient) {
         return new Dictionary<BotState, IStateDefinition> {
             { BotState.Idle, new IdleStateDefinition(botClient) },
-            { BotState.Income, new IncomeStateDefinition(botClient, dataClient) },
+            { BotState.Income, new IncomeStateDefinition(botClient, financeAccountClient) },
             { BotState.IncomeCategorySelected, new IncomeCategorySelectedStateDefinition(botClient) },
             { BotState.IncomeAmountEntered, new IncomeAmountEnteredStateDefinition(botClient, _messageBusClient) },
-            { BotState.Expenses, new ExpensesStateDefinition(botClient, dataClient) },
+            { BotState.Expenses, new ExpensesStateDefinition(botClient, financeAccountClient) },
             { BotState.ExpenseCategorySelected, new ExpenseCategorySelectedStateDefinition(botClient) },
             { BotState.ExpenseAmountEntered, new ExpenseAmountEnteredStateDefinition(botClient, _messageBusClient) },
         };

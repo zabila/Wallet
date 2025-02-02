@@ -8,7 +8,7 @@ using Wallet.Services.Telegram.WalletStates.Base;
 
 namespace Wallet.Services.Telegram.WalletStates.Incoming;
 
-public class IncomeStateDefinition(ITelegramBotClient botClient, IWalletDataClient dataClient) : StateDefinitionBase, IStateDefinition {
+public class IncomeStateDefinition(ITelegramBotClient botClient, IWalletFinanceAccountClient financeAccountClient) : StateDefinitionBase, IStateDefinition {
     public BotState State { get; } = BotState.Income;
     public Tuple<bool, BotTrigger> ShouldBeRecalled { get; } = Tuple.Create(false, BotTrigger.Error);
 
@@ -18,7 +18,7 @@ public class IncomeStateDefinition(ITelegramBotClient botClient, IWalletDataClie
             .Permit(BotTrigger.Reset, BotState.Idle)
             .Permit(BotTrigger.CategorySelected, BotState.IncomeCategorySelected)
             .OnEntryAsync(async () => {
-                var categories = await dataClient.GetIncomingCategoriesAsync();
+                var categories = await financeAccountClient.GetIncomingCategoriesAsync();
                 await botClient.SendMessage(userSession.ChatId, $"{nameof(BotTrigger.CategorySelected)}:", replyMarkup: CreateInlineKeyboardMarkup(categories));
             });
     }

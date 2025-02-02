@@ -4,7 +4,7 @@ using Wallet.Domain.Contracts;
 
 namespace Wallet.API.Telegram.Controllers;
 
-[Route("api/c/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class TelegramController(ILoggerManager logger) : ControllerBase {
     [Authorize]
