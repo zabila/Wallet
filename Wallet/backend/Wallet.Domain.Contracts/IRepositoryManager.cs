@@ -6,5 +6,7 @@ public interface IRepositoryManager {
 
     IAccountTelegramsRepository AccountTelegrams { get; }
 
+    IWalletIdentityUsersRepository WalletIdentityUsers { get; }
+
     Task SaveAsync(CancellationToken cancellationToken);
 }

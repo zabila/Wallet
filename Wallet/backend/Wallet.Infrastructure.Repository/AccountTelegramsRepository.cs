@@ -17,8 +17,8 @@ public class AccountTelegramsRepository(DbContext repositoryContext) : Repositor
         Update(accountTelegram);
     }
 
-    public async Task<Guid> GetAccountIdByTelegramUserIdAsync(int telegramUserId, bool trackChanges, CancellationToken cancellationToken) {
-        return await FindByCondition(a => a.TelegramUserId.Equals(telegramUserId), trackChanges).Select(a => a.AccountId).FirstOrDefaultAsync(cancellationToken);
+    public Task<Guid> GetAccountIdByTelegramUserIdAsync(int telegramUserId, bool trackChanges, CancellationToken cancellationToken) {
+        return FindByCondition(a => a.TelegramUserId.Equals(telegramUserId), trackChanges).Select(a => a.AccountId).FirstOrDefaultAsync(cancellationToken);
     }
 
     public bool AccountTelegramExists(AccountTelegram accountTelegram) {

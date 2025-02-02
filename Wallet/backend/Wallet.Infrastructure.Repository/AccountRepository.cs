@@ -9,13 +9,9 @@ public sealed class AccountRepository(DbContext repositoryContext) : RepositoryB
     public void DeleteAccount(Account account) => Delete(account);
     public void UpdateAccount(Account account) => Update(account);
 
-    public async Task<Account?> GetAccountAsync(Guid accountId, bool trackChanges, CancellationToken cancellationToken) {
-        return await FindByCondition(account => account.Id.Equals(accountId), trackChanges).SingleOrDefaultAsync(cancellationToken);
-    }
+    public Task<Account?> GetAccountAsync(Guid accountId, bool trackChanges, CancellationToken cancellationToken) { return FindByCondition(account => account.Id.Equals(accountId), trackChanges).SingleOrDefaultAsync(cancellationToken); }
 
-    public async Task<Account?> GetAccountByNameAsync(string name) {
-        return await FindByCondition(account => account.AccountName!.Equals(name), false).SingleOrDefaultAsync();
-    }
+    public Task<Account?> GetAccountByNameAsync(string name) { return FindByCondition(account => account.AccountName!.Equals(name), false).SingleOrDefaultAsync(); }
 
     public bool AccountExists(Guid accountId) => FindByCondition(account => account.Id.Equals(accountId), false).Any();
 }

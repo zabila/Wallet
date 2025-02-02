@@ -37,4 +37,5 @@ public class RepositoryContext(DbContextOptions options) : IdentityDbContext<Wal
     public DbSet<Transaction>? Transactions { get; set; }
     public DbSet<Account>? Accounts { get; set; }
     public DbSet<AccountTelegram>? AccountTelegrams { get; set; }
+    public DbSet<WalletIdentityUser>? WalletIdentityUsers { get; set; }
 }

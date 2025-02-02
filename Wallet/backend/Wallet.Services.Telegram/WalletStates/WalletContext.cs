@@ -16,8 +16,6 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
             return;
         }
 
-        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("uk");
-
         var text = message.Text;
         if (text == null && message.Location != null) {
             text = "ShareLocation";
@@ -25,7 +23,7 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
 
         var session = await sessionManger.GetOrCreateSessionAsync(chatId);
         session.LastInteractionTime = DateTime.UtcNow;
-
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(session.Localization.EnsureExists());
 
         BotTrigger? trigger = ParseLocalizedBotTrigger(text.EnsureExists());
 
@@ -61,7 +59,7 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         var session = await sessionManger.GetOrCreateSessionAsync(chatId);
         session.LastInteractionTime = DateTime.UtcNow;
 
-        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("uk");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(session.Localization.EnsureExists());
 
         var machine = session.CurrentStateMachine.EnsureExists();
         var triggerSrt = text.Split(":").First();
