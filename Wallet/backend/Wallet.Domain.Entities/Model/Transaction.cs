@@ -20,7 +20,7 @@ public sealed class Transaction {
     [Required] public DateTime UpdatedAt { get; set; }
 
     [MaxLength(10)] public string? Currency { get; set; }
-    public Location Location { get; set; }
+    public Location Location { get; set; } = new Location();
     public string? Tags { get; set; }
     public string? Attachment { get; set; }
     [Required] public Guid AccountId { get; set; }

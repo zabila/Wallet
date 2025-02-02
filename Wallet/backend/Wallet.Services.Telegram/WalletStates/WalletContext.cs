@@ -1,31 +1,25 @@
-﻿using Telegram.Bot.Types;
+﻿using Telegram.Bot;
+using Telegram.Bot.Types;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Shared.Extensions;
 
 namespace Wallet.Services.Telegram.WalletStates;
 
-public class WalletContext : IWalletContext {
-    private readonly ISessionManager _sessionManger;
-    private readonly IBotStateMachineFactory _botStateMachineFactory;
-
-    public WalletContext(IWalletDataClient walletDataClient, ISessionManager sessionManger, IBotStateMachineFactory botStateMachineFactory) {
-        _sessionManger = sessionManger;
-        _botStateMachineFactory = botStateMachineFactory;
-
-        walletDataClient.TestInboundConnection();
-    }
-
+public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, ISessionManager sessionManger, IBotStateMachineFactory botStateMachineFactory, IWalletFinanceAccountClient financeAccountClient) : IWalletContext {
     public async Task HandleRequestAsync(Message message, CancellationToken cancellationToken) {
-        var chatId = message.Chat.Id;
+        var chatId = (int)message.EnsureExists().From.EnsureExists().Id;
+        if (!await IsHasPermissionAsync(chatId)) {
+            return;
+        }
+
         var text = message.Text;
 
-        //NOTE: Workaround for location sharing
         if (text == null && message.Location != null) {
             text = "ShareLocation";
         }
 
-        var session = await _sessionManger.GetOrCreateSessionAsync(chatId);
+        var session = await sessionManger.GetOrCreateSessionAsync(chatId);
         session.LastInteractionTime = DateTime.UtcNow;
 
         var machine = session.CurrentStateMachine.EnsureExists();
@@ -49,11 +43,15 @@ public class WalletContext : IWalletContext {
 
     public async Task HandleCallbackQueryAsync(CallbackQuery callbackQuery, CancellationToken cancellationToken) {
         var message = callbackQuery.EnsureExists().Message.EnsureExists();
-        var data = callbackQuery.Data.EnsureExists();
         var chatId = message.Chat.Id;
+        if (!await IsHasPermissionAsync((int)chatId)) {
+            return;
+        }
+
+        var data = callbackQuery.Data.EnsureExists();
         var text = message.Text.EnsureExists();
 
-        var session = await _sessionManger.GetOrCreateSessionAsync(chatId);
+        var session = await sessionManger.GetOrCreateSessionAsync(chatId);
         session.LastInteractionTime = DateTime.UtcNow;
 
         var machine = session.CurrentStateMachine.EnsureExists();
@@ -77,7 +75,20 @@ public class WalletContext : IWalletContext {
     }
 
     private Tuple<bool, BotTrigger> IsStateReprocessable(BotState state) {
-        _botStateMachineFactory.StateDefinition.TryGetValue(state, out var definition);
+        botStateMachineFactory.StateDefinition.TryGetValue(state, out var definition);
         return definition?.ShouldBeRecalled ?? Tuple.Create(false, BotTrigger.Error);
+    }
+
+    private async Task<bool> IsHasPermissionAsync(int chatId) {
+        var accountId = await financeAccountClient.GetAccountIdByTelegramUserIdAsync(chatId);
+        bool isAccountFound = accountId != null && accountId.Id != Guid.Empty;
+        if (!isAccountFound) {
+            logger.LogError($"Account not found or don't have permission to access the account. ChatId: {chatId}");
+            await botClient.SendMessage(chatId, "You don't have permission to access the account. Please contact the administrator.");
+        } else {
+            logger.LogInfo($"Account found. ChatId: {chatId}, AccountId: {accountId.EnsureExists().Id}");
+        }
+
+        return isAccountFound;
     }
 }

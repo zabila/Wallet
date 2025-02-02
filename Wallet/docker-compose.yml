@@ -87,6 +87,7 @@
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - WALLET_API_TOKEN=${WALLET_API_TOKEN}
     depends_on:
       - database
       - rabbitmq

@@ -78,7 +78,7 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
     /// <summary>
     /// Handles errors that occur during the polling process for updates in the Telegram Bot.
     /// </summary>
-    /// <param name="botClient">The Telegram Bot client instance responsible for handling requests.</param>
+    /// <param name="botClient">The Telegram Bot accountClient instance responsible for handling requests.</param>
     /// <param name="exception">The exception that occurred during the polling process.</param>
     /// <param name="cancellationToken">The token used to propagate notification that the operation should be canceled.</param>
     /// <returns>A Task that represents the asynchronous operation for handling the error.</returns>
