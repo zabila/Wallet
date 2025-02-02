@@ -34,7 +34,7 @@
     container_name: "wallet-api-identity"
     build:
       context: .
-      dockerfile: ./src/Wallet.Api.Identity/Dockerfile
+      dockerfile: ./backend/Wallet.Api.Identity/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
@@ -50,7 +50,7 @@
     container_name: "wallet-api-finance"
     build:
       context: .
-      dockerfile: ./src/Wallet.Api.Finance/Dockerfile
+      dockerfile: ./backend/Wallet.Api.Finance/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
@@ -66,7 +66,7 @@
     container_name: "wallet-api-telegram"
     build:
       context: .
-      dockerfile: ./src/Wallet.Api.Telegram/Dockerfile
+      dockerfile: ./backend/Wallet.Api.Telegram/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
@@ -82,7 +82,7 @@
     container_name: "wallet-service-telegram-bot"
     build:
       context: .
-      dockerfile: ./src/Wallet.Services.Telegram\Dockerfile
+      dockerfile: ./backend/Wallet.Services.Telegram\Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
