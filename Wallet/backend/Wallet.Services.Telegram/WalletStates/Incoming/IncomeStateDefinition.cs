@@ -3,6 +3,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
+using Wallet.Services.Telegram.Resources;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Services.Telegram.WalletStates.Base;
 
@@ -19,7 +20,7 @@ public class IncomeStateDefinition(ITelegramBotClient botClient, IWalletFinanceA
             .Permit(BotTrigger.CategorySelected, BotState.IncomeCategorySelected)
             .OnEntryAsync(async () => {
                 var categories = await financeAccountClient.GetIncomingCategoriesAsync();
-                await botClient.SendMessage(userSession.ChatId, $"{nameof(BotTrigger.CategorySelected)}:", replyMarkup: CreateInlineKeyboardMarkup(categories));
+                await botClient.SendMessage(userSession.ChatId, $"{TelegramBot.ExpensesStateDefinition_ConfigureState_CategorySelected}:", replyMarkup: CreateInlineKeyboardMarkup(categories));
             });
     }
 }

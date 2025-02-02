@@ -7,6 +7,7 @@ using Wallet.Services.Telegram.AsyncDataServices;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Dtos;
 using Wallet.Services.Telegram.Models;
+using Wallet.Services.Telegram.Resources;
 using Wallet.Services.Telegram.WalletStates.Base;
 using Wallet.Shared.Extensions;
 
@@ -26,17 +27,17 @@ public class IncomeAmountEnteredStateDefinition(ITelegramBotClient botClient, IM
             .PermitReentry(BotTrigger.ShareLocation)
             .OnEntryFromAsync(BotTrigger.AmountEntering, () => {
                 var categories = userSession.StateData[BotState.IncomeCategorySelected].EnsureExists();
-                return botClient.SendMessage(userSession.ChatId, $"Please enter the amount for category {categories}!", replyMarkup: CreateReplyKeyboardMarkup());
+                return botClient.SendMessage(userSession.ChatId, string.Format(TelegramBot.ExpenseAmountEnteredStateDefinition_ConfigureState_Please_enter_the_amount_for_category__0__, categories), replyMarkup: CreateReplyKeyboardMarkup());
             })
             .OnEntryFromAsync(BotTrigger.AmountEntered, async transition => {
                 var message = (Message)transition.Parameters[0].EnsureExists();
                 var amount = GetAmount(message);
                 if (!amount.HasValue) {
-                    await botClient.SendMessage(userSession.ChatId, $"Amount {amount} is not valid. Please enter a valid amount.");
+                    await botClient.SendMessage(userSession.ChatId, string.Format(TelegramBot.IncomeAmountEnteredStateDefinition_ConfigureState_Amount__0__is_not_valid__Please_enter_a_valid_amount_, amount));
                     return;
                 }
 
-                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.IncomeCategorySelected]}");
+                await botClient.SendMessage(userSession.ChatId, string.Format(TelegramBot.ExpenseAmountEnteredStateDefinition_ConfigureState_You_entered_amount__0__for_category__1_, amount, userSession.StateData[BotState.IncomeCategorySelected]));
 
                 var transaction = new TransactionPublishedDto() {
                     Amount = amount.Value,
@@ -49,7 +50,7 @@ public class IncomeAmountEnteredStateDefinition(ITelegramBotClient botClient, IM
 
                 messageBusClient.PublishNewTransaction(transaction);
                 userSession.StateData.Remove(State);
-                await botClient.SendMessage(userSession.ChatId, $"Transaction  {transaction.Id} has been saved.");
+                await botClient.SendMessage(userSession.ChatId, string.Format(TelegramBot.IncomeAmountEnteredStateDefinition_ConfigureState_Transaction___0__has_been_saved_, transaction.Id));
                 await stateMachine.FireAsync(BotTrigger.Reset);
             }).OnEntryFromAsync(BotTrigger.ShareLocation, transition => {
                 var message = (Message)transition.Parameters[0].EnsureExists();

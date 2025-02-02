@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <InvariantGlobalization>true</InvariantGlobalization>
+        <InvariantGlobalization>false</InvariantGlobalization>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
@@ -35,5 +35,20 @@
     <ItemGroup>
         <ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj"/>
         <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\TelegramBot.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>TelegramBot.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Resources\TelegramBot.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>TelegramBot.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using Telegram.Bot.Types.ReplyMarkups;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
+using Wallet.Services.Telegram.Resources;
 using Wallet.Shared.DataTransferObjects;
 using Wallet.Shared.Extensions;
 
@@ -9,7 +10,7 @@ namespace Wallet.Services.Telegram.WalletStates.Base {
     public abstract class AmountEnteredStateDefinitionBase {
         protected static ReplyKeyboardMarkup CreateReplyKeyboardMarkup() {
             return new ReplyKeyboardMarkup(new[] {
-                KeyboardButton.WithRequestLocation("Share Location")
+                KeyboardButton.WithRequestLocation(TelegramBot.AmountEnteredStateDefinitionBase_CreateReplyKeyboardMarkup_Share_Location)
             }) {
                 ResizeKeyboard = true,
                 OneTimeKeyboard = true

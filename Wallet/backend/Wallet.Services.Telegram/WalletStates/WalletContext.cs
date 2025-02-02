@@ -1,6 +1,9 @@
-﻿using Telegram.Bot;
+﻿using System.Globalization;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Wallet.Services.Telegram.Contracts;
+using Wallet.Services.Telegram.Extensions;
+using Wallet.Services.Telegram.Resources;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Shared.Extensions;
 
@@ -13,8 +16,9 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
             return;
         }
 
-        var text = message.Text;
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("uk");
 
+        var text = message.Text;
         if (text == null && message.Location != null) {
             text = "ShareLocation";
         }
@@ -22,8 +26,11 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         var session = await sessionManger.GetOrCreateSessionAsync(chatId);
         session.LastInteractionTime = DateTime.UtcNow;
 
+
+        BotTrigger? trigger = ParseLocalizedBotTrigger(text.EnsureExists());
+
         var machine = session.CurrentStateMachine.EnsureExists();
-        if (!Enum.TryParse<BotTrigger>(text, ignoreCase: true, out var trigger) || !Enum.IsDefined(typeof(BotTrigger), trigger)) {
+        if (!trigger.HasValue) {
             (bool isReprocessable, BotTrigger reprocessableTrigger) = IsStateReprocessable(machine.State);
             if (isReprocessable) {
                 await machine.FireAsync(reprocessableTrigger, message);
@@ -34,8 +41,8 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
             return;
         }
 
-        if (machine.CanFire(trigger)) {
-            await machine.FireAsync(trigger, message);
+        if (machine.CanFire(trigger.Value)) {
+            await machine.FireAsync(trigger.Value, message);
         } else {
             await machine.FireAsync(BotTrigger.Error);
         }
@@ -54,9 +61,12 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         var session = await sessionManger.GetOrCreateSessionAsync(chatId);
         session.LastInteractionTime = DateTime.UtcNow;
 
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("uk");
+
         var machine = session.CurrentStateMachine.EnsureExists();
         var triggerSrt = text.Split(":").First();
-        if (!Enum.TryParse<BotTrigger>(triggerSrt, ignoreCase: true, out var trigger) || !Enum.IsDefined(typeof(BotTrigger), trigger)) {
+        BotTrigger? trigger = ParseLocalizedBotTrigger(triggerSrt);
+        if (!trigger.HasValue) {
             (bool isReprocessable, BotTrigger reprocessableTrigger) = IsStateReprocessable(machine.State);
             if (isReprocessable) {
                 await machine.FireAsync(reprocessableTrigger, message);
@@ -67,8 +77,8 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
             return;
         }
 
-        if (machine.CanFire(trigger)) {
-            await machine.FireAsync(trigger, data);
+        if (machine.CanFire(trigger.Value)) {
+            await machine.FireAsync(trigger.Value, data);
         } else {
             await machine.FireAsync(BotTrigger.Error);
         }
@@ -90,5 +100,16 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         }
 
         return isAccountFound;
+    }
+
+    private static BotTrigger? ParseLocalizedBotTrigger(string localizedText) {
+        foreach (BotTrigger trigger in Enum.GetValues(typeof(BotTrigger))) {
+            string description = trigger.GetLocalizedDescription();
+            if (string.Equals(description, localizedText, StringComparison.OrdinalIgnoreCase)) {
+                return trigger;
+            }
+        }
+
+        return null;
     }
 }
