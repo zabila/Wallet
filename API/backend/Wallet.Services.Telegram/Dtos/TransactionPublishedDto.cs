@@ -1,4 +1,7 @@
-﻿namespace Wallet.Services.Telegram.Dtos;
+﻿using Telegram.Bot.Types;
+using Wallet.Shared.DataTransferObjects;
+
+namespace Wallet.Services.Telegram.Dtos;
 
 public record TransactionPublishedDto {
     public Guid Id { get; init; } = Guid.NewGuid();
@@ -9,7 +12,7 @@ public record TransactionPublishedDto {
     public string? Category { get; init; }
     public string? Type { get; init; }
     public string? Currency { get; init; } = "UAH";
-    public string? Location { get; init; }
+    public LocationDto? Location { get; init; }
     public string? Tags { get; init; } = "Telegram";
     public string? Attachment { get; init; } = "Telegram";
     public int TelegramUserId { get; init; }

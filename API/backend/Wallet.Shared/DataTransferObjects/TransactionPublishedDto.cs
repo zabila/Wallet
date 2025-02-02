@@ -9,7 +9,7 @@ public class TransactionPublishedDto {
     public string? Category { get; set; }
     public string? Type { get; set; }
     public string? Currency { get; set; }
-    public string? Location { get; set; }
+    public LocationDto? Location { get; set; }
     public string? Tags { get; set; }
     public string? Attachment { get; set; }
     public int TelegramUserId { get; set; }

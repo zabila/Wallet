@@ -32,6 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj"/>
         <ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj"/>
     </ItemGroup>
 </Project>

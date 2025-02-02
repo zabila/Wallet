@@ -18,6 +18,18 @@ public class RepositoryContext(DbContextOptions options) : IdentityDbContext<Wal
         modelBuilder.Entity<IdentityRoleClaim<string>>(entity => { entity.ToTable("RoleClaims"); });
         modelBuilder.Entity<IdentityUserToken<string>>(entity => { entity.ToTable("UserTokens"); });
 
+        modelBuilder.Entity<Transaction>(entity => {
+            entity.OwnsOne(t => t.Location, locationConfig => {
+                locationConfig.Property(l => l.Longitude)
+                    .HasColumnName("Longitude")
+                    .HasColumnType("decimal(9,6)");
+
+                locationConfig.Property(l => l.Latitude)
+                    .HasColumnName("Latitude")
+                    .HasColumnType("decimal(9,6)");
+            });
+        });
+
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new AccountConfiguration());
     }

@@ -7,21 +7,22 @@ using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Enums;
 using Wallet.Shared.DataTransferObjects;
+using Wallet.Shared.Extensions;
 
 namespace Wallet.Integration.MessageBus;
 
 public class EventProcessor : IEventProcessor, IDisposable {
-    private readonly ISender? _sender;
+    private readonly ISender _sender;
     private readonly ILoggerManager _logger;
-    private readonly IMapper? _mapper;
+    private readonly IMapper _mapper;
     private readonly IServiceScope _scope;
 
 
     public EventProcessor(IServiceScopeFactory scopeFactory) {
         _scope = scopeFactory.CreateScope();
-        _sender = _scope.ServiceProvider.GetRequiredService<ISender>();
-        _logger = _scope.ServiceProvider.GetRequiredService<ILoggerManager>();
-        _mapper = _scope.ServiceProvider.GetRequiredService<IMapper>();
+        _sender = _scope.ServiceProvider.GetRequiredService<ISender>().EnsureExists();
+        _logger = _scope.ServiceProvider.GetRequiredService<ILoggerManager>().EnsureExists();
+        _mapper = _scope.ServiceProvider.GetRequiredService<IMapper>().EnsureExists();
     }
 
     public async Task ProcessEventAsync(string message) {
@@ -31,8 +32,6 @@ public class EventProcessor : IEventProcessor, IDisposable {
                 await ProcessTransactionTelegramPublishedAsync(message);
                 break;
             case EventType.Undetermined:
-                _logger.LogError("Could not determine event type");
-                break;
             default:
                 _logger.LogError("Could not determine event type");
                 break;
@@ -40,12 +39,14 @@ public class EventProcessor : IEventProcessor, IDisposable {
     }
 
     private async Task ProcessTransactionTelegramPublishedAsync(string message) {
-        var transactionPublishedDto = JsonSerializer.Deserialize<TransactionPublishedDto>(message);
+        _logger.LogInfo("Processing TransactionTelegramPublished event");
+        var transactionPublishedDto = JsonSerializer.Deserialize<TransactionPublishedDto>(message).EnsureExists();
+        _logger.LogInfo($"Processing TransactionTelegramPublished event: {transactionPublishedDto}");
         try {
-            var transactionCreateDto = _mapper!.Map<TransactionCreateDto>(transactionPublishedDto);
+            var transactionCreateDto = _mapper.Map<TransactionCreateDto>(transactionPublishedDto).EnsureExists();
 
-            var account = await _sender!.Send(new GetAccountByTelegramUserIdQuery(transactionPublishedDto!.TelegramUserId));
-            var transaction = await _sender!.Send(new CreateTransactionCommand(account.Id, transactionCreateDto));
+            var account = await _sender.Send(new GetAccountByTelegramUserIdQuery(transactionPublishedDto.TelegramUserId));
+            var transaction = await _sender.Send(new CreateTransactionCommand(account.Id, transactionCreateDto));
             _logger.LogInfo($"Transaction created: {transaction}");
         } catch (Exception exception) {
             _logger.LogError($"Something went wrong: {exception.Message}");
@@ -54,8 +55,8 @@ public class EventProcessor : IEventProcessor, IDisposable {
 
     private EventType DetermineEventType(string message) {
         _logger.LogInfo($"Determining event type {message}");
-        var eventType = JsonSerializer.Deserialize<GenericEventDto>(message);
-        switch (eventType!.Event) {
+        var eventType = JsonSerializer.Deserialize<GenericEventDto>(message).EnsureExists();
+        switch (eventType.Event) {
             case "TransactionTelegramPublished":
                 _logger.LogInfo("TransactionTelegramPublished event detected");
                 return EventType.TransactionTelegramPublished;
@@ -67,6 +68,6 @@ public class EventProcessor : IEventProcessor, IDisposable {
 
     public void Dispose() {
         _logger.LogInfo("EventProcessor Disposed");
-        _scope?.Dispose();
+        _scope.Dispose();
     }
 }
