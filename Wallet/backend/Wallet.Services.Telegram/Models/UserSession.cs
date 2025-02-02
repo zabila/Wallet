@@ -9,4 +9,6 @@ public class UserSession {
     public StateMachine<BotState, BotTrigger>? CurrentStateMachine { get; set; } = null;
     public List<StateHistoryItem> StateHistory { get; init; } = [];
     public Dictionary<BotState, object> StateData { get; set; } = [];
+
+    public string? Localization { get; set; } = null;
 }

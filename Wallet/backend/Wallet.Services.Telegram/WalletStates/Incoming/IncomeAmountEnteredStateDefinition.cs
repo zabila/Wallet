@@ -32,8 +32,9 @@ public class IncomeAmountEnteredStateDefinition(ITelegramBotClient botClient, IM
             .OnEntryFromAsync(BotTrigger.AmountEntered, async transition => {
                 var message = (Message)transition.Parameters[0].EnsureExists();
                 var amount = GetAmount(message);
-                if (!amount.HasValue) {
-                    await botClient.SendMessage(userSession.ChatId, string.Format(TelegramBot.IncomeAmountEnteredStateDefinition_ConfigureState_Amount__0__is_not_valid__Please_enter_a_valid_amount_, amount));
+                if (amount is null or <= 0) {
+                    var text = message.Text.EnsureExists();
+                    await botClient.SendMessage(userSession.ChatId, string.Format(TelegramBot.IncomeAmountEnteredStateDefinition_ConfigureState_Amount__0__is_not_valid__Please_enter_a_valid_amount_, text));
                     return;
                 }
 

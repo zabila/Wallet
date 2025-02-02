@@ -1,5 +1,4 @@
-﻿
-namespace Wallet.Shared.DataTransferObjects;
+﻿namespace Wallet.Shared.DataTransferObjects;
 
 public sealed class CurrentUserDto {
     public Guid Id { get; set; }
@@ -13,4 +12,5 @@ public sealed class CurrentUserDto {
     public bool IsEmailConfirmed { get; set; }
     public bool IsPhoneNumberConfirmed { get; set; }
     public IList<string>? Roles { get; set; }
+    public string? Localization { get; set; }
 }
