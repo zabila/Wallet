@@ -9,6 +9,7 @@ public class MappingProfile : Profile {
         CreateMap<Transaction, TransactionReadDto>();
         CreateMap<TransactionCreateDto, Transaction>();
         CreateMap<IEnumerator<TransactionReadDto>, IEnumerator<Transaction>>();
+        CreateMap<LocationDto, Location>();
         CreateMap<TransactionPublishedDto, TransactionCreateDto>();
 
         CreateMap<Account, AccountReadDto>();

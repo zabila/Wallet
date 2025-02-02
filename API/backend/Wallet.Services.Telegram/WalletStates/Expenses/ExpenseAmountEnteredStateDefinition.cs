@@ -36,15 +36,14 @@ public class ExpenseAmountEnteredStateDefinition(ITelegramBotClient botClient, I
                     return;
                 }
 
-                var placeName = (string)userSession.StateData[State] ?? "Unknown Place";
-                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.ExpenseCategorySelected]} in {placeName}");
+                await botClient.SendMessage(userSession.ChatId, $"You entered amount {amount} for category {userSession.StateData[BotState.ExpenseCategorySelected]}");
 
                 var transaction = new TransactionPublishedDto() {
                     Amount = amount.Value,
                     TelegramUserId = (int)userSession.ChatId,
                     Category = userSession.StateData[BotState.ExpenseCategorySelected].EnsureExists().ToString(),
                     Type = "Outcome",
-                    Location = placeName,
+                    Location = GetLocation(userSession, State),
                     Description = "Telegram chat Transaction",
                 };
 
@@ -55,9 +54,7 @@ public class ExpenseAmountEnteredStateDefinition(ITelegramBotClient botClient, I
                 await stateMachine.FireAsync(BotTrigger.Reset);
             }).OnEntryFromAsync(BotTrigger.ShareLocation, transition => {
                 var message = (Message)transition.Parameters[0].EnsureExists();
-                var latitude = message.Location?.Latitude;
-                var longitude = message.Location?.Longitude;
-                userSession.StateData[State] = $"location: {latitude}, {longitude}";
+                SaveLocation(userSession, message, State);
                 return Task.CompletedTask;
             });
     }
