@@ -3,6 +3,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
+using Wallet.Services.Telegram.Resources;
 
 namespace Wallet.Services.Telegram.WalletStates;
 
@@ -17,18 +18,22 @@ public class IdleStateDefinition(ITelegramBotClient botClient) : IStateDefinitio
             .Permit(BotTrigger.Expenses, BotState.Expenses)
             .OnEntryFromAsync(BotTrigger.Reset, () => {
                 var keyboardMarkup = CreateReplyKeyboardMarkup();
-                return botClient.SendMessage(userSession.ChatId, $"Please choose {BotTrigger.Income} or {BotTrigger.Expenses} transaction", replyMarkup: keyboardMarkup);
+                return botClient.SendMessage(userSession.ChatId,
+                    string.Format(TelegramBot.IdleStateDefinition_ConfigureState_Please_choose__0__or__1__transaction, TelegramBot.IdleStateDefinition_CreateReplyKeyboardMarkup_Income, TelegramBot.IdleStateDefinition_CreateReplyKeyboardMarkup_Expenses),
+                    replyMarkup: keyboardMarkup);
             })
             .OnEntryFromAsync(BotTrigger.Error, async () => {
-                await botClient.SendMessage(userSession.ChatId, "Invalid input. Please try again");
+                await botClient.SendMessage(userSession.ChatId, TelegramBot.IdleStateDefinition_ConfigureState_Invalid_input__Please_try_again);
                 var keyboardMarkup = CreateReplyKeyboardMarkup();
-                await botClient.SendMessage(userSession.ChatId, $"Please choose {BotTrigger.Income} or {BotTrigger.Expenses} transaction", replyMarkup: keyboardMarkup);
+                await botClient.SendMessage(userSession.ChatId,
+                    string.Format(TelegramBot.IdleStateDefinition_ConfigureState_Please_choose__0__or__1__transaction, TelegramBot.IdleStateDefinition_CreateReplyKeyboardMarkup_Income, TelegramBot.IdleStateDefinition_CreateReplyKeyboardMarkup_Expenses),
+                    replyMarkup: keyboardMarkup);
             });
     }
 
     private static ReplyKeyboardMarkup CreateReplyKeyboardMarkup() {
         return new ReplyKeyboardMarkup([
-            ["Expenses", "Income"]
+            [TelegramBot.IdleStateDefinition_CreateReplyKeyboardMarkup_Expenses, TelegramBot.IdleStateDefinition_CreateReplyKeyboardMarkup_Income]
         ]) {
             ResizeKeyboard = true
         };
