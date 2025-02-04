@@ -8,6 +8,7 @@ using Wallet.Domain.Contracts;
 using Wallet.Infrastructure.LoggerService;
 using Wallet.Infrastructure.Repository;
 using Wallet.Integration.MessageBus;
+using Wallet.Shared.Extensions;
 
 namespace Wallet.API.Finance.Extensions;
 
@@ -73,11 +74,7 @@ public static class ServiceExtensions
 
     private static void ConfigureIdentity(this IServiceCollection services, IConfiguration configuration)
     {
-        var SECRET = Environment.GetEnvironmentVariable("SECRET");
-        if (string.IsNullOrEmpty(SECRET))
-        {
-            throw new ArgumentNullException(nameof(SECRET));
-        }
+        var SECRET = Environment.GetEnvironmentVariable("SECRET").EnsureExists();
         var key = Encoding.UTF8.GetBytes(SECRET!);
         var issuer = configuration["Jwt:Issuer"];
         var audience = configuration["Jwt:Audience"];

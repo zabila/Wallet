@@ -37,7 +37,7 @@ app.MapControllers();
 
 ApplyMigrations(app.Services);
 
-app.Run();
+await app.RunAsync();
 
 static void ApplyMigrations(IServiceProvider serviceProvider)
 {

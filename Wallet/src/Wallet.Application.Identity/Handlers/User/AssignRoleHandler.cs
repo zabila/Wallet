@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Globalization;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Wallet.Application.Identity.Commands.User;
 using Wallet.Domain.Entities.Exceptions;
@@ -12,7 +13,7 @@ public class AssignRoleHandler(UserManager<WalletIdentityUser> userManager, Role
     {
         var assignRoleDto = request.AssignRoleDto;
         var email = assignRoleDto.Email!;
-        var user = await userManager.FindByEmailAsync(email.ToLower());
+        var user = await userManager.FindByEmailAsync(email.ToUpperInvariant());
         UserNotFoundException.ThrowIfNull(user, email);
 
         var roleExists = await roleManager.RoleExistsAsync(assignRoleDto.Role);
@@ -21,6 +22,6 @@ public class AssignRoleHandler(UserManager<WalletIdentityUser> userManager, Role
             throw new RoleNotFoundException(assignRoleDto.Role);
         }
 
-        var result = await userManager.AddToRoleAsync(user!, assignRoleDto.Role);
+        await userManager.AddToRoleAsync(user!, assignRoleDto.Role);
     }
 }

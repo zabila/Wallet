@@ -12,7 +12,10 @@ public sealed class AccountRepository(DbContext repositoryContext) : RepositoryB
 
     public Task<Account?> GetAccountAsync(Guid accountId, bool trackChanges, CancellationToken cancellationToken) { return FindByCondition(account => account.Id.Equals(accountId), trackChanges).SingleOrDefaultAsync(cancellationToken); }
 
-    public Task<Account?> GetAccountByNameAsync(string name) { return FindByCondition(account => account.AccountName!.Equals(name), false).SingleOrDefaultAsync(); }
+    public Task<Account?> GetAccountByNameAsync(string name)
+    {
+        return FindByCondition(account => account.AccountName!.Equals(name, StringComparison.OrdinalIgnoreCase), false).SingleOrDefaultAsync();
+    }
 
     public bool AccountExists(Guid accountId) => FindByCondition(account => account.Id.Equals(accountId), false).Any();
 }

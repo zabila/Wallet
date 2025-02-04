@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Extensions;
 using Wallet.Services.Telegram.Resources;
@@ -29,12 +30,12 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         session.LastInteractionTime = DateTime.UtcNow;
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(session.Localization.EnsureExists());
 
-        BotTrigger? trigger = ParseLocalizedBotTrigger(text.EnsureExists());
+        var trigger = ParseLocalizedBotTrigger(text.EnsureExists());
 
         var machine = session.CurrentStateMachine.EnsureExists();
         if (!trigger.HasValue)
         {
-            (bool isReprocessable, BotTrigger reprocessableTrigger) = IsStateReprocessable(machine.State);
+            (var isReprocessable, var reprocessableTrigger) = IsStateReprocessable(machine.State);
             if (isReprocessable)
             {
                 await machine.FireAsync(reprocessableTrigger, message);
@@ -73,11 +74,11 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(session.Localization.EnsureExists());
 
         var machine = session.CurrentStateMachine.EnsureExists();
-        var triggerSrt = text.Split(":").First();
-        BotTrigger? trigger = ParseLocalizedBotTrigger(triggerSrt);
+        var triggerSrt = text.Split(':')[0];
+        var trigger = ParseLocalizedBotTrigger(triggerSrt);
         if (!trigger.HasValue)
         {
-            (bool isReprocessable, BotTrigger reprocessableTrigger) = IsStateReprocessable(machine.State);
+            (var isReprocessable, var reprocessableTrigger) = IsStateReprocessable(machine.State);
             if (isReprocessable)
             {
                 await machine.FireAsync(reprocessableTrigger, message);
@@ -107,7 +108,7 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
     private async Task<bool> IsHasPermissionAsync(int chatId)
     {
         var accountId = await financeAccountClient.GetAccountIdByTelegramUserIdAsync(chatId);
-        bool isAccountFound = accountId != null && accountId.Id != Guid.Empty;
+        var isAccountFound = accountId != null && accountId.Id != Guid.Empty;
         if (!isAccountFound)
         {
             logger.LogError($"Account not found or don't have permission to access the account. ChatId: {chatId}");
@@ -123,9 +124,9 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
 
     private static BotTrigger? ParseLocalizedBotTrigger(string localizedText)
     {
-        foreach (BotTrigger trigger in Enum.GetValues(typeof(BotTrigger)))
+        foreach (var trigger in Enum.GetValues<BotTrigger>())
         {
-            string description = trigger.GetLocalizedDescription();
+            var description = trigger.GetLocalizedDescription();
             if (string.Equals(description, localizedText, StringComparison.OrdinalIgnoreCase))
             {
                 return trigger;

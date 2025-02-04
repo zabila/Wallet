@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Shared.Extensions;
 
@@ -19,7 +20,7 @@ public abstract class HttpClientBase(ILoggerManager logger, IFlurlClient httpCli
         try
         {
             var http = GetHttp(endpoint);
-            T result = await http.PostAsync(content).ReceiveJson<T>();
+            var result = await http.PostAsync(content).ReceiveJson<T>();
             return result;
         }
         catch (FlurlHttpException ex)
@@ -39,7 +40,7 @@ public abstract class HttpClientBase(ILoggerManager logger, IFlurlClient httpCli
         try
         {
             var http = GetHttp(endpoint);
-            T result = await http.GetAsync().ReceiveJson<T>();
+            var result = await http.GetAsync().ReceiveJson<T>();
             return result;
         }
         catch (FlurlHttpException ex)

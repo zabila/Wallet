@@ -10,6 +10,7 @@ public class TelegramController(ILoggerManager logger) : ControllerBase
 {
     [Authorize]
     [HttpPost]
+    [ProducesResponseType(typeof(string), 200)]
     public IActionResult TestInboundConnection()
     {
         logger.LogInfo("Test inbound connection from Wallet.Services.Telegram");

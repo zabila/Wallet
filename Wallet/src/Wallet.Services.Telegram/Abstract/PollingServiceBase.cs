@@ -1,4 +1,5 @@
-﻿using Wallet.Services.Telegram.Contracts;
+﻿using Wallet.Domain.Contracts;
+using Wallet.Services.Telegram.Contracts;
 
 namespace Wallet.Services.Telegram.Abstract;
 
@@ -9,7 +10,7 @@ public abstract class PollingServiceBase<TReceiverService> : BackgroundService
     private readonly ILoggerManager _logger;
     private const int PollingDelayInSeconds = 3;
 
-    internal PollingServiceBase(IServiceProvider serviceScopeFactory, ILoggerManager logger)
+    protected PollingServiceBase(IServiceProvider serviceScopeFactory, ILoggerManager logger)
     {
         _serviceScopeFactory = serviceScopeFactory;
         _logger = logger;

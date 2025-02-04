@@ -2,6 +2,7 @@
 using System.Text;
 using Flurl.Http;
 using Flurl.Http.Configuration;
+using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Shared.DataTransferObjects;
 using Wallet.Shared.Extensions;

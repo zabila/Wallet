@@ -3,7 +3,7 @@
 namespace Wallet.Services.Telegram.Attributes;
 
 [AttributeUsage(AttributeTargets.Field)]
-public class LocalizedDescriptionAttribute(string resourceKey) : Attribute
+public sealed class LocalizedDescriptionAttribute(string resourceKey) : Attribute
 {
     public string ResourceKey { get; } = resourceKey;
 

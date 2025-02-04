@@ -3,6 +3,8 @@ using Flurl.Http.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NLog;
 using Telegram.Bot;
+using Wallet.Domain.Contracts;
+using Wallet.Infrastructure.LoggerService;
 using Wallet.Services.Telegram.AsyncDataServices;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Handlers;
@@ -24,12 +26,7 @@ public static class ServiceExtensions
 
     public static void ConfigureTelegramService(this IServiceCollection services, IConfiguration configuration)
     {
-        var telegramBotToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN");
-        if (string.IsNullOrEmpty(telegramBotToken))
-        {
-            throw new ArgumentNullException(nameof(telegramBotToken), "Telegram bot token is not set");
-        }
-
+        var telegramBotToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN").EnsureExists();
         services.AddHttpClient("telegram_bot_client")
             .AddTypedClient<ITelegramBotClient>((httpClient, _) =>
             {

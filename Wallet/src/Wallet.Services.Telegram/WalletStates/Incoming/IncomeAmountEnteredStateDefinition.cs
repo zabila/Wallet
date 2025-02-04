@@ -18,8 +18,6 @@ public class IncomeAmountEnteredStateDefinition(ITelegramBotClient botClient, IM
     public BotState State { get; } = BotState.IncomeAmountEntered;
     public Tuple<bool, BotTrigger> ShouldBeRecalled { get; } = Tuple.Create(true, BotTrigger.AmountEntered);
 
-    private static readonly HttpClient HttpClient = new HttpClient();
-
     public void ConfigureState(StateMachine<BotState, BotTrigger> stateMachine, UserSession userSession)
     {
         stateMachine.Configure(State)
@@ -55,7 +53,8 @@ public class IncomeAmountEnteredStateDefinition(ITelegramBotClient botClient, IM
                     Description = "Telegram chat Transaction",
                 };
 
-                messageBusClient.PublishNewTransaction(transaction);
+                await messageBusClient.PublishNewTransactionAsync(transaction);
+
                 userSession.StateData.Remove(State);
                 await botClient.SendMessage(userSession.ChatId, string.Format(TelegramBot.IncomeAmountEnteredStateDefinition_ConfigureState_Transaction___0__has_been_saved_, transaction.Id));
                 await stateMachine.FireAsync(BotTrigger.Reset);

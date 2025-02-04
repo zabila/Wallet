@@ -26,8 +26,6 @@ public class AuthenticationController(ISender sender) : ControllerBase
 
     [Authorize]
     [HttpPost("test")]
-    public IActionResult TestInboundConnection()
-    {
-        return Ok("Test inbound connection from Wallet.API.Identity");
-    }
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+    public IActionResult TestInboundConnection() => Ok("Test inbound connection from Wallet.API.Identity");
 }

@@ -10,6 +10,7 @@ using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Model;
 using Wallet.Infrastructure.LoggerService;
 using Wallet.Infrastructure.Repository;
+using Wallet.Shared.Extensions;
 
 namespace Wallet.API.Identity.Extensions;
 
@@ -74,11 +75,7 @@ public static class ServiceExtensions
 
         services.AddSingleton<IEmailSender<WalletIdentityUser>, EmailSender>();
 
-        var SECRET = Environment.GetEnvironmentVariable("SECRET");
-        if (string.IsNullOrEmpty(SECRET))
-        {
-            throw new ArgumentNullException(nameof(SECRET));
-        }
+        var SECRET = Environment.GetEnvironmentVariable("SECRET").EnsureExists();
         var key = Encoding.UTF8.GetBytes(SECRET!);
         var issuer = configuration["Jwt:Issuer"];
         var audience = configuration["Jwt:Audience"];

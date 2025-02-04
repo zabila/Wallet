@@ -9,6 +9,6 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<RegisterUserDto, WalletIdentityUser>()
-            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email)); ;
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
     }
 }

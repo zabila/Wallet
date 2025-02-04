@@ -1,4 +1,5 @@
-﻿using Wallet.Services.Telegram.Abstract;
+﻿using Wallet.Domain.Contracts;
+using Wallet.Services.Telegram.Abstract;
 using Wallet.Services.Telegram.Contracts;
 
 namespace Wallet.Services.Telegram.Services;

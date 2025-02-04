@@ -1,18 +1,18 @@
 ﻿using System.Text;
+using System.Threading.Channels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Wallet.Domain.Contracts;
 using Wallet.Shared.Extensions;
-using IModel = RabbitMQ.Client.IModel;
 
 namespace Wallet.Integration.MessageBus;
 
 public class MessageBusSubscriber : BackgroundService
 {
     private IConnection? _connection;
-    private IModel? _channel;
+    private IChannel? _channel;
     private readonly IConfiguration _configuration;
     private readonly IEventProcessor _eventProcessor;
     private readonly ILoggerManager _logger;
@@ -26,22 +26,22 @@ public class MessageBusSubscriber : BackgroundService
         InitializeRabbitMqListener();
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         stoppingToken.ThrowIfCancellationRequested();
 
-        var consumer = new AsyncEventingBasicConsumer(_channel);
-        consumer.Received += async (_, ea) =>
+        var channel = _channel.EnsureExists();
+        var consumer = new AsyncEventingBasicConsumer(channel);
+        consumer.ReceivedAsync += async (_, ea) =>
         {
             _logger.LogInfo("Event received from RabbitMQ");
-
             var body = ea.Body;
             var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
             await _eventProcessor.ProcessEventAsync(notificationMessage);
         };
 
-        _channel.BasicConsume(queue: QueueName, autoAck: true, consumer: consumer);
-        return Task.CompletedTask;
+        var consumerTag = await channel.BasicConsumeAsync(QueueName, true, consumer, stoppingToken);
+        _logger.LogInfo($"Listening for RabbitMQ messages on queue: {QueueName}");
     }
 
     private void InitializeRabbitMqListener()
@@ -54,29 +54,33 @@ public class MessageBusSubscriber : BackgroundService
         {
             HostName = hostName,
             Port = port,
-            DispatchConsumersAsync = true
         };
 
-        _connection = factory.CreateConnection();
-        _channel = _connection.CreateModel();
-        _channel.QueueDeclare(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+        _connection = factory.CreateConnectionAsync().Result;
+        _channel = _connection.CreateChannelAsync().Result;
+        _channel.QueueDeclareAsync(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
-        _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+        _connection.ConnectionShutdownAsync += RabbitMQ_ConnectionShutdown;
     }
 
-    private void RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
+    private Task RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
     {
         _logger.LogError("RabbitMQ Connection Shutdown");
+        return Task.CompletedTask;
     }
 
-    public override void Dispose()
+    public async Task DisposeAsync()
     {
-        if (_channel.EnsureExists().IsOpen)
+        if (_channel != null)
         {
-            _channel.EnsureExists().Close();
-            _connection.EnsureExists().Close();
+            await _channel.CloseAsync();
+            await _channel.DisposeAsync();
         }
 
-        base.Dispose();
+        if (_connection != null)
+        {
+            await _connection.CloseAsync();
+            await _connection.DisposeAsync();
+        }
     }
 }

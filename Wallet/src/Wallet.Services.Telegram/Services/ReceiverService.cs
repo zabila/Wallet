@@ -1,4 +1,5 @@
 ﻿using Telegram.Bot;
+using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Abstract;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Handlers;

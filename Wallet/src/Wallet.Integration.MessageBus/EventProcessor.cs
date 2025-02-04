@@ -36,6 +36,8 @@ public class EventProcessor : IEventProcessor, IDisposable
                 await ProcessTransactionTelegramPublishedAsync(message);
                 break;
             case EventType.Undetermined:
+                _logger.LogError("Not processing event");
+                break;
             default:
                 _logger.LogError("Could not determine event type");
                 break;

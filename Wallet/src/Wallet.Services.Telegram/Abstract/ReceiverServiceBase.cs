@@ -1,6 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
+using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
 
 namespace Wallet.Services.Telegram.Abstract;
@@ -16,7 +17,7 @@ public abstract class ReceiverServiceBase<TUpdateHandler> : IReceiverService whe
         AllowedUpdates = []
     };
 
-    internal ReceiverServiceBase(ITelegramBotClient botClient, TUpdateHandler updateHandler, ILoggerManager logger)
+    protected ReceiverServiceBase(ITelegramBotClient botClient, TUpdateHandler updateHandler, ILoggerManager logger)
     {
         _botClient = botClient;
         _updateHandler = updateHandler;

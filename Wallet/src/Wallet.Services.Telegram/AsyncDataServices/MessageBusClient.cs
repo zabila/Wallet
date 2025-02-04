@@ -1,18 +1,21 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Dtos;
+using Wallet.Shared.Extensions;
 
 namespace Wallet.Services.Telegram.AsyncDataServices;
 
-public class MessageBusClient : IMessageBusClient
+public class MessageBusClient : IMessageBusClient, IDisposable
 {
     private const string QueueName = "transactionQueue";
     private readonly IConfiguration _configuration;
     private readonly ILoggerManager _logger;
     private IConnection? _connection;
-    private IModel? _channel;
+    private IChannel? _channel;
 
     public MessageBusClient(IConfiguration configuration, ILoggerManager loggerManager)
     {
@@ -21,13 +24,13 @@ public class MessageBusClient : IMessageBusClient
         SetupRabbitMq();
     }
 
-    public void PublishNewTransaction(TransactionPublishedDto transactionPublishedDto)
+    public async Task PublishNewTransactionAsync(TransactionPublishedDto transactionPublishedDto)
     {
         var message = JsonConvert.SerializeObject(transactionPublishedDto);
         if (_connection?.IsOpen == true)
         {
             _logger.LogInfo("RabbitMQ Connection Open, sending message...");
-            SendMessage(message);
+            await SendMessageAsync(message);
         }
         else
         {
@@ -35,46 +38,44 @@ public class MessageBusClient : IMessageBusClient
         }
     }
 
-    public void Dispose()
+    private async Task SendMessageAsync(string message)
     {
-        _logger.LogInfo("MessageBus Disposed");
-        _channel?.Dispose();
-        _connection?.Dispose();
-    }
-
-    private void SendMessage(string message)
-    {
+        var channel = _channel.EnsureExists();
         var body = Encoding.UTF8.GetBytes(message);
-        _channel?.BasicPublish(exchange: string.Empty,
-            routingKey: QueueName,
-            basicProperties: null,
-            body: body);
 
+        var props = new BasicProperties
+        {
+            ContentType = "application/json",
+            DeliveryMode = DeliveryModes.Persistent,
+        };
+
+        await channel.BasicPublishAsync(string.Empty, QueueName, false, props, body);
         _logger.LogInfo($"Message published to RabbitMQ: {message}");
     }
 
-    private void RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
+    private Task RabbitMQ_ConnectionShutdown(object? sender, ShutdownEventArgs e)
     {
         _logger.LogError("RabbitMQ Connection Shutdown");
+        return Task.CompletedTask;
     }
 
     private void SetupRabbitMq()
     {
         var factory = new ConnectionFactory()
         {
-            HostName = _configuration["RabbitMQHost"],
+            HostName = _configuration["RabbitMQHost"].EnsureExists(),
             Port = int.Parse(_configuration["RabbitMQPort"] ?? throw new InvalidOperationException("RabbitMQPort is null")),
         };
         try
         {
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: QueueName,
+            _connection = factory.CreateConnectionAsync().Result;
+            _channel = _connection.CreateChannelAsync().Result;
+            _channel.QueueDeclareAsync(queue: QueueName,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
-            _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+            _connection.ConnectionShutdownAsync += RabbitMQ_ConnectionShutdown;
             _logger.LogInfo("Connected to MessageBus");
         }
         catch (Exception exception)
@@ -82,5 +83,11 @@ public class MessageBusClient : IMessageBusClient
             _logger.LogError($"Could not connect to Message Bus: {exception.Message}");
             throw;
         }
+    }
+
+    public void Dispose()
+    {
+        _connection?.Dispose();
+        _channel?.Dispose();
     }
 }

@@ -3,6 +3,7 @@ using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
+using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
 
 namespace Wallet.Services.Telegram.Handlers;
@@ -24,7 +25,7 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
     /// <param name="cancellationToken">A token to monitor for task cancellation.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
     [Authorize]
-    public async Task HandleUpdateAsync(ITelegramBotClient _, Update update, CancellationToken cancellationToken)
+    public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
         logger.LogInfo($"Received update type: {update.Type.ToString()}");
         var handler = update switch
@@ -34,7 +35,7 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
             _ => UnknownUpdateHandlerAsync(update)
         };
 
-        await handler;
+        return handler;
     }
 
     public Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, HandleErrorSource source, CancellationToken cancellationToken)
@@ -64,8 +65,6 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
     /// <returns>A task that represents the asynchronous operation.</returns>
     private Task BotOnCallbackQueryReceivedAsync(CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
-        var message = callbackQuery.Message;
-
         logger.LogInfo($"Receive callback query type: {callbackQuery.Data}");
         return walletContext.HandleCallbackQueryAsync(callbackQuery, cancellationToken);
     }
@@ -100,6 +99,8 @@ public class UpdateHandler(ILoggerManager logger, IWalletContext walletContext) 
         logger.LogInfo("HandleError: " + errorMessage);
 
         if (exception is RequestException)
+        {
             await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+        }
     }
 }

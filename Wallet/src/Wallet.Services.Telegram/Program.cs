@@ -7,4 +7,4 @@ builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureTelegramService(builder.Configuration);
 
 var app = builder.Build();
-app.Run();
+await app.RunAsync();
