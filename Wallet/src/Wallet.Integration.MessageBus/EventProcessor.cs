@@ -6,8 +6,8 @@ using Wallet.Application.Finance.Account.Queries;
 using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Enums;
-using Wallet.Shared.DataTransferObjects;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.DataTransferObjects;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Integration.MessageBus;
 

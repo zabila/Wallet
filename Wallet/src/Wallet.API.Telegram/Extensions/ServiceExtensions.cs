@@ -7,7 +7,7 @@ using NLog;
 using Wallet.Domain.Contracts;
 using Wallet.Infrastructure.LoggerService;
 using Wallet.Infrastructure.Repository;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.API.Telegram.Extensions;
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wallet.Application.Identity.Commands.User;
 using Wallet.Application.Identity.Queries;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.API.Identity.Controllers;
 

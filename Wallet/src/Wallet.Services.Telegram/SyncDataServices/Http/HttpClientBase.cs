@@ -1,7 +1,7 @@
 ﻿using Flurl.Http;
 using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.SyncDataServices.Http;
 

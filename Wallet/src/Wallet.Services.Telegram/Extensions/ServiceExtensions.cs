@@ -12,7 +12,7 @@ using Wallet.Services.Telegram.Services;
 using Wallet.Services.Telegram.SyncDataServices.Http;
 using Wallet.Services.Telegram.WalletStates;
 using Wallet.Services.Telegram.WalletStates.Incoming;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.Extensions;
 

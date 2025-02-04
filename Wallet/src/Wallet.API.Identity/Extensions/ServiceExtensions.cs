@@ -10,7 +10,7 @@ using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Model;
 using Wallet.Infrastructure.LoggerService;
 using Wallet.Infrastructure.Repository;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.API.Identity.Extensions;
 

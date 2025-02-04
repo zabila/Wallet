@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wallet.Application.Finance.Account.Commands;
 using Wallet.Application.Finance.Account.Queries;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.API.Finance.Controllers;
 

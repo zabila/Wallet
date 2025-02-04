@@ -3,7 +3,7 @@ using System.Globalization;
 using Stateless;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.Services;
 

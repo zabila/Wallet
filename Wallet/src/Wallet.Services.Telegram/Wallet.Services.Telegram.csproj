@@ -30,7 +30,7 @@
 		<ProjectReference Include="..\Wallet.Domain.Contracts\Wallet.Domain.Contracts.csproj" />
 		<ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj" />
 		<ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
-		<ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
+		<ProjectReference Include="..\Wallet.SharedKernel\Wallet.SharedKernel.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

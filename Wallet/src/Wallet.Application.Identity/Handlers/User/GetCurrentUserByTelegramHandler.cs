@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Wallet.Application.Identity.Queries;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Model;
-using Wallet.Shared.DataTransferObjects;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.DataTransferObjects;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Application.Identity.Handlers.User;
 

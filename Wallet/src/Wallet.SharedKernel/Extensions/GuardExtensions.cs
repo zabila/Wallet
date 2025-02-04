@@ -1,4 +1,4 @@
-﻿namespace Wallet.Shared.Extensions;
+﻿namespace Wallet.SharedKernel.Extensions;
 
 public static class GuardExtensions
 {

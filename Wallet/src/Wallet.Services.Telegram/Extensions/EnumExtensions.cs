@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Wallet.Services.Telegram.Attributes;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.Extensions;
 

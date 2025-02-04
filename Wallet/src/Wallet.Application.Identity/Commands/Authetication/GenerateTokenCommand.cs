@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.Application.Identity.Commands.Authetication;
 

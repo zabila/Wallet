@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Wallet.Domain.Contracts;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Integration.MessageBus;
 
@@ -41,7 +41,7 @@ public class MessageBusSubscriber : BackgroundService
         };
 
         var consumerTag = await channel.BasicConsumeAsync(QueueName, true, consumer, stoppingToken);
-        _logger.LogInfo($"Listening for RabbitMQ messages on queue: {QueueName}");
+        _logger.LogInfo($"Listening for RabbitMQ messages on queue: {QueueName}, consumerTag: {consumerTag}");
     }
 
     private void InitializeRabbitMqListener()

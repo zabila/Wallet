@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallet.Services.Telegram", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallet.Infrastructure.Repository", "src\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj", "{14479ACA-508A-4390-B428-1961FA59A9D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallet.Shared", "src\Wallet.Shared\Wallet.Shared.csproj", "{503F88A8-2045-481F-830D-E7FA3C728D2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallet.SharedKernel", "src\Wallet.SharedKernel\Wallet.SharedKernel.csproj", "{503F88A8-2045-481F-830D-E7FA3C728D2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallet.Infrastructure.LoggerService", "src\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj", "{FB6818D8-F96B-4E85-9329-AA77BF953D2C}"
 EndProject

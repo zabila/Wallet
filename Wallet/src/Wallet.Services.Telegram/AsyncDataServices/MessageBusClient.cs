@@ -5,7 +5,7 @@ using RabbitMQ.Client.Events;
 using Wallet.Domain.Contracts;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Dtos;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.AsyncDataServices;
 

@@ -6,7 +6,7 @@ using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Extensions;
 using Wallet.Services.Telegram.Resources;
 using Wallet.Services.Telegram.SyncDataServices.Http;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.WalletStates;
 

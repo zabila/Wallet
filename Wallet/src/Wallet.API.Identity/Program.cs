@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Wallet.API.Identity.Extensions;
 using Wallet.Domain.Contracts;
 using Wallet.Infrastructure.Repository;
@@ -25,6 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.ApplyMigrations();
 
 app.UseHttpsRedirection();
 
@@ -34,14 +34,4 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-ApplyMigrations(app.Services);
-
 await app.RunAsync();
-
-static void ApplyMigrations(IServiceProvider serviceProvider)
-{
-    using var scope = serviceProvider.CreateScope();
-    var context = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
-    context.Database.Migrate();
-}

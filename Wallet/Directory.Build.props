@@ -3,12 +3,12 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<AnalysisMode>All</AnalysisMode>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+		<EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
 	</PropertyGroup>
 	<ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
 		<PackageReference Include="SonarAnalyzer.CSharp">

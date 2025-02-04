@@ -1,4 +1,4 @@
-﻿using Wallet.Shared.DataTransferObjects;
+﻿using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.Services.Telegram.Contracts;
 

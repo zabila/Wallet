@@ -12,8 +12,8 @@ using Wallet.Infrastructure.Repository;
 namespace Wallet.Infrastructure.Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20250202104613_UpdateLocationInTransaction")]
-    partial class UpdateLocationInTransaction
+    [Migration("20250204141559_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace Wallet.Infrastructure.Repository.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Wallet")
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -50,26 +50,6 @@ namespace Wallet.Infrastructure.Repository.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Roles", "Wallet");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "af876616-ae70-4148-81d7-15b550b8d1c4",
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
-                        },
-                        new
-                        {
-                            Id = "9ea0e160-795e-4f2b-a04d-650f811c2e2a",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "1b022eb4-11f4-479e-9b89-03917e52688a",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -303,9 +283,14 @@ namespace Wallet.Infrastructure.Repository.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Localization")
                         .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")

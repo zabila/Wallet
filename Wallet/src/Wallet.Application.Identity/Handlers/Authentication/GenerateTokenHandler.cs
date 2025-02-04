@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Wallet.Application.Identity.Commands.Authetication;
 using Wallet.Domain.Entities.Model;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 using SigningCredentials = Microsoft.IdentityModel.Tokens.SigningCredentials;
 
 namespace Wallet.Application.Identity.Handlers.Authentication;

@@ -9,7 +9,7 @@ using Wallet.Services.Telegram.Dtos;
 using Wallet.Services.Telegram.Models;
 using Wallet.Services.Telegram.Resources;
 using Wallet.Services.Telegram.WalletStates.Base;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.WalletStates.Expenses;
 

@@ -10,7 +10,17 @@
         "SECRET": ""
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5021"
+      "applicationUrl": "http://localhost:5000"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_HTTP_PORTS": "8080"
+      },
+      "publishAllPorts": true,
+      "useSSL": false
     }
   }
 }

@@ -8,7 +8,7 @@ using Wallet.Domain.Contracts;
 using Wallet.Infrastructure.LoggerService;
 using Wallet.Infrastructure.Repository;
 using Wallet.Integration.MessageBus;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.API.Finance.Extensions;
 

@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wallet.Application.Identity.Commands.Authetication;
-using Wallet.Shared.DataTransferObjects;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.DataTransferObjects;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.API.Identity.Controllers;
 

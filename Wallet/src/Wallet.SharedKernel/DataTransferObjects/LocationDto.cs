@@ -1,4 +1,4 @@
-﻿namespace Wallet.Shared.DataTransferObjects;
+﻿namespace Wallet.SharedKernel.DataTransferObjects;
 
 public class LocationDto
 {

@@ -10,7 +10,7 @@
       },
       "hotReloadEnabled": true,
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5032"
+      "applicationUrl": "http://localhost:5001"
     },
     "Container (Dockerfile)": {
       "commandName": "Docker",

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Wallet.Domain.Entities.Model;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.API.Finance;
 

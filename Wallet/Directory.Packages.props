@@ -32,7 +32,7 @@
 		<PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageVersion Include="Stateless" Version="5.17.0" />
 		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
-		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
+		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
 		<PackageVersion Include="Telegram.Bot" Version="22.3.0" />
 	</ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Wallet.Application.Identity.Commands.Authetication;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Model;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Application.Identity.Handlers.Authentication;
 

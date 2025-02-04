@@ -5,7 +5,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using Wallet.Services.Telegram.Contracts;
 using Wallet.Services.Telegram.Models;
 using Wallet.Services.Telegram.Resources;
-using Wallet.Shared.Extensions;
+using Wallet.SharedKernel.Extensions;
 
 namespace Wallet.Services.Telegram.WalletStates.Incoming;
 

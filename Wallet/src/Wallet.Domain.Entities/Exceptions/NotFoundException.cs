@@ -1,3 +1,10 @@
 ﻿namespace Wallet.Domain.Entities.Exceptions;
 
-public abstract class NotFoundException(string message) : Exception(message);
+public abstract class NotFoundException : Exception
+{
+    protected NotFoundException(string message) : base(message) { }
+
+    protected NotFoundException(string message, Exception innerException) : base(message, innerException) { }
+
+    protected NotFoundException() { }
+}

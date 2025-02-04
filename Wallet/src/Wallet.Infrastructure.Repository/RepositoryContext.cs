@@ -34,7 +34,7 @@ public class RepositoryContext(DbContextOptions options) : IdentityDbContext<Wal
             });
         });
 
-        builder.ApplyConfiguration(new RoleConfiguration());
+        //builder.ApplyConfiguration(new RoleConfiguration());
         builder.ApplyConfiguration(new AccountConfiguration());
     }
 

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Wallet.Application.Finance.Transaction.Commands;
 using Wallet.Application.Finance.Transaction.Queries;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.API.Finance.Controllers;
 

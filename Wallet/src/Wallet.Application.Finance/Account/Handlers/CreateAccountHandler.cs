@@ -4,7 +4,7 @@ using Wallet.Application.Finance.Account.Commands;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Exceptions;
 using Wallet.Domain.Entities.Model;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.Application.Finance.Account.Handlers;
 

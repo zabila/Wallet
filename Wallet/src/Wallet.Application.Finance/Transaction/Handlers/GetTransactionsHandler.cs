@@ -3,7 +3,7 @@ using MediatR;
 using Wallet.Application.Finance.Transaction.Queries;
 using Wallet.Domain.Contracts;
 using Wallet.Domain.Entities.Exceptions;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.Application.Finance.Transaction.Handlers;
 

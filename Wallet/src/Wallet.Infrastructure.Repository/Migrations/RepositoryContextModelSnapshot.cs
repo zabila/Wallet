@@ -18,7 +18,7 @@ namespace Wallet.Infrastructure.Repository.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Wallet")
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -47,26 +47,6 @@ namespace Wallet.Infrastructure.Repository.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Roles", "Wallet");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "e8e60bb8-1771-42fd-8c4b-a974a6d8cb38",
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
-                        },
-                        new
-                        {
-                            Id = "f1b7d66f-ca8a-406e-b68b-b2edc747017e",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "dbba033a-0ec0-4ac7-9451-adf0962baddd",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

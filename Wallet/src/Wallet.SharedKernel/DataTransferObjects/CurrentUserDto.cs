@@ -1,4 +1,4 @@
-﻿namespace Wallet.Shared.DataTransferObjects;
+﻿namespace Wallet.SharedKernel.DataTransferObjects;
 
 public sealed class CurrentUserDto
 {
@@ -12,6 +12,6 @@ public sealed class CurrentUserDto
     public int TelegramUserId { get; set; }
     public bool IsEmailConfirmed { get; set; }
     public bool IsPhoneNumberConfirmed { get; set; }
-    public IList<string>? Roles { get; set; }
+    public IList<string>? Roles { get; set; } = new List<string>();
     public string? Localization { get; set; }
 }

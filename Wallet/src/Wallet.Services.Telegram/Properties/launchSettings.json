@@ -1,13 +1,5 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:50231",
-      "sslPort": 44330
-    }
-  },
   "profiles": {
     "http": {
       "commandName": "Project",
@@ -18,5 +10,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
+  },
+  "Container (Dockerfile)": {
+    "commandName": "Docker",
+    "launchBrowser": true,
+    "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+    "environmentVariables": {
+      "ASPNETCORE_HTTP_PORTS": "8080"
+    },
+    "publishAllPorts": true,
+    "useSSL": false
   }
 }

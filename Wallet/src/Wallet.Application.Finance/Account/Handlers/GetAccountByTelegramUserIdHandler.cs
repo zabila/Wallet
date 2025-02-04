@@ -2,7 +2,7 @@
 using MediatR;
 using Wallet.Application.Finance.Account.Queries;
 using Wallet.Domain.Contracts;
-using Wallet.Shared.DataTransferObjects;
+using Wallet.SharedKernel.DataTransferObjects;
 
 namespace Wallet.Application.Finance.Account.Handlers;
 

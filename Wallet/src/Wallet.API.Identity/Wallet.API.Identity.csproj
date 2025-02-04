@@ -4,6 +4,7 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
 		<DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+		<UserSecretsId>65b8f796-d7c7-46ac-8add-083563dc1f49</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -11,6 +12,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
 		<PackageReference Include="Swashbuckle.AspNetCore" />
 	</ItemGroup>
 	<ItemGroup>
@@ -20,7 +22,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Wallet.Application.Identity\Wallet.Application.Identity.csproj" />
-		<ProjectReference Include="..\Wallet.Shared\Wallet.Shared.csproj" />
+		<ProjectReference Include="..\Wallet.SharedKernel\Wallet.SharedKernel.csproj" />
 		<ProjectReference Include="..\Wallet.Domain.Entities\Wallet.Domain.Entities.csproj" />
 		<ProjectReference Include="..\Wallet.Infrastructure.LoggerService\Wallet.Infrastructure.LoggerService.csproj" />
 		<ProjectReference Include="..\Wallet.Infrastructure.Repository\Wallet.Infrastructure.Repository.csproj" />
