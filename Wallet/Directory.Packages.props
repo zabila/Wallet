@@ -1,0 +1,37 @@
+﻿<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- Static code analysis -->
+		<PackageVersion Include="EFCore.NamingConventions" Version="9.0.0" />
+		<PackageVersion Include="SonarAnalyzer.CSharp" Version="10.6.0.109712" />
+		<PackageVersion Include="NLog" Version="5.4.0" />
+		<PackageVersion Include="MediatR" Version="12.4.1" />
+		<PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.Extensions.Identity.Stores" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+		<PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+		<PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+		<PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
+		<PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity" Version="2.3.0" />
+		<PackageVersion Include="Microsoft.Extensions.Identity.Core" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="8.3.1" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.1" />
+		<PackageVersion Include="RabbitMQ.Client" Version="7.0.0" />
+		<PackageVersion Include="Flurl.Http" Version="4.0.2" />
+		<PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageVersion Include="Stateless" Version="5.17.0" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
+		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.1" />
+		<PackageVersion Include="Telegram.Bot" Version="22.3.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.App" Version="2.2.0" />
+	</ItemGroup>
+</Project>
