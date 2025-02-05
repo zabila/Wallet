@@ -1,6 +1,6 @@
 services:
   database:
-    container_name: "wallet-postgres"
+    container_name: "postgres"
     image: postgres
     restart: always
     ports:
@@ -12,10 +12,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     networks:
-      - wallet_network
+      - network
 
   rabbitmq:
-    container_name: "wallet-rabbitmq"
+    container_name: "rabbitmq"
     image: 'rabbitmq:3-management'
     ports:
       - '5672:5672'
@@ -28,13 +28,13 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - wallet_network
+      - network
 
-  wallet-api-identity:
-    container_name: "wallet-api-identity"
+  api-identity:
+    container_name: "api-identity"
     build:
       context: .
-      dockerfile: src/Wallet.Api.Identity/Dockerfile
+      dockerfile: src/API.Identity/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
@@ -44,13 +44,13 @@ services:
       - database
       - rabbitmq
     networks:
-      - wallet_network
+      - network
 
-  wallet-api-finance:
-    container_name: "wallet-api-finance"
+  api-finance:
+    container_name: "api-finance"
     build:
       context: .
-      dockerfile: src/Wallet.Api.Finance/Dockerfile
+      dockerfile: src/API.Finance/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
@@ -60,29 +60,13 @@ services:
       - database
       - rabbitmq
     networks:
-      - wallet_network
+      - network
 
-  wallet-api-telegram:
-    container_name: "wallet-api-telegram"
+  api-telegram:
+    container_name: "api-telegram"
     build:
       context: .
-      dockerfile: src/Wallet.Api.Telegram/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - SECRET=${SECRET}
-    ports:
-      - "5002:8080"
-    depends_on:
-      - database
-      - rabbitmq
-    networks:
-      - wallet_network
-
-  wallet-service-telegram-bot:
-    container_name: "wallet-service-telegram-bot"
-    build:
-      context: .
-      dockerfile: src/Wallet.Services.Telegram/Dockerfile
+      dockerfile: src/API.Telegram/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - SECRET=${SECRET}
@@ -92,7 +76,7 @@ services:
       - database
       - rabbitmq
     networks:
-      - wallet_network
+      - network
     dns:
       - 8.8.8.8
       - 8.8.4.4
@@ -102,6 +86,6 @@ volumes:
   rabbitmq_data:
 
 networks:
-  wallet_network:
+  network:
     driver: bridge
 

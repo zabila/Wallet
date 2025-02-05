@@ -12,7 +12,7 @@ It utilizes the power of the Telegram.Bot API to interact fluidly with users, of
 
 ## Technologies Used
 
-- .NET Core 8.0
+- .NET 9.0
 - ASP.NET
 - C# 12.0
 - Telegram.Bot
