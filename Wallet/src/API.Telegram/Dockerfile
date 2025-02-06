@@ -3,7 +3,7 @@ USER $APP_UID
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
 
 #restore
@@ -24,7 +24,7 @@ RUN dotnet build "./API.Telegram.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 #Stage: Publish
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 RUN dotnet publish "./API.Telegram.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 
 #Stage: Final

@@ -1,4 +1,6 @@
-﻿using SharedKernel;
+﻿using Domain.Accounts;
+using Domain.Users;
+using SharedKernel;
 
 namespace Domain.Transactions;
 
@@ -12,6 +14,11 @@ public sealed class Transaction : Entity
     public DateTime UpdatedAt { get; set; }
     public Location Location { get; set; }
     public string Attachment { get; set; }
+
+
     public Guid AccountId { get; set; }
+    public Account Account { get; set; }
+
     public Guid UserId { get; set; }
+    public User User { get; set; }
 }

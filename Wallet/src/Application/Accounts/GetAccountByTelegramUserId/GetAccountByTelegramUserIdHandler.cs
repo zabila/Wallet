@@ -1,7 +1,6 @@
 ﻿using Application.Data;
 using Application.Messaging;
 using Domain.Accounts;
-using Domain.Transactions;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
@@ -19,16 +18,16 @@ internal sealed class GetAccountByTelegramUserIdHandler(IRepositoryManager repos
             return Result.Failure<AccountResponse>(UserErrors.TelegreamUserNotFound(request.TelegramUserId));
         }
 
-        var user = await repository.Users.FindByCondition(user => user.Id == telegramUser.UserId && user.Id == request.userid).FirstOrDefaultAsync(cancellationToken);
+        var user = telegramUser.User;
         if (user is null)
         {
             return Result.Failure<AccountResponse>(UserErrors.NotFound(telegramUser.UserId));
         }
 
-        var account = await repository.Accounts.FindByCondition(a => a.Id == user.AccountId).FirstOrDefaultAsync(cancellationToken);
+        var account = user.Account;
         if (account is null)
         {
-            return Result.Failure<AccountResponse>(AccountErrors.NotFound(user.AccountId));
+            return Result.Failure<AccountResponse>(AccountErrors.NotFoundByUserId(user.Id));
         }
 
         var accountResponse = new AccountResponse

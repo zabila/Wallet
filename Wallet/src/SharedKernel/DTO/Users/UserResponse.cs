@@ -6,5 +6,6 @@ public class UserResponse
     public string FirstName { get; init; }
     public string LastName { get; init; }
     public Guid TelegramId { get; set; }
+    public Guid AccountId { get; set; }
     public string Localization { get; set; }
 }

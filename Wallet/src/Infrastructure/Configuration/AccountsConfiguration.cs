@@ -10,10 +10,11 @@ public class AccountsConfiguration : IEntityTypeConfiguration<Account>
     {
         builder.HasKey(a => a.Id);
         builder.Property(a => a.Id)
-          .ValueGeneratedOnAdd()
-          .HasDefaultValueSql("NEWID()");
+            .ValueGeneratedOnAdd()
+            .HasDefaultValueSql("gen_random_uuid()");
 
-        builder.HasIndex(a => a.Id).IsUnique();
         builder.Property(a => a.AccountName).IsRequired();
+        builder.Property(a => a.Balance).HasColumnType("decimal(18,2)");
+        builder.Property(a => a.Currency).IsRequired();
     }
 }

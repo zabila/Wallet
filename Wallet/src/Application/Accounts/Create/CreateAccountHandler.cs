@@ -11,26 +11,31 @@ internal sealed class CreateAccountHandler(IRepositoryManager repository) : ICom
 {
     public async Task<Result<Guid>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        var user = await repository.Users.FindByCondition(u => u.Id == request.UserId).FirstOrDefaultAsync(cancellationToken);
+        var user = await repository.Users.FindByCondition(u => u.Id == request.UserId, true).FirstOrDefaultAsync(cancellationToken);
         if (user is null)
         {
             return Result.Failure<Guid>(UserErrors.NotFound(request.UserId));
         }
 
-        if (user.AccountId != Guid.Empty)
+        if (user.AccountId != null && user.AccountId != Guid.Empty)
         {
-            return Result.Failure<Guid>(AccountErrors.AccountAlreadyExists(user.AccountId));
+            return Result.Failure<Guid>(AccountErrors.AccountAlreadyExists(user.AccountId.Value));
         }
 
         var account = new Account
         {
+            Id = Guid.NewGuid(),
             AccountName = request.AccountName,
             AccountType = request.AccountType,
             Balance = request.Balance,
             Currency = request.Currency
         };
-
         await repository.Accounts.CreateAsync(account, cancellationToken);
+
+        user.Account = account;
+        user.AccountId = account.Id;
+        repository.Users.Update(user);
+
         await repository.SaveChangesAsync(cancellationToken);
 
         return account.Id;

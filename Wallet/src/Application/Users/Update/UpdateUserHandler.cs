@@ -1,12 +1,8 @@
 ﻿using Application.Data;
 using Application.Messaging;
 using Domain.Users;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
-using SharedKernel.Exceptions;
-using SharedKernel.Extensions;
 
 namespace Application.Users.Update;
 
@@ -22,9 +18,10 @@ internal sealed class UpdateUserHandler(IRepositoryManager repository) : IComman
 
         user.FirstName = command.FirstName;
         user.LastName = command.LastName;
+        user.Localization = command.Localization;
 
         var telegramUser = await repository.TelegramUsers.
-            FindByCondition(telegramUser => telegramUser.Id == user.TelegramId, true).SingleOrDefaultAsync(cancellationToken);
+            FindByCondition(telegramUser => telegramUser.UserId == user.Id, true).SingleOrDefaultAsync(cancellationToken);
 
         if (telegramUser is null)
         {
@@ -35,12 +32,15 @@ internal sealed class UpdateUserHandler(IRepositoryManager repository) : IComman
                 UserId = user.Id
             };
             await repository.TelegramUsers.CreateAsync(newTelegramUser, cancellationToken);
+            telegramUser = newTelegramUser;
         }
         else
         {
             telegramUser.TelegramUsername = command.TelegramUsername;
             telegramUser.TelegramUserId = command.TelegramUserId;
         }
+
+        user.TelegramUser = telegramUser;
 
         await repository.SaveChangesAsync(cancellationToken);
 

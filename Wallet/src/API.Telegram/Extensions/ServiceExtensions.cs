@@ -1,4 +1,3 @@
-using System.Collections;
 using API.Telegram.Contracts;
 using API.Telegram.Handlers;
 using API.Telegram.Services;
@@ -7,7 +6,6 @@ using API.Telegram.WalletStates;
 using API.Telegram.WalletStates.Incoming;
 using Flurl.Http.Configuration;
 using MessageBus.Publisher;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using NLog;
 using SharedKernel;
 using SharedKernel.Abstractions;

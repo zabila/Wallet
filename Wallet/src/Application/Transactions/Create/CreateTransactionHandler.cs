@@ -18,10 +18,10 @@ internal sealed class CreateTransactionHandler(IRepositoryManager repositoryMana
             return Result.Failure<Guid>(UserErrors.NotFound(request.UserId));
         }
 
-        var isAccountExists = await repositoryManager.Accounts.FindByCondition(account => account.Id == user.AccountId).AnyAsync(cancellationToken);
-        if (!isAccountExists)
+        var account = user.Account;
+        if (account is null)
         {
-            return Result.Failure<Guid>(AccountErrors.NotFound(user.AccountId));
+            return Result.Failure<Guid>(AccountErrors.NotFoundByUserId(request.UserId));
         }
 
         var transaction = new Transaction
@@ -31,8 +31,8 @@ internal sealed class CreateTransactionHandler(IRepositoryManager repositoryMana
             Type = request.Type,
             Location = request.Location,
             Attachment = request.Attachment,
-            AccountId = user.AccountId,
-            UserId = request.UserId
+            AccountId = account.Id,
+            UserId = user.Id
         };
 
         await repositoryManager.Transactions.CreateAsync(transaction, cancellationToken);

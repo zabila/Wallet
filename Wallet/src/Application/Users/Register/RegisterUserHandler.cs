@@ -26,17 +26,36 @@ internal sealed class RegisterUserHandler(IRepositoryManager repository, UserMan
             UserName = command.Email,
             FirstName = command.FirstName,
             LastName = command.LastName,
-            Localization = command.Localization
+            Localization = command.Localization,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
         };
-
         var result = await userManager.CreateAsync(user, command.Password);
         if (!result.Succeeded)
         {
-            return Result.Failure<TokenResponse>(UserErrors.CannotAddUser);
+            return Result.Failure<TokenResponse>(UserErrors.OnReginsterUser(result.ToString()));
         }
 
-        var tokenResponse = await sender.Send(new LoginCommand(command.Email, command.Password), cancellationToken);
+        if (command.TelegramUserId.HasValue && !string.IsNullOrEmpty(command.TelegramUsername))
+        {
+            var telegramUser = new TelegramUser
+            {
+                Id = Guid.NewGuid(),
+                TelegramUserId = command.TelegramUserId.Value,
+                TelegramUsername = command.TelegramUsername,
+                UserId = user.Id,
+                User = user
+            };
+            await repository.TelegramUsers.CreateAsync(telegramUser, cancellationToken);
 
+            user.TelegramUser = telegramUser;
+            user.TelegramId = telegramUser.Id;
+            repository.Users.Update(user);
+        }
+
+        await repository.SaveChangesAsync(cancellationToken);
+
+        var tokenResponse = await sender.Send(new LoginCommand(command.Email, command.Password), cancellationToken);
         return tokenResponse;
     }
 }

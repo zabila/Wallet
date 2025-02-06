@@ -4,8 +4,8 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- Static code analysis -->
+		<PackageVersion Include="EFCore.NamingConventions" Version="9.0.0" />
 		<PackageVersion Include="SonarAnalyzer.CSharp" Version="10.6.0.109712" />
-
 		<PackageVersion Include="NLog" Version="5.4.0" />
 		<PackageVersion Include="MediatR" Version="12.4.1" />
 		<PackageVersion Include="MediatR.Contracts" Version="2.0.1" />

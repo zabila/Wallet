@@ -1,13 +1,11 @@
 ﻿using System.Collections.Concurrent;
-using System.Globalization;
 using API.Telegram.Contracts;
 using API.Telegram.Models;
 using SharedKernel.Extensions;
-using Stateless;
 
 namespace API.Telegram.Services;
 
-public class InMemorySessionManager(IBotStateMachineFactory machineFactory, IWalletIdentityClient identityClient, IWalletFinanceAccountClient financeClient) : ISessionManager
+public class InMemorySessionManager(IBotStateMachineFactory machineFactory, IWalletIdentityClient identityClient) : ISessionManager
 {
     private readonly ConcurrentDictionary<long, UserSession> _sessions = [];
 
@@ -21,12 +19,11 @@ public class InMemorySessionManager(IBotStateMachineFactory machineFactory, IWal
         if (session.LoggenUser is null)
         {
             var currentUser = await identityClient.GetCurrentUserByTelegramUserIdAsync(charId).EnsureExists();
-            var currentAccount = await financeClient.GetAccountIdByTelegramUserIdAsync(charId).EnsureExists();
 
             session.LoggenUser = new LoggenUser
             {
                 UserId = currentUser.Id,
-                AccoundId = currentAccount.Id,
+                AccoundId = currentUser.AccountId,
                 Localization = currentUser.Localization
             };
         }

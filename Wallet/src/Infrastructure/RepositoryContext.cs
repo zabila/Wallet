@@ -3,14 +3,16 @@ using Domain.Transactions;
 using Domain.Users;
 using Infrastructure.Abstractions;
 using Infrastructure.Configuration;
+using Infrastructure.Database;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace Infrastructure;
 
-public sealed class RepositoryContext(DbContextOptions<RepositoryContext> options, IPublisher publisher) : IdentityDbContext(options), IRepositoryContext
+public sealed class RepositoryContext(DbContextOptions<RepositoryContext> options, IPublisher publisher) : IdentityDbContext<User, IdentityRole<Guid>, Guid>(options), IRepositoryContext
 {
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<Account> Accounts { get; set; }
@@ -18,8 +20,20 @@ public sealed class RepositoryContext(DbContextOptions<RepositoryContext> option
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+
+        builder.ApplyConfigurationsFromAssembly(typeof(RepositoryContext).Assembly);
+
         base.OnModelCreating(builder);
-        builder.HasDefaultSchema("Wallet");
+        builder.HasDefaultSchema(Schemas.Default);
+
+        builder.Entity<User>().ToTable("users");
+        builder.Entity<IdentityRole<Guid>>().ToTable("roles");
+        builder.Entity<IdentityUserRole<Guid>>().ToTable("user_roles");
+        builder.Entity<IdentityUserClaim<Guid>>().ToTable("user_claims");
+        builder.Entity<IdentityUserLogin<Guid>>().ToTable("user_logins");
+        builder.Entity<IdentityUserToken<Guid>>().ToTable("user_tokens");
+        builder.Entity<IdentityRoleClaim<Guid>>().ToTable("role_claims");
+
         builder.ApplyConfiguration(new AccountsConfiguration());
         builder.ApplyConfiguration(new TransactionsConfiguration());
         builder.ApplyConfiguration(new TelegramUserConfiguration());

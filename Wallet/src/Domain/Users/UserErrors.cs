@@ -16,6 +16,10 @@ public static class UserErrors
         "TelegreamUser.AnyNotFound",
         "The user was not found");
 
+    public static Error NotLinkedWithUser => Error.NotFound(
+        "TelegreamUser.NotLinkedWithUser",
+        "The user is not linked with any user");
+
     public static Error Unauthorized() => Error.Failure(
         "Users.Unauthorized",
         "You are not authorized to perform this action.");
@@ -28,9 +32,9 @@ public static class UserErrors
         "Users.EmailNotUnique",
         "The provided email is not unique");
 
-    public static readonly Error CannotAddUser = Error.Problem(
-        "Users.CannotAddUser",
-        "The user cannot be added");
+    public static Error OnReginsterUser(string reason) => Error.Problem(
+        "Users.RegisterUser",
+       $"The user cannot be added, Reason: {reason}");
 
     public static readonly Error CannotUpdateUser = Error.Problem(
         "Users.CannotUpdateUser",

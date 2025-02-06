@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Application.Messaging;
 using Domain.Users;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +13,7 @@ using SharedKernel.DTO.Login;
 
 namespace Application.Authetication.Login;
 
-internal sealed class LoginHandler(IConfiguration configuration, UserManager<User> userManager, SignInManager<User> signInManager) : ICommandHandler<LoginCommand, TokenResponse>
+internal sealed class LoginHandler(IConfiguration configuration, UserManager<User> userManager, SignInManager<User> signInManager, IPublisher publisher) : ICommandHandler<LoginCommand, TokenResponse>
 {
     public async Task<Result<TokenResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
@@ -26,6 +27,8 @@ internal sealed class LoginHandler(IConfiguration configuration, UserManager<Use
         {
             return Result.Failure<TokenResponse>(UserErrors.Unauthorized());
         }
+
+        await publisher.Publish(new UserLoggedDomainEvent(user.Id), cancellationToken);
 
         var signingCredentials = GetSigningCredentials();
         var claims = await GetClaimsAsync(request.Email);

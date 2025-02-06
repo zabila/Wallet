@@ -15,6 +15,6 @@ public class HttpWalletIdentityClient(ILoggerManager logger, IFlurlClientCache c
 
     public Task<UserResponse> GetCurrentUserByTelegramUserIdAsync(long telegramUserId)
     {
-        return GetAsync<UserResponse>($"User/GetCurrent/{telegramUserId}");
+        return GetAsync<UserResponse>($"user/telegram/{telegramUserId}");
     }
 }

@@ -1,13 +1,13 @@
-﻿using MediatR;
+﻿using Application.Authetication.Login;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Application.Authetication.Login;
 
 namespace API.Identity.Controllers;
 
 public sealed record Request(string Email, string Password);
 
-[Route("api/[controller]")]
+[Route("api/authentication")]
 [ApiController]
 public class AuthenticationController(ISender sender) : ControllerBase
 {

@@ -11,7 +11,7 @@ public class TransactionsConfiguration : IEntityTypeConfiguration<Transaction>
         builder.HasKey(t => t.Id);
         builder.Property(t => t.Id)
           .ValueGeneratedOnAdd()
-          .HasDefaultValueSql("NEWID()");
+          .HasDefaultValueSql("gen_random_uuid()");
 
         builder.HasIndex(t => t.Id).IsUnique();
         builder.Property(t => t.UserId).IsRequired();
@@ -25,5 +25,15 @@ public class TransactionsConfiguration : IEntityTypeConfiguration<Transaction>
                 .HasColumnName("Latitude")
                 .HasColumnType("decimal(9,6)");
         });
+
+        builder.HasOne(t => t.User)
+            .WithMany(u => u.Transactions)
+            .HasForeignKey(t => t.UserId)
+            .IsRequired();
+
+        builder.HasOne(t => t.Account)
+            .WithMany(a => a.Transactions)
+            .HasForeignKey(t => t.AccountId)
+            .IsRequired();
     }
 }

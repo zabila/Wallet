@@ -1,9 +1,13 @@
-﻿using Application.Users.Register;
+﻿using API.Identity.Extensions;
+using API.Identity.Infrastructure;
+using Application.Users.GetUserByTelegramId;
+using Application.Users.Register;
 using Application.Users.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+using SharedKernel;
+using SharedKernel.DTO.Login;
 using SharedKernel.DTO.Users;
 
 namespace Wallet.API.Identity.Controllers;
@@ -14,7 +18,7 @@ namespace Wallet.API.Identity.Controllers;
 public class UserController(ISender sender) : ControllerBase
 {
     [AllowAnonymous]
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterUserRequest model, CancellationToken cancellationToken)
     {
 
@@ -29,11 +33,11 @@ public class UserController(ISender sender) : ControllerBase
             Localization = model.Localization
         };
 
-        var result = await sender.Send(command, cancellationToken);
-        return Ok(result);
+        Result<TokenResponse> result = await sender.Send(command, cancellationToken);
+        return result.Match(Ok, error => CustomResults.Problem(error));
     }
 
-    [HttpPost("{userId: Guid}/Update")]
+    [HttpPatch("{userId:guid}/update")]
     public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserRequest model, CancellationToken cancellationToken)
     {
         var command = new UpdateUserCommand
@@ -46,7 +50,14 @@ public class UserController(ISender sender) : ControllerBase
             Localization = model.Localization
         };
 
-        var result = await sender.Send(command, cancellationToken);
-        return Ok(result);
+        Result result = await sender.Send(command, cancellationToken);
+        return result.Match(Ok, error => CustomResults.Problem(error));
+    }
+
+    [HttpGet("telegram/{telegrmId:long}")]
+    public async Task<IActionResult> GetUserByTelegramId([FromRoute] long telegrmId, CancellationToken cancellationToken)
+    {
+        Result<UserResponse> result = await sender.Send(new GetUserByTelegramIdQuery(telegrmId), cancellationToken);
+        return result.Match(Ok, error => CustomResults.Problem(error));
     }
 }
