@@ -8,7 +8,7 @@ Logs/
 # Generated files
 project.lock.json
 .vs/
-.idea/
+.idea/*
 
 # mstest test results
 TestResults
