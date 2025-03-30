@@ -4,7 +4,10 @@ namespace MessageBus.Events;
 
 public class CreateTransactionEvent : GenericEvent
 {
-    public CreateTransactionEvent() => Event = nameof(CreateTransactionEvent);
+    public CreateTransactionEvent()
+    {
+        Event = nameof(CreateTransactionEvent);
+    }
 
     public Guid AccountId { get; set; }
     public Guid UserId { get; set; }

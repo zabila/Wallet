@@ -7,11 +7,6 @@ public class LoggerManager : ILoggerManager
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-    private static void LogToConsole(string level, string message)
-    {
-        Console.WriteLine($"{level}: {message}");
-    }
-
     public void LogDebug(string message)
     {
         logger.Debug(message);
@@ -34,5 +29,10 @@ public class LoggerManager : ILoggerManager
     {
         logger.Warn(message);
         LogToConsole("WARNING", message);
+    }
+
+    private static void LogToConsole(string level, string message)
+    {
+        Console.WriteLine($"{level}: {message}");
     }
 }

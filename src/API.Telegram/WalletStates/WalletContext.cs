@@ -34,7 +34,7 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         var machine = session.CurrentStateMachine.EnsureExists();
         if (!trigger.HasValue)
         {
-            (var isReprocessable, var reprocessableTrigger) = IsStateReprocessable(machine.State);
+            var (isReprocessable, reprocessableTrigger) = IsStateReprocessable(machine.State);
             if (isReprocessable)
             {
                 await machine.FireAsync(reprocessableTrigger, message);
@@ -68,6 +68,7 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         {
             return;
         }
+
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(logedUser.Localization.EnsureExists());
 
         var machine = session.CurrentStateMachine.EnsureExists();
@@ -75,7 +76,7 @@ public class WalletContext(ILoggerManager logger, ITelegramBotClient botClient, 
         var trigger = ParseLocalizedBotTrigger(triggerSrt);
         if (!trigger.HasValue)
         {
-            (var isReprocessable, var reprocessableTrigger) = IsStateReprocessable(machine.State);
+            var (isReprocessable, reprocessableTrigger) = IsStateReprocessable(machine.State);
             if (isReprocessable)
             {
                 await machine.FireAsync(reprocessableTrigger, message);

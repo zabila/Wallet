@@ -10,8 +10,8 @@ public class TransactionsConfiguration : IEntityTypeConfiguration<Transaction>
     {
         builder.HasKey(t => t.Id);
         builder.Property(t => t.Id)
-          .ValueGeneratedOnAdd()
-          .HasDefaultValueSql("gen_random_uuid()");
+            .ValueGeneratedOnAdd()
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.HasIndex(t => t.Id).IsUnique();
         builder.Property(t => t.UserId).IsRequired();

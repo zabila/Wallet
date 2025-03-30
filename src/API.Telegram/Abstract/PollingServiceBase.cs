@@ -6,9 +6,9 @@ namespace API.Telegram.Abstract;
 public abstract class PollingServiceBase<TReceiverService> : BackgroundService
     where TReceiverService : IReceiverService
 {
-    private readonly IServiceProvider _serviceScopeFactory;
-    private readonly ILoggerManager _logger;
     private const int PollingDelayInSeconds = 3;
+    private readonly ILoggerManager _logger;
+    private readonly IServiceProvider _serviceScopeFactory;
 
     protected PollingServiceBase(IServiceProvider serviceScopeFactory, ILoggerManager logger)
     {

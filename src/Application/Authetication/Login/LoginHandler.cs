@@ -22,6 +22,7 @@ internal sealed class LoginHandler(IConfiguration configuration, UserManager<Use
         {
             return Result.Failure<TokenResponse>(UserErrors.NotFoundByEmail);
         }
+
         var result = await signInManager.CheckPasswordSignInAsync(user, request.Password, false);
         if (!result.Succeeded)
         {
@@ -52,8 +53,9 @@ internal sealed class LoginHandler(IConfiguration configuration, UserManager<Use
     private async Task<List<Claim>> GetClaimsAsync(string Email)
     {
         var user = await userManager.FindByNameAsync(Email) ?? throw new UnauthorizedAccessException("Invalid Authentication");
-        var claims = new List<Claim> {
-            new Claim("user_name", user.UserName!)
+        var claims = new List<Claim>
+        {
+            new("user_name", user.UserName!)
         };
 
         var roles = await userManager.GetRolesAsync(user);
@@ -64,9 +66,9 @@ internal sealed class LoginHandler(IConfiguration configuration, UserManager<Use
     private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
     {
         var tokenOptions = new JwtSecurityToken(
-            issuer: configuration["Jwt:Issuer"],
-            audience: configuration["Jwt:Audience"],
-            claims: claims,
+            configuration["Jwt:Issuer"],
+            configuration["Jwt:Audience"],
+            claims,
             expires: DateTime.Now.AddMinutes(Convert.ToDouble(configuration["Jwt:ExpiryInMinutes"])),
             signingCredentials: signingCredentials);
 

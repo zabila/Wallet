@@ -1,4 +1,5 @@
 ﻿namespace SharedKernel.DTO.Users;
+
 public class RegisterUserRequest
 {
     public string Email { get; set; }

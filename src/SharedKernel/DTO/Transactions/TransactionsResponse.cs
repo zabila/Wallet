@@ -1,4 +1,5 @@
 ﻿namespace SharedKernel.DTO.Transactions;
+
 public sealed class TransactionsResponse
 {
     public Guid Id { get; set; }

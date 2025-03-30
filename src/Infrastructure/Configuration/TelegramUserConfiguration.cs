@@ -10,8 +10,8 @@ public class TelegramUserConfiguration : IEntityTypeConfiguration<TelegramUser>
     {
         builder.HasKey(u => u.Id);
         builder.Property(u => u.Id)
-          .ValueGeneratedOnAdd()
-          .HasDefaultValueSql("gen_random_uuid()");
+            .ValueGeneratedOnAdd()
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.HasIndex(t => t.Id).IsUnique();
         builder.HasIndex(t => t.TelegramUserId).IsUnique();

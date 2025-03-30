@@ -1,4 +1,5 @@
 ﻿namespace SharedKernel.DTO.Transactions;
+
 public class TransactionsRequest
 {
     public decimal Amount { get; set; }

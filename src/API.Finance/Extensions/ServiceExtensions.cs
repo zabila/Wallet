@@ -39,7 +39,7 @@ public static class ServiceExtensions
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer"
             });
-            s.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            s.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -49,7 +49,7 @@ public static class ServiceExtensions
                             Type = ReferenceType.SecurityScheme,
                             Id = "Bearer"
                         },
-                        Name = "Bearer",
+                        Name = "Bearer"
                     },
                     new List<string>()
                 }

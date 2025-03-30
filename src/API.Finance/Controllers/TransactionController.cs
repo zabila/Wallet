@@ -27,7 +27,7 @@ public class TransactionsController(ISender sender) : ControllerBase
         return Ok(transaction);
     }
 
-    [HttpGet()]
+    [HttpGet]
     public async Task<IActionResult> GetTransactions([FromRoute] Guid userid, CancellationToken cancellationToken)
     {
         var transactions = await sender.Send(new GetTransactionsQuery(userid), cancellationToken);

@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<ItemGroup>
-		<PackageReference Include="MediatR" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MediatR"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Domain\Domain.csproj" />
-		<ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Domain\Domain.csproj"/>
+        <ProjectReference Include="..\SharedKernel\SharedKernel.csproj"/>
+    </ItemGroup>
 
 </Project>

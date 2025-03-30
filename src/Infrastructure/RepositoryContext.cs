@@ -18,9 +18,15 @@ public sealed class RepositoryContext(DbContextOptions<RepositoryContext> option
     public DbSet<Account> Accounts { get; set; }
     public DbSet<TelegramUser> TelegramUsers { get; set; }
 
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await base.SaveChangesAsync(cancellationToken);
+        await PublishDomainEventsAsync();
+        return result;
+    }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
-
         builder.ApplyConfigurationsFromAssembly(typeof(RepositoryContext).Assembly);
 
         base.OnModelCreating(builder);
@@ -37,13 +43,6 @@ public sealed class RepositoryContext(DbContextOptions<RepositoryContext> option
         builder.ApplyConfiguration(new AccountsConfiguration());
         builder.ApplyConfiguration(new TransactionsConfiguration());
         builder.ApplyConfiguration(new TelegramUserConfiguration());
-    }
-
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        var result = await base.SaveChangesAsync(cancellationToken);
-        await PublishDomainEventsAsync();
-        return result;
     }
 
     private async Task PublishDomainEventsAsync()

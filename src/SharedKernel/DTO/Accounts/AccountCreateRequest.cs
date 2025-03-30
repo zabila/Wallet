@@ -1,4 +1,5 @@
 ﻿namespace SharedKernel.DTO.Accounts;
+
 public class AccountCreateRequest
 {
     public string AccountName { get; set; }

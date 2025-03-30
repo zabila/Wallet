@@ -1,4 +1,5 @@
 ﻿namespace SharedKernel.DTO.Users;
+
 public class UpdateUserRequest
 {
     public string FirstName { get; set; }

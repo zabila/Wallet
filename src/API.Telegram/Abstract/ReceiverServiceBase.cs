@@ -2,20 +2,20 @@
 using SharedKernel.Abstractions;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
-using Telegram.Bot.Types.Enums;
 
 namespace API.Telegram.Abstract;
 
 public abstract class ReceiverServiceBase<TUpdateHandler> : IReceiverService where TUpdateHandler : IUpdateHandler
 {
     private readonly ITelegramBotClient _botClient;
-    private readonly IUpdateHandler _updateHandler;
     private readonly ILoggerManager _logger;
 
     private readonly ReceiverOptions _receiverOptions = new()
     {
         AllowedUpdates = []
     };
+
+    private readonly IUpdateHandler _updateHandler;
 
     protected ReceiverServiceBase(ITelegramBotClient botClient, TUpdateHandler updateHandler, ILoggerManager logger)
     {
@@ -29,6 +29,6 @@ public abstract class ReceiverServiceBase<TUpdateHandler> : IReceiverService whe
         var me = await _botClient.GetMe(stoppingToken);
         _logger.LogInfo($"Start listening for @{me.Username}");
 
-        await _botClient.ReceiveAsync(updateHandler: _updateHandler, receiverOptions: _receiverOptions, cancellationToken: stoppingToken);
+        await _botClient.ReceiveAsync(_updateHandler, _receiverOptions, stoppingToken);
     }
 }

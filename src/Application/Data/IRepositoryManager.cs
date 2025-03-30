@@ -1,7 +1,6 @@
 ﻿using Domain.Accounts;
 using Domain.Transactions;
 using Domain.Users;
-using SharedKernel.DTO.Accounts;
 
 namespace Application.Data;
 

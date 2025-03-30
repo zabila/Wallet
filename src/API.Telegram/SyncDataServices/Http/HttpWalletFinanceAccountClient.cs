@@ -11,7 +11,8 @@ public class HttpWalletFinanceAccountClient(ILoggerManager logger, IWalletIdenti
 
     public Task<List<string>> GetIncomingCategoriesAsync()
     {
-        return Task.FromResult(new List<string> {
+        return Task.FromResult(new List<string>
+        {
             "Salary",
             "Gift",
             "Other",
@@ -24,7 +25,8 @@ public class HttpWalletFinanceAccountClient(ILoggerManager logger, IWalletIdenti
 
     public Task<List<string>> GetOutcomingCategoriesAsync()
     {
-        return Task.FromResult(new List<string> {
+        return Task.FromResult(new List<string>
+        {
             "Food",
             "Transport",
             "Other"

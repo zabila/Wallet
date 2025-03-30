@@ -20,8 +20,7 @@ internal sealed class UpdateUserHandler(IRepositoryManager repository) : IComman
         user.LastName = command.LastName;
         user.Localization = command.Localization;
 
-        var telegramUser = await repository.TelegramUsers.
-            FindByCondition(telegramUser => telegramUser.UserId == user.Id, true).SingleOrDefaultAsync(cancellationToken);
+        var telegramUser = await repository.TelegramUsers.FindByCondition(telegramUser => telegramUser.UserId == user.Id, true).SingleOrDefaultAsync(cancellationToken);
 
         if (telegramUser is null)
         {

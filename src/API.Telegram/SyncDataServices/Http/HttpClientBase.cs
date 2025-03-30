@@ -1,7 +1,6 @@
 ﻿using Flurl.Http;
 using SharedKernel.Abstractions;
 using SharedKernel.Extensions;
-using API.Telegram.Contracts;
 
 namespace API.Telegram.SyncDataServices.Http;
 

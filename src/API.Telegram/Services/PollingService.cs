@@ -1,6 +1,5 @@
 ﻿using API.Telegram.Abstract;
 using SharedKernel.Abstractions;
-using API.Telegram.Contracts;
 
 namespace API.Telegram.Services;
 

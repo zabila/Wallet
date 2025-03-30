@@ -1,4 +1,5 @@
 ﻿namespace SharedKernel.DTO.Users;
+
 public class UserResponse
 {
     public Guid Id { get; init; }

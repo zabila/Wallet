@@ -1,48 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<InvariantGlobalization>false</InvariantGlobalization>
-		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<DockerfileContext>..\..</DockerfileContext>
-		<DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
-	</PropertyGroup>
+    <PropertyGroup>
+        <InvariantGlobalization>false</InvariantGlobalization>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerfileContext>..\..</DockerfileContext>
+        <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Flurl.Http" />
-		<PackageReference Include="Newtonsoft.Json" />
-		<PackageReference Include="RabbitMQ.Client" />
-		<PackageReference Include="Stateless" />
-		<PackageReference Include="Telegram.Bot" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Flurl.Http"/>
+        <PackageReference Include="Newtonsoft.Json"/>
+        <PackageReference Include="RabbitMQ.Client"/>
+        <PackageReference Include="Stateless"/>
+        <PackageReference Include="Telegram.Bot"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="Microsoft.Extensions.Configuration.Abstractions" />
-		<Reference Include="Microsoft.Extensions.Hosting.Abstractions" />
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="Microsoft.Extensions.Configuration.Abstractions"/>
+        <Reference Include="Microsoft.Extensions.Hosting.Abstractions"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<Content Include="..\..\.dockerignore">
-			<Link>.dockerignore</Link>
-		</Content>
-	</ItemGroup>
+    <ItemGroup>
+        <Content Include="..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-		<ProjectReference Include="..\MessageBus\MessageBus.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj"/>
+        <ProjectReference Include="..\MessageBus\MessageBus.csproj"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Update="Resources\TelegramBot.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>TelegramBot.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\TelegramBot.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>TelegramBot.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
 
-	<ItemGroup>
-		<Compile Update="Resources\TelegramBot.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>TelegramBot.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
+    <ItemGroup>
+        <Compile Update="Resources\TelegramBot.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>TelegramBot.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
 </Project>

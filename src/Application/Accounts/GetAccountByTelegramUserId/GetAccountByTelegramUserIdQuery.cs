@@ -1,5 +1,4 @@
 ﻿using Application.Messaging;
-using MediatR;
 using SharedKernel.DTO.Accounts;
 
 namespace Application.Accounts.GetAccountByTelegramUserId;

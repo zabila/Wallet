@@ -21,13 +21,13 @@ internal sealed class GetTransactionsHandler(IRepositoryManager repository) : IQ
         var transactions = await repository.Transactions
             .FindByCondition(transaction => transaction.UserId == request.UserId && transaction.AccountId == user.AccountId)
             .Select(transaction => new TransactionsResponse
-            {
-                Id = transaction.Id,
-                Date = transaction.UpdatedAt,
-                Amount = transaction.Amount,
-                Category = transaction.Category,
-                Type = transaction.Type,
-            }
+                {
+                    Id = transaction.Id,
+                    Date = transaction.UpdatedAt,
+                    Amount = transaction.Amount,
+                    Category = transaction.Category,
+                    Type = transaction.Type
+                }
             ).ToListAsync(cancellationToken);
 
         if (transactions == null || !transactions.Any())
