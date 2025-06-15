@@ -47,3 +47,6 @@ app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyMethod().All
 
 app.MapControllers();
 await app.RunAsync();
+
+// Make Program class accessible for testing
+public partial class Program { }

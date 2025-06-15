@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Wallet.E2ETests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55672;http://localhost:55674"
+    }
+  }
+}
