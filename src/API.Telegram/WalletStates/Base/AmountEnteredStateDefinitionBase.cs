@@ -1,9 +1,9 @@
 ﻿using API.Telegram.Contracts;
 using API.Telegram.Models;
+using API.Telegram.Resources;
 using SharedKernel.Extensions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
-using API.Telegram.Resources;
 
 namespace API.Telegram.WalletStates.Base;
 

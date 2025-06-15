@@ -1,5 +1,4 @@
 ﻿using Application.Messaging;
-using MediatR;
 
 namespace Application.Accounts.Create;
 

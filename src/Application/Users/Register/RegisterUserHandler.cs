@@ -14,7 +14,6 @@ internal sealed class RegisterUserHandler(IRepositoryManager repository, UserMan
 {
     public async Task<Result<TokenResponse>> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
     {
-
         if (await repository.Users.FindByCondition(user => user.Email == command.Email).AnyAsync(cancellationToken))
         {
             return Result.Failure<TokenResponse>(UserErrors.EmailNotUnique);

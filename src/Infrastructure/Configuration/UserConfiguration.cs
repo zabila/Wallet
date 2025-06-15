@@ -10,8 +10,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.HasKey(u => u.Id);
         builder.Property(u => u.Id)
-          .ValueGeneratedOnAdd()
-          .HasDefaultValueSql("gen_random_uuid()");
+            .ValueGeneratedOnAdd()
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.HasIndex(u => u.Email).IsUnique();
         builder.Property(u => u.Email).IsRequired();

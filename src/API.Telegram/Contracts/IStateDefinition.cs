@@ -1,7 +1,6 @@
-﻿using API.Telegram.Models;
+﻿using API.Telegram.Attributes;
+using API.Telegram.Models;
 using Stateless;
-using API.Telegram.Attributes;
-using API.Telegram.Extensions;
 
 namespace API.Telegram.Contracts;
 
@@ -13,7 +12,7 @@ public enum BotState
     IncomeCategorySelected,
     IncomeAmountEntered,
     ExpenseCategorySelected,
-    ExpenseAmountEntered,
+    ExpenseAmountEntered
 }
 
 public enum BotTrigger

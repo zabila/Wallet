@@ -14,14 +14,20 @@ public class MessageBusClient : IMessageBusClient, IDisposable
     private const string QueueName = "transactionQueue";
     private readonly IConfiguration _configuration;
     private readonly ILoggerManager _logger;
-    private IConnection? _connection;
     private IChannel? _channel;
+    private IConnection? _connection;
 
     public MessageBusClient(IConfiguration configuration, ILoggerManager loggerManager)
     {
         _configuration = configuration;
         _logger = loggerManager;
         _ = SetupRabbitMqAsync();
+    }
+
+    public void Dispose()
+    {
+        _connection?.Dispose();
+        _channel?.Dispose();
     }
 
     public async Task PublishCreateTransactionEventAsync(CreateTransactionEvent createTransactionEvent)
@@ -46,7 +52,7 @@ public class MessageBusClient : IMessageBusClient, IDisposable
         var props = new BasicProperties
         {
             ContentType = "application/json",
-            DeliveryMode = DeliveryModes.Persistent,
+            DeliveryMode = DeliveryModes.Persistent
         };
 
         await channel.BasicPublishAsync(string.Empty, QueueName, false, props, body);
@@ -61,20 +67,19 @@ public class MessageBusClient : IMessageBusClient, IDisposable
 
     private async Task SetupRabbitMqAsync()
     {
-        var factory = new ConnectionFactory()
+        var factory = new ConnectionFactory
         {
             HostName = _configuration["RabbitMQHost"].EnsureExists(),
-            Port = int.Parse(_configuration["RabbitMQPort"] ?? throw new InvalidOperationException("RabbitMQPort is null")),
+            Port = int.Parse(_configuration["RabbitMQPort"] ?? throw new InvalidOperationException("RabbitMQPort is null"))
         };
         try
         {
             _connection = await factory.CreateConnectionAsync().ConfigureAwait(false);
             _channel = await _connection.CreateChannelAsync().ConfigureAwait(false);
-            await _channel.QueueDeclareAsync(queue: QueueName,
-                durable: true,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+            await _channel.QueueDeclareAsync(QueueName,
+                true,
+                false,
+                false);
             _connection.ConnectionShutdownAsync += RabbitMQ_ConnectionShutdownAsync;
             _logger.LogInfo("Connected to MessageBus");
         }
@@ -83,11 +88,5 @@ public class MessageBusClient : IMessageBusClient, IDisposable
             _logger.LogError($"Could not connect to Message Bus: {exception.Message}");
             throw;
         }
-    }
-
-    public void Dispose()
-    {
-        _connection?.Dispose();
-        _channel?.Dispose();
     }
 }

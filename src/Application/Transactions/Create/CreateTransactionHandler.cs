@@ -12,7 +12,10 @@ internal sealed class CreateTransactionHandler(IRepositoryManager repositoryMana
 {
     public async Task<Result<Guid>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
-        var user = await repositoryManager.Users.FindByCondition(u => u.Id == request.UserId).SingleOrDefaultAsync(cancellationToken);
+        var user = await repositoryManager.Users
+            .FindByCondition(u => u.Id == request.UserId)
+            .Include(u => u.Account)
+            .SingleOrDefaultAsync(cancellationToken);
         if (user is null)
         {
             return Result.Failure<Guid>(UserErrors.NotFound(request.UserId));

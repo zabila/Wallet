@@ -10,7 +10,7 @@ public abstract class BadRequestException : Exception
     {
     }
 
-    protected BadRequestException() : base()
+    protected BadRequestException()
     {
     }
 }

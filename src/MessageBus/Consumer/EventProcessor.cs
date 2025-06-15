@@ -1,20 +1,19 @@
 ﻿using System.Text.Json;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.Extensions;
-using SharedKernel.Abstractions;
-using Application.Accounts.GetAccountByTelegramUserId;
 using Application.Transactions.Create;
+using MediatR;
 using MessageBus.Events;
+using Microsoft.Extensions.DependencyInjection;
+using SharedKernel.Abstractions;
 using SharedKernel.DTO.Transactions;
+using SharedKernel.Extensions;
 
 namespace MessageBus.Consumer;
 
 public class EventProcessor : IEventProcessor, IDisposable
 {
-    private readonly ISender _sender;
     private readonly ILoggerManager _logger;
     private readonly IServiceScope _scope;
+    private readonly ISender _sender;
 
 
     public EventProcessor(IServiceScopeFactory scopeFactory)
@@ -22,6 +21,12 @@ public class EventProcessor : IEventProcessor, IDisposable
         _scope = scopeFactory.CreateScope();
         _sender = _scope.ServiceProvider.GetRequiredService<ISender>().EnsureExists();
         _logger = _scope.ServiceProvider.GetRequiredService<ILoggerManager>().EnsureExists();
+    }
+
+    public void Dispose()
+    {
+        _logger.LogInfo("EventProcessor Disposed");
+        _scope.Dispose();
     }
 
     public async Task ProcessEventAsync(string message, CancellationToken cancellationToken)
@@ -79,11 +84,5 @@ public class EventProcessor : IEventProcessor, IDisposable
                 _logger.LogError("Could not determine event type");
                 return EventType.Undetermined;
         }
-    }
-
-    public void Dispose()
-    {
-        _logger.LogInfo("EventProcessor Disposed");
-        _scope.Dispose();
     }
 }

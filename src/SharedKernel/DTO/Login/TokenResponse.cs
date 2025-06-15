@@ -1,4 +1,5 @@
 ﻿namespace SharedKernel.DTO.Login;
+
 public sealed class TokenResponse
 {
     public string AccessToken { get; set; }

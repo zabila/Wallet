@@ -6,6 +6,7 @@ using SharedKernel;
 using SharedKernel.DTO.Users;
 
 namespace Application.Users.GetUserByTelegramId;
+
 internal sealed class GetUserByTelegramIdHandler(IRepositoryManager repository) : IQueryHandler<GetUserByTelegramIdQuery, UserResponse>
 {
     public async Task<Result<UserResponse>> Handle(GetUserByTelegramIdQuery request, CancellationToken cancellationToken)

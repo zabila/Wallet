@@ -1,6 +1,4 @@
-﻿using SharedKernel;
-
-namespace SharedKernel.DTO.Accounts;
+﻿namespace SharedKernel.DTO.Accounts;
 
 public sealed class AccountResponse
 {

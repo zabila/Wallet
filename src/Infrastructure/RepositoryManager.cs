@@ -7,10 +7,10 @@ namespace Infrastructure;
 
 public class RepositoryManager(RepositoryContext repositoryContext) : IRepositoryManager
 {
-    private readonly Lazy<IRepositoryBase<Transaction>> _transactionRepository = new(() => new RepositoryBase<Transaction>(repositoryContext));
-    private readonly Lazy<IRepositoryBase<User>> _userRepository = new(() => new RepositoryBase<User>(repositoryContext));
     private readonly Lazy<IRepositoryBase<Account>> _accountRepository = new(() => new RepositoryBase<Account>(repositoryContext));
     private readonly Lazy<IRepositoryBase<TelegramUser>> _telegramUserRepository = new(() => new RepositoryBase<TelegramUser>(repositoryContext));
+    private readonly Lazy<IRepositoryBase<Transaction>> _transactionRepository = new(() => new RepositoryBase<Transaction>(repositoryContext));
+    private readonly Lazy<IRepositoryBase<User>> _userRepository = new(() => new RepositoryBase<User>(repositoryContext));
 
     public IRepositoryBase<Transaction> Transactions => _transactionRepository.Value;
 

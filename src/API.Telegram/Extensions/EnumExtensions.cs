@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using API.Telegram.Attributes;
-using SharedKernel.Extensions;
 
 namespace API.Telegram.Extensions;
 

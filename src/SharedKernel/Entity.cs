@@ -15,6 +15,7 @@ public abstract class Entity
 
     public void Raise(IDomainEvent domainEvent)
     {
+        ArgumentNullException.ThrowIfNull(domainEvent);
         _domainEvents.Add(domainEvent);
     }
 }

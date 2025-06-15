@@ -43,6 +43,8 @@ services:
     depends_on:
       - database
       - rabbitmq
+    volumes:
+      - data_protection_keys:/app/keys
     networks:
       - network
 
@@ -59,6 +61,8 @@ services:
     depends_on:
       - database
       - rabbitmq
+    volumes:
+      - data_protection_keys:/app/keys
     networks:
       - network
 
@@ -75,6 +79,8 @@ services:
     depends_on:
       - database
       - rabbitmq
+    volumes:
+      - data_protection_keys:/app/keys
     networks:
       - network
     dns:
@@ -84,6 +90,7 @@ services:
 volumes:
   postgres_data:
   rabbitmq_data:
+  data_protection_keys:
 
 networks:
   network:

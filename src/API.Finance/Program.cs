@@ -2,6 +2,7 @@ using API.Finance.Extensions;
 using Infrastructure;
 using MediatR.NotificationPublishers;
 using SharedKernel.Abstractions;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -9,6 +10,11 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// Configure data protection to use a shared volume and encryption
+builder.Services.AddDataProtection()
+    .SetApplicationName("WalletApp")
+    .PersistKeysToFileSystem(new DirectoryInfo("/app/keys"));
 
 builder.Services.AddCors();
 
@@ -41,3 +47,6 @@ app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyMethod().All
 
 app.MapControllers();
 await app.RunAsync();
+
+// Make Program class accessible for testing
+public partial class Program { }

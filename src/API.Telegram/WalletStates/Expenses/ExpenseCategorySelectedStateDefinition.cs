@@ -1,9 +1,9 @@
 ﻿using API.Telegram.Contracts;
 using API.Telegram.Models;
-using Stateless;
-using Telegram.Bot;
 using API.Telegram.Resources;
 using SharedKernel.Extensions;
+using Stateless;
+using Telegram.Bot;
 
 namespace API.Telegram.WalletStates.Expenses;
 

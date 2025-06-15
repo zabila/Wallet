@@ -12,5 +12,4 @@ public static class MigrationExtensions
         var context = services.GetRequiredService<RepositoryContext>();
         context.Database.Migrate();
     }
-
 }

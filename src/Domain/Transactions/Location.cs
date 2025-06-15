@@ -1,5 +1,4 @@
-﻿
-namespace Domain.Transactions;
+﻿namespace Domain.Transactions;
 
 public sealed class Location
 {

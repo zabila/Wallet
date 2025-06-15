@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Application.Messaging;
-using MediatR;
+﻿using Application.Messaging;
 
 namespace Application.Users.Update;
 

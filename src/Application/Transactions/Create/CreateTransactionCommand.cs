@@ -1,6 +1,5 @@
 ﻿using Application.Messaging;
 using Domain.Transactions;
-using MediatR;
 
 namespace Application.Transactions.Create;
 

@@ -8,6 +8,7 @@ using SharedKernel.Extensions;
 using Stateless;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Location = Domain.Transactions.Location;
 
 namespace API.Telegram.WalletStates.Expenses;
 
@@ -51,18 +52,17 @@ public class ExpenseAmountEnteredStateDefinition(ITelegramBotClient botClient, I
                     UserId = userSession.LoggenUser.UserId,
                     Category = category ?? "Unknown",
                     Type = "Outcome",
-                    Location = new Domain.Transactions.Location
+                    Location = new Location
                     {
                         Latitude = location.Latitude,
-                        Longitude = location.Longitude,
-                    },
+                        Longitude = location.Longitude
+                    }
                 };
 
                 await messageBusClient.PublishCreateTransactionEventAsync(transaction);
 
                 userSession.StateData.Remove(State);
                 await stateMachine.FireAsync(BotTrigger.Reset);
-
             }).OnEntryFromAsync(BotTrigger.ShareLocation, transition =>
             {
                 var message = (Message)transition.Parameters[0].EnsureExists();

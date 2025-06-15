@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using API.Telegram.Contracts;
+﻿using API.Telegram.Contracts;
 using API.Telegram.Models;
 using API.Telegram.Resources;
 using API.Telegram.WalletStates.Base;
@@ -9,7 +8,7 @@ using SharedKernel.Extensions;
 using Stateless;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
+using Location = Domain.Transactions.Location;
 
 namespace API.Telegram.WalletStates.Incoming;
 
@@ -53,11 +52,11 @@ public class IncomeAmountEnteredStateDefinition(ITelegramBotClient botClient, IM
                     UserId = userSession.LoggenUser.UserId,
                     Category = category ?? "Unknown",
                     Type = "Income",
-                    Location = new Domain.Transactions.Location
+                    Location = new Location
                     {
                         Latitude = location.Latitude,
-                        Longitude = location.Longitude,
-                    },
+                        Longitude = location.Longitude
+                    }
                 };
 
                 await messageBusClient.PublishCreateTransactionEventAsync(transaction);

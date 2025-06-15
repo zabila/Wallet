@@ -20,7 +20,6 @@ public static class ServiceExtensions
             cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
             cfg.NotificationPublisher = new ForeachAwaitPublisher();
         });
-
     }
 
     private static void ConfigureLoggerService(this IServiceCollection services)
@@ -42,7 +41,7 @@ public static class ServiceExtensions
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer"
             });
-            s.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            s.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -52,13 +51,11 @@ public static class ServiceExtensions
                             Type = ReferenceType.SecurityScheme,
                             Id = "Bearer"
                         },
-                        Name = "Bearer",
+                        Name = "Bearer"
                     },
                     new List<string>()
                 }
             });
         });
     }
-
-
 }

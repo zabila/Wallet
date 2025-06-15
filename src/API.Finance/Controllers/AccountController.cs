@@ -19,10 +19,17 @@ public class AccountController(ISender sender) : ControllerBase
             UserId = userid,
             AccountName = accountCreateRequest.AccountName,
             AccountType = accountCreateRequest.AccountType,
+            Balance = accountCreateRequest.Balance,
             Currency = accountCreateRequest.Currency
         };
 
-        var account = await sender.Send(command, cancellationToken);
-        return Ok(account);
+        var result = await sender.Send(command, cancellationToken);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result.Value);
     }
 }
