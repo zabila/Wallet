@@ -47,10 +47,10 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
         
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Wallet.sln
       
     - name: Build solution
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build Wallet.sln --no-restore --configuration Release
       
     - name: Run unit tests
       run: dotnet test tests/Unit/**/*.csproj --no-build --configuration Release --logger trx
