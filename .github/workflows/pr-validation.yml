@@ -52,14 +52,11 @@ jobs:
     - name: Build solution
       run: dotnet build Wallet.sln --no-restore --configuration Release
       
-    - name: Run unit tests
-      run: dotnet test tests/Unit/**/*.csproj --no-build --configuration Release --logger trx
-          
-    - name: Run integration tests
+    - name: Run all tests
       env:
         ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres;"
         MessageBus__ConnectionString: "amqp://guest:guest@localhost:5672/"
-      run: dotnet test tests/Integration/**/*.csproj --no-build --configuration Release --logger trx
+      run: dotnet test Wallet.sln --no-build --configuration Release --logger trx
         
     - name: Check code formatting
       run: dotnet format --verify-no-changes --verbosity minimal 
