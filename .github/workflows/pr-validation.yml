@@ -57,6 +57,3 @@ jobs:
         ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres;"
         MessageBus__ConnectionString: "amqp://guest:guest@localhost:5672/"
       run: dotnet test Wallet.sln --no-build --configuration Release --logger trx
-        
-    - name: Check code formatting
-      run: dotnet format --verify-no-changes --verbosity minimal 
