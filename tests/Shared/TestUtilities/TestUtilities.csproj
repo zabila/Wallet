@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>false</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="Moq"/>
+        <PackageReference Include="FluentAssertions"/>
+        <PackageReference Include="Bogus"/>
+        <PackageReference Include="AutoFixture"/>
+        <PackageReference Include="AutoFixture.Xunit2"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory"/>
+        <PackageReference Include="Testcontainers"/>
+        <PackageReference Include="Testcontainers.PostgreSql"/>
+        <PackageReference Include="Testcontainers.RabbitMq"/>
+        <PackageReference Include="xunit.runner.visualstudio" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../../../src/Domain/Domain.csproj"/>
+        <ProjectReference Include="../../../src/SharedKernel/SharedKernel.csproj"/>
+        <ProjectReference Include="../../../src/Application/Application.csproj"/>
+        <ProjectReference Include="../../../src/Infrastructure/Infrastructure.csproj"/>
+        <ProjectReference Include="../../../src/MessageBus/MessageBus.csproj"/>
+    </ItemGroup>
+
+</Project> 

@@ -23,14 +23,22 @@ public class TransactionsController(ISender sender) : ControllerBase
             Attachment = transactionsRequest.Attachment
         };
 
-        var transaction = await sender.Send(createTransactionCommand, cancellationToken);
-        return Ok(transaction);
+        var result = await sender.Send(createTransactionCommand, cancellationToken);
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+        return Ok(result.Value);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetTransactions([FromRoute] Guid userid, CancellationToken cancellationToken)
     {
-        var transactions = await sender.Send(new GetTransactionsQuery(userid), cancellationToken);
-        return Ok(transactions);
+        var result = await sender.Send(new GetTransactionsQuery(userid), cancellationToken);
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+        return Ok(result.Value);
     }
 }
